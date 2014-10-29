@@ -1,5 +1,5 @@
 var requireDirectory  = require('require-directory');
-var controllers       = requireDirectory(module, './controllers');
+var controllers       = requireDirectory(module, '../app/controllers');
 
 module.exports = [
   {
