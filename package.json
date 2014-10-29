@@ -1,0 +1,19 @@
+{
+  "name": "report-service",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "good": "^2.4.2",
+    "hapi": "^7.1.1",
+    "hapi-auth-signature": "git://github.com/58bits/hapi-auth-signature",
+    "http-signature": "^0.10.0",
+    "lodash": "^2.4.1",
+    "require-directory": "^2.0.0"
+  }
+}
