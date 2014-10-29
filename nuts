@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+var showHelp = function() {
+  console.log("Usage: ./nuts (server|console)");
+  process.exit(1);
+}
+
+if(process.argv.length <= 2 ) {
+  showHelp();
+}
+
+if(process.argv[2].match(/^(c|console)$/)) {
+  console.log("Starting the console...");
+  require('./config/nuts').console();
+} else if(process.argv[2].match(/^(s|server)$/)) {
+  console.log("Starting the server...");
+  require('./config/nuts').deez();
+} else {
+  showHelp();
+}

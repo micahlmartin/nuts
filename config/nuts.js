@@ -5,6 +5,7 @@ var settings          = require('./settings');
 
 // Initialize the global container
 GLOBAL.Nuts = {}
+Nuts.settings = settings;
 
 var initializeServer = function() {
   Nuts.server = new Hapi.Server('0.0.0.0', settings.port, settings.hapi)
@@ -36,21 +37,39 @@ var loadRoutes = function() {
 }
 
 var loadEnvironment = function() {
-  var env = process.env.NODE_ENV || "development";
-  require('./environments/' + env);
+  Nuts.environment = Nuts.settings.environment;
+  require('./environments/' + Nuts.environment);
 }
 
 var startServer = function() {
   Nuts.server.start(function () { });
 }
 
+var commonConfiguration = function() {
+  initializeServer();
+  loadPlugins();
+  loadEnvironment();
+  loadInitializers();
+}
 
 module.exports = {
+  console: function() {
+    commonConfiguration();
+    var repl  = require('repl');
+    var util  = require('util');
+    var eyes  = require('eyes');
+    var moment = require('moment');
+
+    // open the repl session
+    var replServer = repl.start({
+      prompt: util.format("%s (%s) > ", Nuts.settings.app_name, Nuts.environment)
+    });
+
+    replServer.context.moment = moment;
+
+  },
   deez: function() {
-    initializeServer();
-    loadPlugins();
-    loadEnvironment();
-    loadInitializers();
+    commonConfiguration();
     loadRoutes();
     startServer();
   }
