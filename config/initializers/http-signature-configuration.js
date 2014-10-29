@@ -1,4 +1,3 @@
-var server        = require("../../server");
 var HttpSignature = require('http-signature');
 
 var users = [
@@ -33,4 +32,4 @@ var validate = function (request, parsedSignature, callback) {
     };
 };
 
-server.auth.strategy('hmac', 'signature', { validateFunc: validate });
+Nuts.server.auth.strategy('hmac', 'signature', { validateFunc: validate });
