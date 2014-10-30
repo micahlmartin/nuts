@@ -1,0 +1,16 @@
+default: &default
+  app_name: "Nuts App"
+  port: <%= parseInt(process.env.PORT, 10) || 3000 %>
+  hapi: {}
+
+development:
+  <<: *default
+  database_url: "mongodb://localhost:27017"
+
+staging:
+  <<: *default
+  database_url: <%= process.env.DATABASE_URL %>
+
+production:
+  <<: *default
+  database_url: <%= process.env.DATABASE_URL %>

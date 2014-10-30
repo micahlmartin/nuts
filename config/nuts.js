@@ -1,14 +1,44 @@
 var _                 = require('lodash');
+var fs                = require('fs');
 var Hapi              = require('hapi');
+var path              = require('path');
 var requireDirectory  = require('require-directory');
-var settings          = require('./settings');
+var yml               = require('js-yaml');
 
-// Initialize the global container
-GLOBAL.Nuts = {}
-Nuts.settings = settings;
+
+var initializeSettings = function() {
+  // Initialize the global container
+  GLOBAL.Nuts = {
+    environment: (process.env.NODE_ENV || 'development'),
+    root: path.normalize(__dirname + '/../'),
+  };
+
+  // Load settings.yml and parse it as a lodash template
+  renderedSettingsTemplate = _.template(fs.readFileSync(path.join(Nuts.root, 'config/settings.yml')), {})
+
+  // Parse the settings as a yml file
+  settingsYml = yml.safeLoad(renderedSettingsTemplate);
+
+  // Only get the settings for the current environment
+  Nuts.settings = settingsYml[Nuts.environment];
+}
+
+var commonConfiguration = function() {
+  initializeSettings();
+  initializeServer();
+  loadModels();
+  loadPlugins();
+  loadEnvironment();
+  loadInitializers();
+  loadActions();
+}
+
+var loadSettings = function() {
+  _.template()
+}
 
 var initializeServer = function() {
-  Nuts.server = new Hapi.Server('0.0.0.0', settings.port, settings.hapi)
+  Nuts.server = new Hapi.Server('0.0.0.0', Nuts.settings.port, Nuts.settings.hapi)
 }
 
 var loadPlugins = function() {
@@ -42,7 +72,7 @@ var loadRoutes = function() {
 }
 
 var loadEnvironment = function() {
-  Nuts.environment = Nuts.settings.environment;
+  Nuts.environment = Nuts.environment;
   require('./environments/' + Nuts.environment);
 }
 
@@ -53,15 +83,6 @@ var loadActions = function() {
 
 var startServer = function() {
   Nuts.server.start(function () { });
-}
-
-var commonConfiguration = function() {
-  initializeServer();
-  loadModels();
-  loadPlugins();
-  loadEnvironment();
-  loadInitializers();
-  loadActions();
 }
 
 module.exports = {
