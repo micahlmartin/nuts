@@ -65,6 +65,24 @@ The default environment is `development`. It can be overriden with an environmen
 
 These are configurations that are loaded in every environment. They are not loaded in a specific order. They're useful for configuring various libraries.
 
+## Plugins
+
+Hapi plugins are configured from the `config/plugins` directory. They should export an object in the following format:
+
+```javascript
+// config/plugins/good.js
+module.exports = {
+  plugin: require('good'),
+  options: {
+    subscribers: {
+        console: ['request', 'log', 'error']
+    }
+  }
+}
+```
+
+You can read more about Hapi plugins [here](http://hapijs.com/tutorials/plugins).
+
 # Stack
 
 - [Hapi](http://hapijs.com/) - Web Server
