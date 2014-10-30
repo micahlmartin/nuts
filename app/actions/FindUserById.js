@@ -1,10 +1,10 @@
 var User = Nuts.models.User;
 
-module.exports = function() {
+module.exports = function(id) {
   var deferred = Nuts.defer();
 
-  User.findAll().success(function(users) {
-    deferred.resolve(users);
+  User.find(id).success(function(user) {
+    deferred.resolve(user);
   }).error(function(err) {
     deferred.reject(err);
   })

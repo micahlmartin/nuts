@@ -1,6 +1,6 @@
 # Nuts
 
-This is an opiniated template for nodejs apps based on Hapi. I've borrowed some things from [hapi-ninja](https://github.com/poeticninja/hapi-ninja) and some conventions from Ruby on Rails.
+This is an opiniated template for nodejs apps. I've borrowed a few things from [hapi-ninja](https://github.com/poeticninja/hapi-ninja) and some conventions from Ruby on Rails. Suggestions and PR's are welcome.
 
 # Running
 
@@ -24,7 +24,7 @@ To open up a REPL with a fully loaded environment you can run `./nuts console`. 
 
 # Settings
 
-You can configure your environment settings in `settings.yml`. The file is precompiled using the [Lodash template](https://lodash.com/docs#template) syntax similar to ERB.
+You can configure your environment settings in `settings.yml`. The file is precompiled using the [Lodash template](https://lodash.com/docs#template) syntax similar to ERB. 
 
 # Conventions
 
@@ -46,18 +46,16 @@ Refer to the [documentation](http://sequelizejs.com/docs/latest/migrations) for 
 
 ## Actions
 
-Actions are simple single purpose objects that act in some way on one or more models. They are used to encapsulate business logic. The convention is to keep the file names camelcased. This makes it easy to access them in a consistent way like `Nuts.actions.MyAction`;
+Actions are simple single purpose functions that act in some way on one or more models. They are used to encapsulate business logic. The convention is to keep the file names camelcased. This makes it easy to access them in a consistent way like `Nuts.actions.MyAction`;
 
 They take the following format:
 
 ```javascript
 // app/actions/MyAction.js
 
-module.exports = {
-  execute: function(params /* option */) {
+module.exports = function(params /* option */) {
     var deferred = Nuts.defer();
 
-    // Simulate some async procss
     process.nextTick(function() {
       // If process was successful then resolve the promise
       deferred.resolve(/* optional data */);
@@ -67,8 +65,17 @@ module.exports = {
     })
 
     return deferred.promise;
-  }
 }
+```
+
+The can then be invoked like this:
+
+```javascript
+Nuts.actions.MyAction().then(function() {
+  // Completed successfully
+}).fail(function(err) {
+  // Action failed
+});
 ```
 
 ## Environment
