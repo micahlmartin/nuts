@@ -11,5 +11,10 @@ module.exports = [
     method: "GET",
     path: "/secure",
     config: controllers.home.secure
+  },
+  {
+    method: "GET",
+    path: "/users",
+    config: controllers.users.index
   }
 ]

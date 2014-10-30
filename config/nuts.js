@@ -26,6 +26,11 @@ var loadPlugins = function() {
   });
 }
 
+var loadModels = function() {
+  Nuts.models = requireDirectory(module, '../app/models');
+  Nuts.server.log('info', "Models loaded successfully");
+}
+
 var loadInitializers = function() {
   requireDirectory(module, './initializers');
   Nuts.server.log('info', 'Initializers loaded successfully');
@@ -41,15 +46,22 @@ var loadEnvironment = function() {
   require('./environments/' + Nuts.environment);
 }
 
+var loadActions = function() {
+  Nuts.actions = requireDirectory(module, '../app/actions');
+  Nuts.server.log('info', "Actions loaded successfully");
+}
+
 var startServer = function() {
   Nuts.server.start(function () { });
 }
 
 var commonConfiguration = function() {
   initializeServer();
+  loadModels();
   loadPlugins();
   loadEnvironment();
   loadInitializers();
+  loadActions();
 }
 
 module.exports = {
