@@ -30,6 +30,16 @@ To open up a REPL with a fully loaded environment you can run `./nuts console`. 
 
 ## Models
 
+## Migrations
+
+To manage migrations you will need to install the sequelize command line tool.
+
+```
+npm install -g sequelize-cli
+```
+
+Refer to the [documentation](http://sequelizejs.com/docs/latest/migrations) for more details.
+
 ## Actions
 
 Actions are simple single purpose objects that act in some way on one or more models. They are used to encapsulate business logic. The convention is to keep the file names camelcased. This makes it easy to access them in a consistent way like `Nuts.actions.MyAction`;
@@ -88,4 +98,6 @@ You can read more about Hapi plugins [here](http://hapijs.com/tutorials/plugins)
 - [Hapi](http://hapijs.com/) - Web Server
 - [Q](https://github.com/kriskowal/q) - Promise library
 - [Http Signature](https://github.com/joyent/node-http-signature) - Server to Server authentication
+- [Sequelize](http://sequelizejs.com/)
+
 

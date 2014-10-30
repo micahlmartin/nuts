@@ -1,10 +1,12 @@
 var _                 = require('lodash');
 var fs                = require('fs');
 var Hapi              = require('hapi');
+var parseDBUrl        = require('parse-database-url');
 var path              = require('path');
+var Q                 = require('q');
 var requireDirectory  = require('require-directory');
+var Sequelize         = require("sequelize");
 var yml               = require('js-yaml');
-
 
 var initializeSettings = function() {
   // Initialize the global container
@@ -20,26 +22,71 @@ var initializeSettings = function() {
   settingsYml = yml.safeLoad(renderedSettingsTemplate);
 
   // Only get the settings for the current environment
-  Nuts.settings = settingsYml[Nuts.environment];
+  settings = settingsYml[Nuts.environment];
+
+  // Override the database settings
+  if(process.env.DATABASE_URL) {
+    settingsFromUrl = parseDBUrl(process.env.DATABASE_URL);
+    settingsFromUrl.dialect = settingsFromUrl.driver;
+    delete settingsFromUrl['driver'];
+    settings.database = _.merge(settings.database, settingsFromUrl);
+  }
+
+  Nuts.settings = settings;
 }
 
-var commonConfiguration = function() {
-  initializeSettings();
-  initializeServer();
-  loadModels();
-  loadPlugins();
-  loadEnvironment();
-  loadInitializers();
-  loadActions();
-}
+var setupDatabase = function() {
+  var deferred = Q.defer();
 
-var loadSettings = function() {
-  _.template()
+  defaultDBSettings = {
+    define: {
+      timestamps: true
+    }
+  }
+
+  dbSettings = Nuts.settings.database;
+
+  sequelizeConfig = _.merge(defaultDBSettings, dbSettings);
+
+  var sequelize = new Sequelize(dbSettings.database, dbSettings.user, dbSettings.password, sequelizeConfig);
+
+  sequelize.authenticate().complete(function(err) {
+    if(!!err) {
+      console.error('error', err);
+      deferred.reject(err);
+    } else {
+      console.log('Successfully connected to the database.');
+      Nuts.sequelize = sequelize;
+      deferred.resolve();
+    }
+  })
+
+  return deferred.promise;
 }
 
 var initializeServer = function() {
   Nuts.server = new Hapi.Server('0.0.0.0', Nuts.settings.port, Nuts.settings.hapi)
 }
+
+var commonConfiguration = function() {
+  var deferred = Q.defer();
+
+  initializeSettings();
+  initializeServer();
+  setupDatabase().then(function() {
+    loadModels();
+    loadPlugins();
+    loadEnvironment();
+    loadInitializers();
+    loadActions();
+    deferred.resolve();
+  }).fail(function(err) {
+    deferred.reject(err);
+  });
+
+  return deferred.promise;
+}
+
 
 var loadPlugins = function() {
   plugins = []
@@ -86,24 +133,30 @@ var startServer = function() {
 }
 
 module.exports = {
+  configure: commonConfiguration,
   console: function() {
-    commonConfiguration();
-    var repl  = require('repl');
-    var util  = require('util');
-    var eyes  = require('eyes');
-    var moment = require('moment');
+    commonConfiguration().then(function() {
+      var repl  = require('repl');
+      var util  = require('util');
+      var eyes  = require('eyes');
+      var moment = require('moment');
 
-    // open the repl session
-    var replServer = repl.start({
-      prompt: util.format("%s (%s) > ", Nuts.settings.app_name, Nuts.environment)
+      // open the repl session
+      var replServer = repl.start({
+        prompt: util.format("%s (%s) > ", Nuts.settings.app_name, Nuts.environment)
+      });
+
+      replServer.context.moment = moment;
+    }).fail(function(err) {
+      process.exit(1);
     });
-
-    replServer.context.moment = moment;
-
   },
   deez: function() {
-    commonConfiguration();
-    loadRoutes();
-    startServer();
+    commonConfiguration().then(function(){
+      loadRoutes();
+      startServer();
+    }).fail(function(err) {
+      process.exit(1);
+    });
   }
 }

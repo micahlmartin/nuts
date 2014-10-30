@@ -5,12 +5,12 @@ default: &default
 
 development:
   <<: *default
-  database_url: "mongodb://localhost:27017"
+  database:
+    dialect: 'sqlite'
+    storage: 'tmp/development.sqlite'
 
 staging:
   <<: *default
-  database_url: <%= process.env.DATABASE_URL %>
 
 production:
   <<: *default
-  database_url: <%= process.env.DATABASE_URL %>
