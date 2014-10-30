@@ -22,6 +22,10 @@ Then you can run it with `nodemon server.js`.
 
 To open up a REPL with a fully loaded environment you can run `./nuts console`. This makes it easy to execute commands in your environment and should be very familiar to those coming from Rails.
 
+# Settings
+
+You can configure your environment settings in `settings.yml`. The file is precompiled using the [Lodash template](https://lodash.com/docs#template) syntax similar to ERB.
+
 # Conventions
 
 ## Routes
