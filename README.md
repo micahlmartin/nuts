@@ -32,7 +32,7 @@ To open up a REPL with a fully loaded environment you can run `./nuts console`. 
 
 ## Actions
 
-Actions are simple single purpose objects that act in some way on one or more models. They are used to encapsulate business logic. The convention is to keep the file names proper cased. This makes it easy to access them in a consistent way like `Nuts.actions.MyAction`;
+Actions are simple single purpose objects that act in some way on one or more models. They are used to encapsulate business logic. The convention is to keep the file names camelcased. This makes it easy to access them in a consistent way like `Nuts.actions.MyAction`;
 
 They take the following format:
 
