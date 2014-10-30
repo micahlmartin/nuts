@@ -1,6 +1,6 @@
 # Nuts
 
-This is boilerplate for a nodejs apps based on Hapi. I've borrowed some things from [hapi-ninja](https://github.com/poeticninja/hapi-ninja) and some conventions from Ruby on Rails.
+This is an opiniated template for nodejs apps based on Hapi. I've borrowed some things from [hapi-ninja](https://github.com/poeticninja/hapi-ninja) and some conventions from Ruby on Rails.
 
 # Running
 
@@ -24,7 +24,46 @@ To open up a REPL with a fully loaded environment you can run `./nuts console`. 
 
 # Conventions
 
+## Routes
 
+## Controllers
+
+## Models
+
+## Actions
+
+Actions are simple single purpose objects that act in some way on one or more models. They are used to encapsulate business logic. The convention is to keep the file names proper cased. This makes it easy to access them in a consistent way like `Nuts.actions.MyAction`;
+
+They take the following format:
+
+```javascript
+// app/actions/MyAction.js
+
+module.exports = {
+  execute: function(params /* option */) {
+    var deferred = Nuts.defer();
+
+    // Simulate some async procss
+    process.nextTick(function() {
+      // If process was successful then resolve the promise
+      deferred.resolve(/* optional data */);
+
+      // If there was an error then return it
+      deferred.reject(/*some err*/)
+    })
+
+    return deferred.promise;
+  }
+}
+```
+
+## Environment
+
+The default environment is `development`. It can be overriden with an environment variable `NODE_ENV=production`. There should be a corresponding file in `app/config/environments` for each environment.
+
+## Initializers
+
+These are configurations that are loaded in every environment. They are not loaded in a specific order. They're useful for configuring various libraries.
 
 # Stack
 
