@@ -1,6 +1,6 @@
 # Nuts
 
-This is an opiniated template for nodejs apps. I've borrowed a few things from [hapi-ninja](https://github.com/poeticninja/hapi-ninja) and some conventions from Ruby on Rails. Suggestions and PR's are welcome.
+This is an opinionated template for nodejs apps.
 
 # Running
 
@@ -110,5 +110,11 @@ You can read more about Hapi plugins [here](http://hapijs.com/tutorials/plugins)
 - [Q](https://github.com/kriskowal/q) - Promise library
 - [Http Signature](https://github.com/joyent/node-http-signature) - Server to Server authentication
 - [Sequelize](http://sequelizejs.com/)
+
+
+# Thanks
+
+- [hapi-ninja](https://github.com/poeticninja/hapi-ninja)
+- [generator-react-gulp-browserify](https://github.com/randylien/generator-react-gulp-browserify)
 
 
