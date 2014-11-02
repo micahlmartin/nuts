@@ -1,0 +1,2 @@
+web: nodemon nuts s --watch
+gulp: gulp watch

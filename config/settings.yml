@@ -1,10 +1,11 @@
 default: &default
   app_name: "Nuts App"
-  port: <%= parseInt(process.env.PORT, 10) || 3000 %>
+  port: <%= parseInt(process.env.PORT, 10) %>
   hapi: {}
 
 development:
   <<: *default
+  port: 3000
   database:
     dialect: 'sqlite'
     storage: 'tmp/development.sqlite'

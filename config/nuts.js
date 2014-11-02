@@ -15,6 +15,9 @@ var initializeSettings = function() {
     root: path.normalize(__dirname + '/../'),
   };
 
+  // Convenience method
+  Nuts.isDevelopment = Nuts.environment == 'development';
+
   // Load settings.yml and parse it as a lodash template
   renderedSettingsTemplate = _.template(fs.readFileSync(path.join(Nuts.root, 'config/settings.yml')), {})
 
@@ -129,7 +132,9 @@ var loadActions = function() {
 }
 
 var startServer = function() {
-  Nuts.server.start(function () { });
+  Nuts.server.start(function () {
+    Nuts.server.log('info', "Started server on port " + Nuts.settings.port);
+  });
 }
 
 module.exports = {
