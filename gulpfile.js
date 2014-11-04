@@ -54,6 +54,8 @@ gulp.task('scripts', function () {
     }).on('error', handleErrors))
     .pipe(gulp.dest('public/javascript'))
     .pipe($.size());
+
+  // return gulp.src('app/assets/bower_components/')
 });
 
 // HTML

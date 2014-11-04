@@ -1,6 +1,7 @@
 default: &default
   app_name: "Nuts App"
   port: <%= parseInt(process.env.PORT, 10) %>
+  google_analytics: <%= process.env.GOOGLE_ANALYTICS %>
 
 development:
   <<: *default

@@ -1,3 +1,3 @@
-require('jquery/dist/jquery');
-require('bootstrap-sass-official/assets/javascripts/bootstrap');
-require('modernizer/modernizr');
+require('jquery');
+require('bootstrap');
+require('modernizr');
