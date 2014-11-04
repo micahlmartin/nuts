@@ -4,18 +4,15 @@ var controllers       = requireDirectory(module, '../app/controllers');
 module.exports = [
   {
     method: "GET",
-    path: "/assets/images/{path*}",
-    config: controllers.assets.images
+    path: "/assets/{path*}",
+    handler: {
+      directory: { path: './public'}
+    }
   },
   {
     method: "GET",
-    path: "/assets/stylesheets/{path*}",
-    config: controllers.assets.stylesheets
-  },
-  {
-    method: "GET",
-    path: "/assets/javascript/{path*}",
-    config: controllers.assets.javascript
+    path: "/",
+    config: controllers.home.index
   },
   {
     method: "GET",

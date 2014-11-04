@@ -7,6 +7,9 @@ var Q                 = require('q');
 var requireDirectory  = require('require-directory');
 var Sequelize         = require("sequelize");
 var yml               = require('js-yaml');
+var nodeJSX           = require('node-jsx');
+
+nodeJSX.install();
 
 var initializeSettings = function() {
   // Initialize the global container
@@ -68,7 +71,31 @@ var setupDatabase = function() {
 }
 
 var initializeServer = function() {
-  Nuts.server = new Hapi.Server('0.0.0.0', Nuts.settings.port, Nuts.settings.hapi)
+  Nuts.server = new Hapi.Server('0.0.0.0', Nuts.settings.port)
+  Nuts.server.views({
+    helpersPath: "./app/helpers",
+    partialsPath: "./app/views",
+    isCached: !Nuts.isDevelopment,
+    engines: {
+      jsx: {
+        compileMode: "async",
+        path: "app/assets/javascript",
+        module: {
+          compile: function(template, options, next) {
+            var component = require('../' + options.filename);
+            return next(null, function(context, options, callback) {
+              var renderedView = require('react').renderToString(component(context));
+              callback(null, renderedView);
+            });
+          }
+        }
+      },
+      hbs: {
+        path: "app/views",
+        module: require('handlebars')
+      }
+    }
+  });
 }
 
 var commonConfiguration = function() {

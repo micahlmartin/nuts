@@ -2,13 +2,16 @@
  * @jsx React.DOM
  */
 
-var react = require('react');
+var React = require('react');
+var Message = require('./message.jsx');
 
 var helloWorld = React.createClass({
 
   render: function() {
     return (
-      <h1>Hello World</h1>
+      <div>
+        <Message message="Hello World" />
+      </div>
     );
   },
 

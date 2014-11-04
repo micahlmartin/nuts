@@ -1,7 +1,7 @@
 module.exports = {
   index: {
     handler: function(request, reply) {
-      reply("Hello World!");
+      reply.view('main.hbs', {test: "yes"});
     }
   },
   secure: {

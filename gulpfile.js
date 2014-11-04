@@ -47,7 +47,10 @@ gulp.task('scripts', function () {
   return gulp.src('app/assets/javascript/application.js')
     .pipe($.browserify({
         insertGlobals: true,
-        transform: ['reactify']
+        transform: ['reactify'],
+        paths: [
+          './app/assets/bower_components'
+        ]
     }).on('error', handleErrors))
     .pipe(gulp.dest('public/javascript'))
     .pipe($.size());
@@ -70,6 +73,13 @@ gulp.task('images', function () {
       interlaced: true
     })))
     .pipe(gulp.dest('public/images'))
+    .pipe($.size());
+});
+
+// Images
+gulp.task('fonts', function () {
+  return gulp.src('app/assets/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*')
+    .pipe(gulp.dest('public/fonts'))
     .pipe($.size());
 });
 
@@ -116,4 +126,7 @@ gulp.task('watch', ['html', 'bundle', 'images'], function () {
 
     // Watch image files
     gulp.watch('app/assets/images/**/*', ['images']);
+
+    // Watch image files
+    gulp.watch('app/assets/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*', ['fonts']);
 });

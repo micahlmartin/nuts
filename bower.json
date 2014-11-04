@@ -13,6 +13,8 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass-official": "~3.3.0"
+    "bootstrap-sass-official": "~3.3.0",
+    "modernizer": "~2.8.2",
+    "jquery": "~2.1.1"
   }
 }
