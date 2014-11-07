@@ -39,11 +39,7 @@ function versionAssets(assets) {
 
 function styles() {
   var styles = gulp.src('app/assets/stylesheets/application.scss', {base: config.srcDir})
-    .pipe($.rubySass({
-      style: 'expanded',
-      precision: 10,
-      loadPath: ['./app/assets/bower_components']
-    }))
+    .pipe($.sass({ includePaths: ['./app/assets/bower_components'] }))
     .pipe($.autoprefixer('last 1 version'))
     .pipe($.if(config.isProduction, $.cssmin()));
 
@@ -66,11 +62,11 @@ function scripts() {
 
 function images() {
   var images = gulp.src('app/assets/images/**/*', {base: config.srcDir})
-    // .pipe($.cache($.imagemin({
-    //   optimizationLevel: 3,
-    //   progressive: true,
-    //   interlaced: true
-    // })))
+    .pipe($.cache($.imagemin({
+      optimizationLevel: 3,
+      progressive: true,
+      interlaced: true
+    })))
 
   return versionAssets(images);
 }
