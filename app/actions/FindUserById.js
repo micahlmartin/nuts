@@ -1,13 +1,13 @@
-var User = Nuts.models.User;
+var User = Nuts.models.user;
 
 module.exports = function(id) {
   var deferred = Nuts.defer();
 
-  User.find(id).success(function(user) {
-    deferred.resolve(user);
-  }).error(function(err) {
-    deferred.reject(err);
-  })
+  User.find(id, function(err, user) {
+    if(err) return deferred.reject(err);
+
+    return deferred.resolve(user);
+  });
 
   return deferred.promise;
 }

@@ -69,6 +69,7 @@
     "hoek": "^2.8.1",
     "http-signature": "^0.10.0",
     "js-yaml": "^3.2.2",
+    "jugglingdb": "^0.3.0",
     "lodash": "^2.4.1",
     "moment": "^2.8.3",
     "mysql": "^2.5.2",
@@ -80,14 +81,14 @@
     "react-tools": "^0.12.0",
     "reactify": "^0.15.2",
     "require-directory": "^2.0.0",
-    "sequelize": "^2.0.0-rc2",
-    "sequelize-cli": "^0.3.3",
     "temporary": "0.0.8",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.1.0"
   },
   "devDependencies": {
     "foreman": "^1.0.0",
+    "jugglingdb-postgres": "^0.1.0",
+    "jugglingdb-sqlite3": "0.0.5",
     "nodemon": "^1.2.1",
     "sqlite3": "^3.0.2"
   }

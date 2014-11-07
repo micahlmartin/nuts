@@ -1,16 +1,18 @@
-var Sequelize = require('sequelize');
+var Schema = require('jugglingdb').Schema
 var util      = require('util');
 
-var User = Nuts.sequelize.define('User', {
-  firstName: Sequelize.STRING,
-  lastName: Sequelize.STRING,
-  email: { type: Sequelize.STRING, unique: true}
+var User = Nuts.schema.define('User', {
+  firstName: String,
+  lastName: String,
+  bio: Schema.Text,
+  email: { type: String, unique: true}
 },
 {
-  tableName: "users",
-  instanceMethods : {
-    fullName: function() { return util.format("%s %s", this.firstName, this.lastName); }
-  }
+  table: "users"
 })
+
+User.prototype.fullName = function() {
+  return util.format("%s %s", this.firstName, this.lastName);
+}
 
 module.exports = User;

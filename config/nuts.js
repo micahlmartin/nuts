@@ -5,7 +5,7 @@ var parseDBUrl        = require('parse-database-url');
 var path              = require('path');
 var Q                 = require('q');
 var requireDirectory  = require('require-directory');
-var Sequelize         = require("sequelize");
+var Schema         = require("jugglingdb").Schema;
 var yml               = require('js-yaml');
 var nodeJSX           = require('node-jsx');
 
@@ -39,33 +39,32 @@ var initializeSettings = function() {
   }
 
   Nuts.settings = settings;
+  console.log('info', 'Loaded settings successfully');
 }
 
 var setupDatabase = function() {
   var deferred = Q.defer();
 
-  defaultDBSettings = {
-    define: {
-      timestamps: true
-    }
-  }
-
   dbSettings = Nuts.settings.database;
 
-  sequelizeConfig = _.merge(defaultDBSettings, dbSettings);
+  schema = new Schema(dbSettings.driver, {
+    host: dbSettings.host,
+    port: dbSettings.port,
+    username: dbSettings.user,
+    password: dbSettings.password,
+    database: dbSettings.database_name,
+    debug: Nuts.isDevelopment
+  });
 
-  var sequelize = new Sequelize(dbSettings.database, dbSettings.user, dbSettings.password, sequelizeConfig);
-
-  sequelize.authenticate().complete(function(err) {
-    if(!!err) {
-      console.error('error', err);
-      deferred.reject(err);
-    } else {
-      console.log('Successfully connected to the database.');
-      Nuts.sequelize = sequelize;
-      deferred.resolve();
-    }
+  schema.on('connected', function() {
+    console.log('Successfully connected to the database.');
+    deferred.resolve();
+  });
+  schema.on('error', function(err) {
+    Nuts.server.log('err', err);
   })
+
+  Nuts.schema = schema;
 
   return deferred.promise;
 }
