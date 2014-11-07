@@ -8,8 +8,7 @@
     "npm": "1.4.16"
   },
   "scripts": {
-    "start": "./node_modules/foreman/nf.js start -j Procfile.dev",
-    "postinstall": "./node_modules/gulp/bin/gulp.js build"
+    "start": "./node_modules/foreman/nf.js start -j Procfile.dev"
   },
   "author": "",
   "license": "ISC",
