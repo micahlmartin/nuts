@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "./node_modules/foreman/nf.js start -j Procfile.dev",
-    "postinstall": "gulp",
+    "postinstall": "gulp"
   },
   "author": "",
   "license": "ISC",
