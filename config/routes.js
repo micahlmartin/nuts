@@ -5,6 +5,12 @@ module.exports = [
   {
     method: "GET",
     path: "/assets/{path*}",
+    config: {
+      cache: {
+        privacy: 'public',
+        expiresIn: 31536000000 // 1 year in milliseconds
+      }
+    },
     handler: {
       directory: { path: './public/assets'}
     }
