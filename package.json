@@ -8,8 +8,7 @@
     "npm": "1.4.16"
   },
   "scripts": {
-    "start": "nf start -j Procfile.dev",
-    "postinstall": "gulp build"
+    "start": "nf start -j Procfile.dev"
   },
   "author": "",
   "license": "ISC",
@@ -53,7 +52,6 @@
     "react": "^0.12.0",
     "require-directory": "^2.0.0",
     "sequelize": "^2.0.0-rc2",
-    "sqlite3": "^3.0.2",
     "temporary": "0.0.8",
     "bach": "^0.3.0",
     "browserify": "^6.2.0",
@@ -88,6 +86,7 @@
     "watchify": "^2.1.0"
   },
   "devDependencies": {
-    "foreman": "^1.0.0"
+    "foreman": "^1.0.0",
+    "sqlite3": "^3.0.2",
   }
 }
