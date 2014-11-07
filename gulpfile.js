@@ -2,9 +2,20 @@
 
 var gulp = require('gulp');
 var del = require('del');
+var bach = require('bach');
 
 // Load plugins
 var $ = require('gulp-load-plugins')();
+
+// NOTE: gulp-rev-looker is used to fix this issue https://github.com/sindresorhus/gulp-rev/issues/55
+var rev = require('gulp-rev-looker');
+
+var config = {
+  destDir: "./public/assets",
+  srcDir: "./app/assets",
+  bowerDir: "./app/assets/bower_components",
+  isProduction: process.env.NODE_ENV == 'production'
+}
 
 function handleErrors() {
   var args = Array.prototype.slice.call(arguments);
@@ -15,100 +26,84 @@ function handleErrors() {
   this.emit('end'); // Keep gulp from hanging on this task
 }
 
-// Styles
-gulp.task('styles', function () {
-  return gulp.src('app/assets/stylesheets/application.scss')
+function versionAssets(assets) {
+  var revisedAssets = assets.pipe(gulp.dest(config.destDir))
+    .pipe(rev())
+    .pipe(gulp.dest(config.destDir))
+
+  return revisedAssets.pipe($.addSrc('public/assets/rev-manifest.json'))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest(config.destDir))
+    .pipe($.size());
+}
+
+function styles() {
+  var styles = gulp.src('app/assets/stylesheets/application.scss', {base: config.srcDir})
     .pipe($.rubySass({
+      'sourcemap=none': true,
       style: 'expanded',
       precision: 10,
       loadPath: ['app/assets/bower_components']
     }))
     .pipe($.autoprefixer('last 1 version'))
-    .pipe(gulp.dest('public/stylesheets'))
-    .pipe($.size());
-});
+    .pipe($.if(config.isProduction, $.cssmin()));
 
+  return versionAssets(styles);
+}
 
-// CoffeeScript
-gulp.task('coffee', function () {
-  return gulp.src(
-    ['app/assets/javascript/**/*.coffee', '!app/javascript/**/*.js'],
-    {base: 'app/assets/javascript'}
-    )
-    .pipe(
-      $.coffee({ bare: true }).on('error', handleErrors)
-    )
-    .pipe(gulp.dest('app/assets/javascript'));
-});
-
-
-// Scripts
-gulp.task('scripts', function () {
-  return gulp.src('app/assets/javascript/application.js')
+function scripts() {
+  var scripts = gulp.src('app/assets/javascript/application.js', {base: config.srcDir})
     .pipe($.browserify({
         insertGlobals: true,
         transform: ['reactify'],
         paths: [
-          './app/assets/bower_components'
+          config.bowerDir
         ]
     }).on('error', handleErrors))
-    .pipe(gulp.dest('public/javascript'))
-    .pipe($.size());
+    .pipe($.if(config.isProduction, $.jsmin()))
 
-  // return gulp.src('app/assets/bower_components/')
-});
+  return versionAssets(scripts);
+}
 
-// HTML
-gulp.task('html', function () {
-  return gulp.src('app/assets/*.html')
-    .pipe($.useref())
-    .pipe(gulp.dest('public'))
-    .pipe($.size());
-});
-
-// Images
-gulp.task('images', function () {
-  return gulp.src('app/assets/images/**/*')
+function images() {
+  var images = gulp.src('app/assets/images/**/*', {base: config.srcDir})
     .pipe($.cache($.imagemin({
       optimizationLevel: 3,
       progressive: true,
       interlaced: true
     })))
-    .pipe(gulp.dest('public/images'))
-    .pipe($.size());
-});
 
-// Images
-gulp.task('fonts', function () {
-  return gulp.src('app/assets/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*')
-    .pipe(gulp.dest('public/fonts'))
-    .pipe($.size());
-});
+  return versionAssets(images);
+}
 
-// Clean
-gulp.task('clean', function (cb) {
-    del(['public/stylesheets', 'dist/javascript', 'public/images'], cb);
-});
+function fonts() {
+  var fonts = gulp.src(
+    config.srcDir + '/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+    {base: config.srcDir}
+  );
 
-// Bundle
-gulp.task('bundle', ['styles', 'scripts'], function(){
-  return gulp.src('./app/assets/*.html')
-    .pipe($.useref.assets())
-    .pipe($.useref.restore())
-    .pipe($.useref())
-    .pipe(gulp.dest('public'));
-});
+  return versionAssets(fonts);
+}
 
-// Build
-gulp.task('build', ['html', 'bundle', 'images']);
 
-// Default task
-gulp.task('default', ['clean'], function () {
-    gulp.start('build');
-});
+gulp.task('styles', function () { styles(); });
+gulp.task('scripts', function () { scripts(); });
+gulp.task('images', function () { images(); });
+gulp.task('fonts', function () { fonts(); });
+gulp.task('clean', function (cb) { del(['public'], cb); });
+
+gulp.task('build', ['clean'], function(cb) {
+  bach.series(styles, scripts, images, fonts)(function(err) {
+    if(err) {
+      handleErrors(err);
+    } else {
+      return cb();
+    }
+  })
+})
 
 // Watch
-gulp.task('watch', ['html', 'bundle', 'images'], function () {
+gulp.task('watch', ['build'], function () {
 
     // Watch .html files
     gulp.watch('app/assets/*.html', ['html']);
@@ -116,19 +111,12 @@ gulp.task('watch', ['html', 'bundle', 'images'], function () {
     // Watch .scss files
     gulp.watch('app/assets/stylesheets/**/*.scss', ['styles']);
 
-    // Watch .jade files
-    gulp.watch('app/assets/template/**/*.jade', ['jade', 'html']);
-
-    // Watch .coffeescript files
-    gulp.watch('app/assets/javascript/**/*.coffee', ['coffee', 'scripts']);
-
-
     // Watch .js files
     gulp.watch('app/assets/javascript/**/*.js', ['scripts']);
 
     // Watch image files
     gulp.watch('app/assets/images/**/*', ['images']);
 
-    // Watch image files
+    // Watch font files
     gulp.watch('app/assets/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*', ['fonts']);
 });

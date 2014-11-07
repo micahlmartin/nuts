@@ -1,4 +1,4 @@
-$icon-font-path: "/assets/fonts/";
+$icon-font-path: "/assets/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap";
 
@@ -7,6 +7,10 @@ $icon-font-path: "/assets/fonts/";
     background: #ccc;
     color: #000;
     padding: 0.2em 0;
+}
+
+.test {
+    color: white;
 }
 
 /* Space out content a bit */
