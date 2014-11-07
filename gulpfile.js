@@ -66,6 +66,11 @@ function scripts() {
 
 function images() {
   var images = gulp.src('app/assets/images/**/*', {base: config.srcDir})
+    // .pipe($.cache($.imagemin({
+    //   optimizationLevel: 3,
+    //   progressive: true,
+    //   interlaced: true
+    // })))
 
   return versionAssets(images);
 }
@@ -97,7 +102,7 @@ gulp.task('default', ['clean'], function(cb) {
 })
 
 // Watch
-gulp.task('watch', ['build'], function () {
+gulp.task('watch', ['default'], function () {
 
     // Watch .html files
     gulp.watch('app/assets/*.html', ['html']);
