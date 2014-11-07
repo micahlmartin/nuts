@@ -33,8 +33,6 @@ var initializeSettings = function() {
   // Override the database settings
   if(process.env.DATABASE_URL) {
     settingsFromUrl = parseDBUrl(process.env.DATABASE_URL);
-    settingsFromUrl.dialect = settingsFromUrl.driver;
-    delete settingsFromUrl['driver'];
     settings.database = _.merge((settings.database || {}), settingsFromUrl);
   }
 
