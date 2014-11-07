@@ -86,7 +86,7 @@ gulp.task('images', function () { images(); });
 gulp.task('fonts', function () { fonts(); });
 gulp.task('clean', function (cb) { del(['public'], cb); });
 
-gulp.task('build', ['clean'], function(cb) {
+gulp.task('default', ['clean'], function(cb) {
   bach.series(styles, scripts, images, fonts)(function(err) {
     if(err) {
       handleErrors(err);
