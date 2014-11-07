@@ -70,6 +70,7 @@
     "http-signature": "^0.10.0",
     "js-yaml": "^3.2.2",
     "jugglingdb": "^0.3.0",
+    "jugglingdb-postgres": "^0.1.0",
     "lodash": "^2.4.1",
     "moment": "^2.8.3",
     "mysql": "^2.5.2",
@@ -87,7 +88,6 @@
   },
   "devDependencies": {
     "foreman": "^1.0.0",
-    "jugglingdb-postgres": "^0.1.0",
     "jugglingdb-sqlite3": "0.0.5",
     "nodemon": "^1.2.1",
     "sqlite3": "^3.0.2"
