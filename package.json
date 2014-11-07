@@ -11,6 +11,10 @@
   },
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/micahlmartin/nuts"
+  },
   "browser": {
     "bootstrap": "./app/assets/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js",
     "jquery": "./app/assets/bower_components/jquery/dist/jquery.js",
