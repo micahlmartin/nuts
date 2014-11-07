@@ -71,7 +71,7 @@
     "gulp-notify": "^2.0.0",
     "gulp-rename": "^1.2.0",
     "gulp-rev-looker": "git://github.com/looker/gulp-rev",
-    "gulp-sass": "^1.2.2",
+    "gulp-ruby-sass": "^0.7.1",
     "gulp-size": "^1.1.0",
     "gulp-uglify": "^1.0.1",
     "gulp-useref": "~0.4.4",
