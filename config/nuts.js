@@ -35,7 +35,7 @@ var initializeSettings = function() {
     settingsFromUrl = parseDBUrl(process.env.DATABASE_URL);
     settingsFromUrl.dialect = settingsFromUrl.driver;
     delete settingsFromUrl['driver'];
-    settings.database = _.merge(settings.database, settingsFromUrl);
+    settings.database = _.merge((settings.database || {}), settingsFromUrl);
   }
 
   Nuts.settings = settings;
