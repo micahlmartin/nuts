@@ -39,11 +39,8 @@ function versionAssets(assets) {
 
 function styles() {
   var styles = gulp.src('app/assets/stylesheets/application.scss', {base: config.srcDir})
-    .pipe($.rubySass({
-      'sourcemap=none': true,
-      style: 'expanded',
-      precision: 10,
-      loadPath: ['app/assets/bower_components']
+    .pipe($.sass({
+      includePaths: ['app/assets/bower_components']
     }))
     .pipe($.autoprefixer('last 1 version'))
     .pipe($.if(config.isProduction, $.cssmin()));
