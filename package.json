@@ -8,7 +8,8 @@
     "npm": "1.4.16"
   },
   "scripts": {
-    "start": "nf start -j Procfile.dev"
+    "start": "./node_modules/foreman/nf.js start -j Procfile.dev",
+    "postinstall": "./node_modules/gulp/bin/gulp.js build"
   },
   "author": "",
   "license": "ISC",
@@ -78,7 +79,6 @@
     "gulp-uglify": "^1.0.1",
     "gulp-useref": "~0.4.4",
     "gulp-util": "^3.0.1",
-    "nodemon": "^1.2.1",
     "react-tools": "^0.12.0",
     "reactify": "^0.15.2",
     "sequelize-cli": "^0.3.3",
@@ -87,6 +87,7 @@
   },
   "devDependencies": {
     "foreman": "^1.0.0",
+    "nodemon": "^1.2.1",
     "sqlite3": "^3.0.2"
   }
 }
