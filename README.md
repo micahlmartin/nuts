@@ -104,6 +104,12 @@ module.exports = {
 
 You can read more about Hapi plugins [here](http://hapijs.com/tutorials/plugins).
 
+# Assets
+
+# Deployment
+
+This is designed to make it easy to deploy to heroku. Rather than storing the compiled assets in the repo Heroku will build them when you deploy. Heroku will run `npm postinstall` which is setup to run `gulp build`. For this reason most of what would be listed as `devDependencies` are listed as regular dependencies in the `package.json`. You can read more about it [here](https://devcenter.heroku.com/articles/nodejs-support#customizing-the-build-process).
+
 # Stack
 
 - [Hapi](http://hapijs.com/) - Web Server

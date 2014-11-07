@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nf start -j Procfile.dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "gulp build"
   },
   "author": "",
   "license": "ISC",
@@ -50,32 +50,26 @@
     "require-directory": "^2.0.0",
     "sequelize": "^2.0.0-rc2",
     "sqlite3": "^3.0.2",
-    "temporary": "0.0.8"
-  },
-  "devDependencies": {
+    "temporary": "0.0.8",
     "bach": "^0.3.0",
     "browserify": "^6.2.0",
     "browserify-shim": "^3.8.0",
-    "event-stream": "^3.1.7",
     "foreman": "^1.0.0",
     "gulp": "^3.8.9",
     "gulp-add-src": "^0.1.1",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-browserify": "^0.5.0",
     "gulp-cache": "^0.2.4",
-    "gulp-coffee": "^2.2.0",
     "gulp-cssmin": "^0.1.6",
     "gulp-debug": "^1.0.1",
     "gulp-filter": "^1.0.2",
     "gulp-fingerprint": "^0.3.2",
-    "gulp-gzip": "0.0.8",
     "gulp-if": "^1.2.5",
     "gulp-imagemin": "^1.2.1",
     "gulp-jsmin": "^0.1.4",
     "gulp-load-plugins": "^0.7.1",
     "gulp-notify": "^2.0.0",
     "gulp-rename": "^1.2.0",
-    "gulp-rev": "^2.0.1",
     "gulp-rev-looker": "git://github.com/looker/gulp-rev",
     "gulp-ruby-sass": "^0.7.1",
     "gulp-sass": "^1.2.2",
@@ -88,8 +82,10 @@
     "react-tools": "^0.12.0",
     "reactify": "^0.15.2",
     "sequelize-cli": "^0.3.3",
-    "through2": "^0.6.3",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.1.0"
+  },
+  "devDependencies": {
+    "foreman": "^1.0.0"
   }
 }
