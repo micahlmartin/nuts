@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "0.10.33"
+    "node": "0.11.14"
   },
   "scripts": {
     "start": "./node_modules/foreman/nf.js start -j Procfile.dev"
@@ -72,7 +72,6 @@
     "js-yaml": "^3.2.2",
     "jugglingdb": "^0.3.0",
     "jugglingdb-postgres": "^0.1.0",
-    "jugglingdb-sqlite3": "0.0.5",
     "lodash": "^2.4.1",
     "moment": "^2.8.3",
     "mysql": "^2.5.2",
@@ -85,9 +84,11 @@
     "react-tools": "^0.12.0",
     "reactify": "^0.15.2",
     "require-directory": "^2.0.0",
-    "sqlite3": "^3.0.2",
     "temporary": "0.0.8",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.1.0"
+  },
+  "devDependencies": {
+    "jugglingdb-sqlite3": "0.0.5"
   }
 }
