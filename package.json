@@ -7,7 +7,6 @@
     "node": "0.10.33"
   },
   "scripts": {
-    "preinstall": "npm update -g npm",
     "start": "./node_modules/foreman/nf.js start -j Procfile.dev"
   },
   "author": "",
