@@ -68,6 +68,7 @@
     "gulp-useref": "~0.4.4",
     "gulp-util": "^3.0.1",
     "handlebars": "^2.0.0",
+    "handlebars-layouts": "^1.0.0",
     "hapi": "^7.1.1",
     "hapi-auth-signature": "git://github.com/58bits/hapi-auth-signature",
     "hoek": "^2.8.1",

@@ -122,5 +122,7 @@ This is designed to make it easy to deploy to heroku. Rather than storing the co
 
 - [hapi-ninja](https://github.com/poeticninja/hapi-ninja)
 - [generator-react-gulp-browserify](https://github.com/randylien/generator-react-gulp-browserify)
+- [hackathon-starter](https://github.com/sahat/hackathon-starter)
+
 
 

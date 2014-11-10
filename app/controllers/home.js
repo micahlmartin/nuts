@@ -1,7 +1,7 @@
 module.exports = {
   index: {
     handler: function(request, reply) {
-      reply.view('main.hbs', {test: "yes"});
+      reply.view('home/index.hbs', {test: "yes"});
     }
   },
   secure: {

@@ -11,7 +11,8 @@ var $ = require('gulp-load-plugins')();
 var rev = require('gulp-rev-looker');
 
 var config = {
-  destDir: "./public/assets",
+  buildDir: "./public",
+  destDir:  "./public/assets",
   srcDir: "./app/assets",
   bowerDir: "./app/assets/bower_components",
   isProduction: process.env.NODE_ENV == 'production'
@@ -92,7 +93,7 @@ gulp.task('styles', function () { styles(); });
 gulp.task('scripts', function () { scripts(); });
 gulp.task('images', function () { images(); });
 gulp.task('fonts', function () { fonts(); });
-gulp.task('clean', function (cb) { del(['public'], cb); });
+gulp.task('clean', function (cb) { del([config.buildDir, config.bowerDir], cb); });
 
 gulp.task('default', ['clean'], function(cb) {
   bach.series(bower, styles, scripts, images, fonts)(function(err) {
