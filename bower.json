@@ -15,6 +15,12 @@
   "dependencies": {
     "bootstrap-sass-official": "~3.3.0",
     "modernizer": "~2.8.2",
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "bootstrap-social": "~4.8.0",
+    "font-awesome": "~4.2.0",
+    "bootswatch-scss": "log0ymxm/bootswatch-scss#master"
+  },
+  "resolutions": {
+    "bootstrap-sass-official": "~3.2.0"
   }
 }

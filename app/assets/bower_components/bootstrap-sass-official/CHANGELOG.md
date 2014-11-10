@@ -1,20 +1,5 @@
 # Changelog
 
-## 3.3.0
-
-* Improve libsass compatibility
-* Support using Bower package with Rails
-
-## 3.2.0.2
-
-Main bootstrap file is now a partial (_bootstrap.scss), for compatibility with Compass 1+.
-
-Fixed a number of bugs. [Issues closed in v3.2.0.2](https://github.com/twbs/bootstrap-sass/issues?q=is%3Aissue+is%3Aclosed+milestone%3Av3.2.0.2).
-
-## 3.2.0.1
-
-Fixed a number of bugs: [Issues closed in v3.2.0.1](https://github.com/twbs/bootstrap-sass/issues?q=is%3Aissue+is%3Aclosed+milestone%3Av3.2.0.1).
-
 ## 3.2.0.0
 
 - Assets (Sass, JS, fonts) moved from `vendor/assets` to `assets`. `bootstrap.js` now contains concatenated JS.

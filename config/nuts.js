@@ -41,7 +41,7 @@ var initializeServer = function() {
   Nuts.server.views({
     helpersPath: "./app/helpers",
     partialsPath: "./app/views",
-    isCached: !Nuts.isDevelopment,
+    isCached: false,
     engines: {
       jsx: {
         compileMode: "async",

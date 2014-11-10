@@ -10,6 +10,5 @@
   },
   "_source": "git://github.com/askhogan/Modernizr.git",
   "_target": "~2.8.2",
-  "_originalSource": "modernizer",
-  "_direct": true
+  "_originalSource": "modernizer"
 }

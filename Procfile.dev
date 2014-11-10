@@ -1,2 +1,2 @@
-web: nodemon nuts s --ignore node_modules/
+web: nodemon nuts s --ignore node_modules/ -e js,jsx,hbs
 gulp: gulp watch

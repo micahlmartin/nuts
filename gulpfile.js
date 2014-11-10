@@ -37,6 +37,10 @@ function versionAssets(assets) {
     .pipe($.size());
 }
 
+function bower() {
+  return $.bower();
+}
+
 function styles() {
   var styles = gulp.src('app/assets/stylesheets/application.scss', {base: config.srcDir})
     .pipe($.sass({ includePaths: ['./app/assets/bower_components'] }))
@@ -73,14 +77,17 @@ function images() {
 
 function fonts() {
   var fonts = gulp.src(
-    config.srcDir + '/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+    [
+      config.srcDir + '/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+      config.srcDir + '/bower_components/font-awesome/fonts/*'
+    ],
     {base: config.srcDir}
   );
 
   return versionAssets(fonts);
 }
 
-
+gulp.task('bower', function() { bower(); });
 gulp.task('styles', function () { styles(); });
 gulp.task('scripts', function () { scripts(); });
 gulp.task('images', function () { images(); });
@@ -88,7 +95,7 @@ gulp.task('fonts', function () { fonts(); });
 gulp.task('clean', function (cb) { del(['public'], cb); });
 
 gulp.task('default', ['clean'], function(cb) {
-  bach.series(styles, scripts, images, fonts)(function(err) {
+  bach.series(bower, styles, scripts, images, fonts)(function(err) {
     if(err) {
       handleErrors(err);
     } else {
@@ -111,7 +118,4 @@ gulp.task('watch', ['default'], function () {
 
     // Watch image files
     gulp.watch('app/assets/images/**/*', ['images']);
-
-    // Watch font files
-    gulp.watch('app/assets/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*', ['fonts']);
 });

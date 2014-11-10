@@ -1,0 +1,28 @@
+{
+  "name": "bootswatch-scss",
+  "description": "Bootswatch themes in scss format packaged as a component.",
+  "author": "Paul English",
+  "homepage": "http://bootswatch.com",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/log0ymxm/bootswatch-scss.git"
+  },
+  "dependencies": {
+    "bootstrap-sass-official": "~3.2.0"
+  },
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "_release": "e284c695e7",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "e284c695e77a89ebda8e03b5d6938f72cb0d9fe5"
+  },
+  "_source": "git://github.com/log0ymxm/bootswatch-scss.git",
+  "_target": "master",
+  "_originalSource": "log0ymxm/bootswatch-scss"
+}
