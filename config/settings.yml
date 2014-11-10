@@ -7,8 +7,9 @@ development:
   <<: *default
   port: 3000
   database:
-    driver: 'sqlite3'
-    database_name: 'tmp/development.sqlite'
+    host: localhost
+    port: 27017
+    database: "development"
 
 staging:
   <<: *default

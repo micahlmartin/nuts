@@ -5,7 +5,6 @@ var parseDBUrl        = require('parse-database-url');
 var path              = require('path');
 var Q                 = require('q');
 var requireDirectory  = require('require-directory');
-var Schema         = require("jugglingdb").Schema;
 var yml               = require('js-yaml');
 var nodeJSX           = require('node-jsx');
 
@@ -30,41 +29,11 @@ var initializeSettings = function() {
   // Only get the settings for the current environment
   settings = settingsYml[Nuts.environment];
 
-  // Override the database settings
-  if(process.env.DATABASE_URL) {
-    settingsFromUrl = parseDBUrl(process.env.DATABASE_URL);
-    settings.database = _.merge((settings.database || {}), settingsFromUrl);
-  }
-
   Nuts.settings = settings;
-  console.log('info', 'Loaded settings successfully');
 }
 
 var setupDatabase = function() {
-  var deferred = Q.defer();
-
-  dbSettings = Nuts.settings.database;
-
-  schema = new Schema(dbSettings.driver, {
-    host: dbSettings.host,
-    port: dbSettings.port,
-    username: dbSettings.user,
-    password: dbSettings.password,
-    database: dbSettings.database_name,
-    debug: Nuts.isDevelopment
-  });
-
-  schema.on('connected', function() {
-    console.log('Successfully connected to the database.');
-    deferred.resolve();
-  });
-  schema.on('error', function(err) {
-    Nuts.server.log('err', err);
-  })
-
-  Nuts.schema = schema;
-
-  return deferred.promise;
+  Nuts.mongoose = require('./db').connect();
 }
 
 var initializeServer = function() {
@@ -97,19 +66,15 @@ var initializeServer = function() {
 
 var commonConfiguration = function() {
   var deferred = Q.defer();
-
   initializeSettings();
   initializeServer();
-  setupDatabase().then(function() {
-    loadModels();
-    loadPlugins();
-    loadEnvironment();
-    loadInitializers();
-    loadActions();
-    deferred.resolve();
-  }).fail(function(err) {
-    deferred.reject(err);
-  });
+  setupDatabase()
+  loadModels();
+  loadPlugins();
+  loadEnvironment();
+  loadInitializers();
+  loadActions();
+  deferred.resolve();
 
   return deferred.promise;
 }
@@ -123,26 +88,26 @@ var loadPlugins = function() {
 
   Nuts.server.pack.register(plugins, function(err) {
     if(err) {
-      Nuts.server.log('error', err)
+      console.log('error', err)
     } else {
-      Nuts.server.log('info', 'Plugins registered successfully.');
+      console.log('info', 'Plugins registered successfully.');
     }
   });
 }
 
 var loadModels = function() {
   Nuts.models = requireDirectory(module, '../app/models');
-  Nuts.server.log('info', "Models loaded successfully");
+  console.log('info', "Models loaded successfully");
 }
 
 var loadInitializers = function() {
   requireDirectory(module, './initializers');
-  Nuts.server.log('info', 'Initializers loaded successfully');
+  console.log('info', 'Initializers loaded successfully');
 }
 
 var loadRoutes = function() {
   Nuts.server.route(require('./routes'));
-  Nuts.server.log('info', 'Routes loaded successfully');
+  console.log('info', 'Routes loaded successfully');
 }
 
 var loadEnvironment = function() {
@@ -152,12 +117,13 @@ var loadEnvironment = function() {
 
 var loadActions = function() {
   Nuts.actions = requireDirectory(module, '../app/actions');
-  Nuts.server.log('info', "Actions loaded successfully");
+  console.log('info', "Actions loaded successfully");
 }
 
 var startServer = function() {
+  console.log("Starting server")
   Nuts.server.start(function () {
-    Nuts.server.log('info', "Started server on port " + Nuts.settings.port);
+    console.log('info', "Started server on port " + Nuts.settings.port);
   });
 }
 

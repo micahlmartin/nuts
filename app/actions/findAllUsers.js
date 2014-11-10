@@ -1,13 +1,13 @@
 var User = Nuts.models.user;
 
-module.exports = function(id) {
+module.exports = function() {
   var deferred = Nuts.defer();
 
-  User.findById(id).exec().then(function(user) {
-    deferred.resolve(user);
+  User.find({}).sort('-createdAt').exec().then(function(userList) {
+    deferred.resolve(userList);
   }, function(err) {
     deferred.reject(err);
-  });
+  })
 
   return deferred.promise;
 }

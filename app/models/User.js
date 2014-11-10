@@ -1,18 +1,30 @@
-var Schema = require('jugglingdb').Schema
-var util      = require('util');
+var mongoose  = require('mongoose');
+var timestamps = require('mongoose-timestamp');
 
-var User = Nuts.schema.define('User', {
-  firstName: String,
-  lastName: String,
-  bio: Schema.Text,
-  email: { type: String, unique: true}
-},
-{
-  table: "users"
-})
+var userSchema = new mongoose.Schema({
+  email: { type: String, unique: true, lowercase: true },
+  password: String,
 
-User.prototype.fullName = function() {
-  return util.format("%s %s", this.firstName, this.lastName);
-}
+  facebook: String,
+  twitter: String,
+  google: String,
+  github: String,
+  instagram: String,
+  linkedin: String,
+  tokens: Array,
 
-module.exports = User;
+  profile: {
+    name: { type: String, default: '' },
+    gender: { type: String, default: '' },
+    location: { type: String, default: '' },
+    website: { type: String, default: '' },
+    picture: { type: String, default: '' }
+  },
+
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
+});
+
+userSchema.plugin(timestamps);
+
+module.exports = mongoose.model('User', userSchema);
