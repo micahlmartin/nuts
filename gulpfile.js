@@ -59,7 +59,7 @@ function scripts() {
         paths: [
           config.bowerDir
         ]
-    }).on('error', handleErrors))
+    }.require()).on('error', handleErrors))
     .pipe($.if(config.isProduction, $.jsmin()))
 
   return versionAssets(scripts);

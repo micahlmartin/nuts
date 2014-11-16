@@ -40,6 +40,7 @@
     "bcrypt-nodejs": "0.0.3",
     "browserify": "^6.2.0",
     "browserify-shim": "^3.8.0",
+    "crumb": "^3.3.0",
     "del": "^0.1.3",
     "eyes": "^0.1.8",
     "foreman": "^1.0.0",
@@ -70,6 +71,7 @@
     "handlebars": "^2.0.0",
     "handlebars-layouts": "^1.0.0",
     "hapi": "^7.1.1",
+    "hapi-auth-cookie": "^1.3.2",
     "hapi-auth-signature": "git://github.com/58bits/hapi-auth-signature",
     "hoek": "^2.8.1",
     "http-signature": "^0.10.0",
@@ -79,6 +81,7 @@
     "mongoose": "^3.8.18",
     "mongoose-timestamp": "^0.3.0",
     "node-jsx": "^0.12.0",
+    "node-uuid": "^1.4.1",
     "nodemon": "^1.2.1",
     "parse-database-url": "^0.2.1",
     "q": "^1.0.1",
@@ -89,6 +92,5 @@
     "temporary": "0.0.8",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.1.0"
-  },
-  "devDependencies": {}
+  }
 }

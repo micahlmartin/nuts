@@ -29,5 +29,15 @@ module.exports = [
     method: "GET",
     path: "/users",
     config: controllers.users.index
+  },
+  {
+    method: ["GET", "POST"],
+    path: "/login",
+    config: controllers.account.login
+  },
+  {
+    method: ["GET", "POST"],
+    path: "/signup",
+    config: controllers.account.signup
   }
 ]

@@ -10,7 +10,7 @@ var nodeJSX           = require('node-jsx');
 var Handlebars        = require('handlebars');
 var HandlebarsLayouts = require('handlebars-layouts');
 
-nodeJSX.install();
+nodeJSX.install({ extension: '.jsx' });
 
 var initializeSettings = function() {
   // Initialize the global container
@@ -45,7 +45,7 @@ var initializeServer = function() {
   HandlebarsLayouts.register(handleBarsEngine);
 
   Nuts.server.views({
-    isCached: false,
+    isCached: !Nuts.isDevelopment,
     engines: {
       jsx: {
         compileMode: "async",
@@ -76,29 +76,12 @@ var commonConfiguration = function() {
   initializeServer();
   setupDatabase()
   loadModels();
-  loadPlugins();
   loadEnvironment();
   loadInitializers();
   loadActions();
   deferred.resolve();
 
   return deferred.promise;
-}
-
-
-var loadPlugins = function() {
-  plugins = []
-  _.forOwn(requireDirectory(module, './plugins'), function(value, key) {
-    plugins.push(value);
-  })
-
-  Nuts.server.pack.register(plugins, function(err) {
-    if(err) {
-      console.log('error', err)
-    } else {
-      console.log('info', 'Plugins registered successfully.');
-    }
-  });
 }
 
 var loadModels = function() {

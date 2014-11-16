@@ -1,7 +1,8 @@
 var Hoek = require('hoek');
 
 var defaultContext = {
-  settings: Nuts.settings
+  settings: Nuts.settings,
+  navbarComponent: 'shared/navbar.jsx'
 };
 
 Nuts.server.ext('onPreResponse', function (request, reply) {

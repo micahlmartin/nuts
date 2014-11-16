@@ -16440,6 +16440,18 @@
           }
         }
       }
+    },
+    "yar": {
+      "version": "2.4.0",
+      "from": "yar@*",
+      "resolved": "https://registry.npmjs.org/yar/-/yar-2.4.0.tgz",
+      "dependencies": {
+        "node-uuid": {
+          "version": "1.4.1",
+          "from": "node-uuid@>=1.4.0 <1.5.0",
+          "resolved": "https://registry.npmjs.org/node-uuid/-/node-uuid-1.4.1.tgz"
+        }
+      }
     }
   }
 }
