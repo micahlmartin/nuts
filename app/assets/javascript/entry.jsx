@@ -9,10 +9,10 @@ React.render(
   document.getElementById("content")
 );
 
-// var serverSideStyle = document.getElementById("server-side-style");
-// if(serverSideStyle) {
-//   document.head.removeChild(serverSideStyle);
-// }
+var serverSideStyle = document.getElementById("server-side-style");
+if(serverSideStyle) {
+  document.head.removeChild(serverSideStyle);
+}
 
 var ga = require('react-google-analytics');
 var GAInitializer = ga.Initializer;
