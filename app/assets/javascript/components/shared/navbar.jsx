@@ -19,7 +19,7 @@ var Navbar = React.createClass({
               <span className="icon-bar"></span>
             </button>
             <a href="/" className="navbar-brand">
-              <span className="ion-cube"></span>{this.props.app_name}
+              <span className="ion-cube"></span> App Name
             </a>
           </div>
           <div className="collapse navbar-collapse">

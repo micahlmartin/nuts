@@ -1,2 +1,2 @@
 web: nodemon nuts s --ignore node_modules/ -e js,jsx,hbs,yml
-gulp: gulp watch
+gulp: webpack --colors --watch

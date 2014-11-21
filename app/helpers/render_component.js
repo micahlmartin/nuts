@@ -5,7 +5,7 @@ module.exports = function(componentPath, options) {
   var component = React.createFactory(require('../assets/javascript/components/' + componentPath));
   var componentHtml = React.renderToString(component(options.data.root));
   var normalizedComponentName = componentPath.replace(/(\/|\.|jsx)/gi, '_');
-  console.log(normalizedComponentName);
+
   return '<div id="' + normalizedComponentName + '">' + componentHtml + '</div>' +
          '<script type="text/javascript">' +
             'var ' + normalizedComponentName + ' = React.createFactory(require("' + componentPath + '"));' +

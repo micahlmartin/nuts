@@ -29,4 +29,6 @@ node_modules
 
 tmp
 public/
+server/
+.stats.generated.json
 .sass-cache

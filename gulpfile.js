@@ -1,122 +1,90 @@
-'use strict';
-
 var gulp = require('gulp');
-var del = require('del');
-var bach = require('bach');
+var WebpackDevServer = require('webpack-dev-server');
+var webpackConfig = require('./webpack.config.js');
+var webpack = require('webpack');
 
-// Load plugins
-var $ = require('gulp-load-plugins')();
-
-// NOTE: gulp-rev-looker is used to fix this issue https://github.com/sindresorhus/gulp-rev/issues/55
-var rev = require('gulp-rev-looker');
-
-var config = {
-  buildDir: "./public",
-  destDir:  "./public/assets",
-  srcDir: "./app/assets",
-  bowerDir: "./app/assets/bower_components",
-  isProduction: process.env.NODE_ENV == 'production'
-}
-
-function handleErrors() {
-  var args = Array.prototype.slice.call(arguments);
-  $.notify.onError({
-    title: "Compile Error",
-    message: "<%= error.message %>"
-  }).apply(this, args);
-  this.emit('end'); // Keep gulp from hanging on this task
-}
-
-function versionAssets(assets) {
-  var revisedAssets = assets.pipe(gulp.dest(config.destDir))
-    .pipe(rev())
-    .pipe(gulp.dest(config.destDir))
-
-  return revisedAssets.pipe($.addSrc('public/assets/rev-manifest.json'))
-    .pipe(rev.manifest())
-    .pipe(gulp.dest(config.destDir))
-    .pipe($.size());
-}
-
-function bower() {
-  return $.bower();
-}
-
-function styles() {
-  var styles = gulp.src('app/assets/stylesheets/application.scss', {base: config.srcDir})
-    .pipe($.sass({ includePaths: ['./app/assets/bower_components'] }))
-    .pipe($.autoprefixer('last 1 version'))
-    .pipe($.if(config.isProduction, $.cssmin()));
-
-  return versionAssets(styles);
-}
-
-function scripts() {
-  var scripts = gulp.src('app/assets/javascript/application.js', {base: config.srcDir})
-    .pipe($.browserify({
-        insertGlobals: true,
-        transform: ['reactify'],
-        paths: [
-          config.bowerDir
-        ]
-    }.require()).on('error', handleErrors))
-    .pipe($.if(config.isProduction, $.jsmin()))
-
-  return versionAssets(scripts);
-}
-
-function images() {
-  var images = gulp.src('app/assets/images/**/*', {base: config.srcDir})
-    .pipe($.cache($.imagemin({
-      optimizationLevel: 3,
-      progressive: true,
-      interlaced: true
-    })))
-
-  return versionAssets(images);
-}
-
-function fonts() {
-  var fonts = gulp.src(
-    [
-      config.srcDir + '/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
-      config.srcDir + '/bower_components/font-awesome/fonts/*'
-    ],
-    {base: config.srcDir}
-  );
-
-  return versionAssets(fonts);
-}
-
-gulp.task('bower', function() { bower(); });
-gulp.task('styles', function () { styles(); });
-gulp.task('scripts', function () { scripts(); });
-gulp.task('images', function () { images(); });
-gulp.task('fonts', function () { fonts(); });
-gulp.task('clean', function (cb) { del([config.buildDir, config.bowerDir], cb); });
-
-gulp.task('default', ['clean'], function(cb) {
-  bach.series(bower, styles, scripts, images, fonts)(function(err) {
-    if(err) {
-      handleErrors(err);
-    } else {
-      return cb();
-    }
-  })
+gulp.task('default', function() {
+  new WebpackDevServer(webpack(webpackConfig), {
+    contentBase: "/public/assets",
+    publicPath: webpackConfig.output.publicPath,
+    hot: true,
+    quiet: false,
+  }).listen(8080, 'localhost', function() {
+    console.log("Started webpack dev server on port 8080");
+  });
 })
 
-// Watch
-gulp.task('watch', ['default'], function () {
+// var gulp = require('gulp');
+// var gutil = require('gulp-util');
+// var clean = require('gulp-clean');
+// var webpack = require('webpack');
+// var WebpackDevServer = require('webpack-dev-server');
+// var webpackConfig = require('./webpack.config.js');
 
-    // Watch .html files
-    gulp.watch('app/assets/*.html', ['html']);
+// // Default
+// // =====================================
 
-    // Watch .scss files
-    gulp.watch('app/assets/stylesheets/**/*.scss', ['styles']);
+// gulp.task('default', ['webpack-dev-server'], function() {});
 
-    // Watch .js files
-    gulp.watch('app/assets/javascript/**/*.js', ['scripts']);
+// gulp.task('webpack-dev-server', function() {
+//   new WebpackDevServer(webpack(webpackConfig), {
+//     contentBase: '/public/assets',
+//     publicPath: '/' + webpackConfig.output.publicPath
+//   }).listen(8080, 'localhost', function(err) {
+//     if (err) {
+//       throw new gutil.PluginError('webpack-dev-server', err);
+//     }
 
-    // Watch image files
-    gulp.watch('app/assets/images/**/*', ['images']);
-});
+//     gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/');
+//   });
+// });
+
+// // Clean
+// // =====================================
+
+// gulp.task('clean', function() {
+//   gulp.src('dist', {read: false})
+//     .pipe(clean());
+// });
+
+// // Build
+// // =====================================
+
+// gulp.task('build', ['copy', 'webpack:build'], function() {});
+
+// gulp.task('copy', function() {
+//   gulp.src('src/index.html')
+//     .pipe(gulp.dest('dist'));
+// });
+
+// gulp.task('webpack:build', function(callback) {
+//   // Modify some webpack config options
+//   var myConfig = Object.create(webpackConfig);
+
+//   myConfig.plugins = myConfig.plugins.concat(
+//     new webpack.DefinePlugin({
+//       'process.env': {
+//         'NODE_ENV': JSON.stringify('production')
+//       }
+//     }),
+//     new webpack.optimize.DedupePlugin(),
+//     new webpack.optimize.UglifyJsPlugin({
+//       compressor: {
+//         warnings: false
+//       }
+//     })
+//   );
+
+//   // Run webpack
+//   webpack(myConfig, function(err, stats) {
+//     if (err) {
+//       throw new gutil.PluginError('webpack:build', err);
+//     }
+
+//     gutil.log('[webpack:build]', stats.toString({
+//       colors: true
+//     }));
+
+//     callback();
+//   });
+// });

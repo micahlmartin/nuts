@@ -1,36 +1,15 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--><html class="no-js"> <!--<![endif]-->
+<html>
   <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
       <title></title>
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-
-      <link rel="stylesheet" href="{{asset 'stylesheets/application.css' }}">
-
-      <script type="text/javascript" src="{{asset 'javascript/application.js' }}"></script>
   </head>
   <body>
-    <!--[if lt IE 7]>
-        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    <div id="initial-data"></div>
 
-    {{{ render_component navbarComponent }}}
-
-    <div class="container">
-
-      {{{ render_component contentComponent }}}
-
-    </div><!-- /container -->
-
-    {{> partials/footer}}
-
-
+    <h1>{{body}}</h1>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
