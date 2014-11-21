@@ -16,7 +16,7 @@ var commonLoaders = [
 module.exports = [
 {
   name: "browser",
-  entry: './app/assets/javascript/entry.jsx',
+  entry: ['./app/assets/javascript/entry.jsx'],
   output: {
     path: assetsPath,
     publicPath: publicPath,
@@ -44,7 +44,7 @@ module.exports = [
 },
 {
   name: "server",
-  entry: "./app/assets/javascript/page.jsx",
+  entry: ["./app/assets/javascript/page.jsx"],
   target: "node",
   output: {
     path: assetsPath,

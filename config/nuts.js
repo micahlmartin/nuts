@@ -52,13 +52,12 @@ var initializeServer = function() {
         path: "app/assets/javascript",
         module: {
           compile: function(template, options, next) {
-            filename = options.filename;
-            console.log(options)
-            console.log(template)
+            filename = options.filename.replace("app/assets/javascript/", "");
             return next(null, function(context, options, callback) {
+              context.__filename = filename;
               var page = require("../server/page");
               var stats = require('./stats.generated.json');
-              renderedView = page(filename.replace("app/assets/javascript/", ""), context.entryPoint || stats.assetsByChunkName.main, context);
+              renderedView = page(filename, context.entryPoint || stats.assetsByChunkName.main, context);
               callback(null, renderedView);
             });
           }

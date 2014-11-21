@@ -1,9 +1,7 @@
 module.exports = {
   login: {
     handler: function(request, reply) {
-      reply.view('partials/react.hbs', {
-        contentComponent: 'account/login.jsx'
-      });
+      reply.view("components/account/login.jsx");
     }
   },
 

@@ -1,7 +1,7 @@
 module.exports = {
   index: {
     handler: function(request, reply) {
-      reply.view("application.jsx", { content: "HI!!!!!!"});
+      reply.view("application.jsx");
     }
   },
   secure: {

@@ -16,6 +16,8 @@ var Login = React.createClass({
   },
 
   render: function() {
+    require("../../../stylesheets/application.scss");
+
     return (
       <div>
         <div className="page-header">

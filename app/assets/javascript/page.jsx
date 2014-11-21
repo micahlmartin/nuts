@@ -1,18 +1,16 @@
 var React = require('react');
-var Application = require('./application.jsx');
 var styleCollector = require("../../../lib/webpack/style-collector");
 var Navbar = require('./components/shared/navbar.jsx');
 var Footer = require('./components/shared/footer.jsx');
 var ga = require('react-google-analytics');
+var utilities = require('../../../lib/utilities');
+
 
 module.exports = function(filename, assetFilename, context) {
-  console.log(filename);
-  console.log("HERE!!!!!!!")
   var html;
   var css = styleCollector.collect(function() {
     var Component = require("./" + filename);
-    console.log(Component);
-    html = React.renderToString(<Component />);
+    html = React.renderToString(<Component {...context} />);
   });
 
   return React.renderToString(
@@ -26,6 +24,7 @@ module.exports = function(filename, assetFilename, context) {
         <style id="server-side-style" dangerouslySetInnerHTML={{__html: css}} />
       </head>
       <body>
+        <script id="bootstrap-data" dangerouslySetInnerHTML={{__html: "window.bootstrapData = " + utilities.safeStringify(context) + ";"}} />
         <Navbar />
         <div id="content" dangerouslySetInnerHTML={{__html: html}} />
         <Footer />

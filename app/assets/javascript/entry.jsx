@@ -1,17 +1,18 @@
 /** @jsx React.DOM */
 
 window.React = require('react');
-var Application = require('./application.jsx');
+
+var Component = require('./' + window.bootstrapData.__filename);
 
 React.render(
-  <Application />,
+  <Component {...window.bootstrapData} />,
   document.getElementById("content")
 );
 
-var serverSideStyle = document.getElementById("server-side-style");
-if(serverSideStyle) {
-  document.head.removeChild(serverSideStyle);
-}
+// var serverSideStyle = document.getElementById("server-side-style");
+// if(serverSideStyle) {
+//   document.head.removeChild(serverSideStyle);
+// }
 
 var ga = require('react-google-analytics');
 var GAInitializer = ga.Initializer;
