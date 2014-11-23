@@ -1,7 +1,7 @@
 module.exports = {
   index: {
     handler: function(request, reply) {
-      reply.view("application.jsx", {path: request.path});
+      reply.view("home/index.jsx", {path: request.path});
     }
   },
   secure: {

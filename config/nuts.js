@@ -48,26 +48,20 @@ var initializeServer = function() {
     isCached: !Nuts.isDevelopment,
     engines: {
       jsx: {
+        path: "app/views",
         compileMode: "async",
         path: "app/assets/javascript",
         module: {
           compile: function(template, options, next) {
-            filename = options.filename.replace("app/assets/javascript/", "");
             return next(null, function(context, options, callback) {
-              context.__filename = filename;
               var page = require("../server/page");
               var stats = require('./stats.generated.json');
-              renderedView = page(filename, context.entryPoint || stats.assetsByChunkName.main, context);
-              callback(null, renderedView);
+              page(context.entryPoint || stats.assetsByChunkName.main, context).then(function(renderedView) {
+                callback(null, renderedView);
+              });
             });
           }
         }
-      },
-      hbs: {
-        helpersPath: "./app/helpers",
-        partialsPath: "./app/views",
-        path: "app/views",
-        module: handleBarsEngine
       }
     }
   });
