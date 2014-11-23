@@ -1,7 +1,7 @@
 module.exports = {
   login: {
     handler: function(request, reply) {
-      reply.view("components/account/login.jsx");
+      reply.view("application.jsx", {path: request.path});
     }
   },
 
