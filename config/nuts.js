@@ -50,7 +50,6 @@ var initializeServer = function() {
       jsx: {
         path: "app/views",
         compileMode: "async",
-        path: "app/assets/javascript",
         module: {
           compile: function(template, options, next) {
             return next(null, function(context, options, callback) {

@@ -2,11 +2,11 @@
 
 window.React = require('react');
 
-var Main = require('./main.jsx');
+var Main = require('../../views/layouts/main.jsx');
 
-Main().then(function(Handler) {
+Main.renderClient(function(Handler) {
   React.render(
-    <Handler path={window.location.pathname} />,
+    <Handler {...window.bootstrapData} />,
     document.getElementById("content")
   );
 
@@ -14,4 +14,5 @@ Main().then(function(Handler) {
   if(serverSideStyle) {
     document.head.removeChild(serverSideStyle);
   }
+
 });
