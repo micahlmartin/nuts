@@ -4,7 +4,6 @@ var utilities = require('../../../lib/utilities');
 var Main = require('../../views/layouts/main.jsx');
 var defer = require('q').defer;
 
-
 module.exports = function(assetFilename, context) {
   deferred = defer();
 
