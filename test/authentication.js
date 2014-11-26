@@ -25,7 +25,7 @@ describe('Authentication', function() {
   });
 
   it("should fail when password is wrong", function(done) {
-    var user = new Nuts.models.user();
+    var user = new Nuts.models.User();
     user.comparePassword = function(password, cb) { cb(null, false); };
 
     var findUserByIdStub = test.stub();
@@ -40,7 +40,7 @@ describe('Authentication', function() {
   });
 
   it("should return user when authentication succeeds", function(done) {
-    var user = new Nuts.models.user();
+    var user = new Nuts.models.User();
     user.comparePassword = function(password, cb) { cb(null, true); };
 
     var findUserByIdStub = test.stub();
