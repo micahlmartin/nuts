@@ -13,7 +13,6 @@ var CSRF = React.createClass({
   },
 
   render: function() {
-    console.log(this.props);
     return (
       <input type="hidden" name="csrf" value={this.state.value} />
     );

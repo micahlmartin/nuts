@@ -3,6 +3,7 @@
  */
 
 var React = require('react');
+var Link          = require('react-router').Link;
 
 var Navbar = React.createClass({
 
@@ -18,25 +19,25 @@ var Navbar = React.createClass({
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a href="/" className="navbar-brand">
-              <span className="ion-cube"></span>{this.props.app_name}
-            </a>
+            <Link to="/" className="navbar-brand">
+              <span className="ion-cube"></span> App Name
+            </Link>
           </div>
           <div className="collapse navbar-collapse">
              <ul className="nav navbar-nav">
                 <li className="active">
-                  <a href="/">Home</a>
+                  <Link to="home">Home</Link>
                 </li>
                 <li>
-                  <a href="/contact">Contact</a>
+                  <Link to="/contact">Contact</Link>
                 </li>
              </ul>
              <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <a href="/login">Login</a>
+                  <Link to="login">Login</Link>
                 </li>
                 <li>
-                  <a href="/signup">Create Account</a>
+                  <Link to="/signup">Create Account</Link>
                 </li>
              </ul>
           </div>

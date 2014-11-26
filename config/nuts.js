@@ -7,8 +7,6 @@ var Q                 = require('q');
 var requireDirectory  = require('require-directory');
 var yml               = require('js-yaml');
 var nodeJSX           = require('node-jsx');
-var Handlebars        = require('handlebars');
-var HandlebarsLayouts = require('handlebars-layouts');
 
 nodeJSX.install({ extension: '.jsx' });
 
@@ -41,30 +39,23 @@ var setupDatabase = function() {
 var initializeServer = function() {
   Nuts.server = new Hapi.Server('0.0.0.0', Nuts.settings.port)
 
-  var handleBarsEngine = Handlebars.create();
-  HandlebarsLayouts.register(handleBarsEngine);
-
   Nuts.server.views({
     isCached: !Nuts.isDevelopment,
     engines: {
       jsx: {
+        path: "app/views",
         compileMode: "async",
-        path: "app/assets/javascript",
         module: {
           compile: function(template, options, next) {
-            var component = require('../' + options.filename);
             return next(null, function(context, options, callback) {
-              var renderedView = require('react').renderToString(component(context));
-              callback(null, renderedView);
+              var page = require("../server/page");
+              var stats = require('./stats.generated.json');
+              page(context.entryPoint || stats.assetsByChunkName.main, context).then(function(renderedView) {
+                callback(null, renderedView);
+              });
             });
           }
         }
-      },
-      hbs: {
-        helpersPath: "./app/helpers",
-        partialsPath: "./app/views",
-        path: "app/views",
-        module: handleBarsEngine
       }
     }
   });

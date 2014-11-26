@@ -4,14 +4,16 @@
 
 var React = require('react');
 
-var message = React.createClass({
+var Index = React.createClass({
 
   render: function() {
     return (
-      <h1>{this.props.message}</h1>
+      <div>
+        <h1>HOME</h1>
+      </div>
     );
-  },
+  }
 
 });
 
-module.exports = message;
+module.exports = Index;

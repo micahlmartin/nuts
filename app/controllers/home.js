@@ -1,7 +1,8 @@
 module.exports = {
   index: {
     handler: function(request, reply) {
-      reply.view('home/index.hbs', {test: "yes"});
+      inspect(request.auth);
+      reply.view("home/index.jsx", {path: request.path});
     }
   },
   secure: {
