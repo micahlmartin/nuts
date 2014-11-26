@@ -3,7 +3,7 @@ var _    = require('lodash');
 
 var blacklistedConfigs = [
   'database',
-  'session_secret',
+  'session',
   'port'
 ];
 

@@ -7,8 +7,6 @@ var Q                 = require('q');
 var requireDirectory  = require('require-directory');
 var yml               = require('js-yaml');
 var nodeJSX           = require('node-jsx');
-var Handlebars        = require('handlebars');
-var HandlebarsLayouts = require('handlebars-layouts');
 
 nodeJSX.install({ extension: '.jsx' });
 
@@ -40,9 +38,6 @@ var setupDatabase = function() {
 
 var initializeServer = function() {
   Nuts.server = new Hapi.Server('0.0.0.0', Nuts.settings.port)
-
-  var handleBarsEngine = Handlebars.create();
-  HandlebarsLayouts.register(handleBarsEngine);
 
   Nuts.server.views({
     isCached: !Nuts.isDevelopment,
