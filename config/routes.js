@@ -37,6 +37,11 @@ module.exports = [
   },
   {
     method: ["GET", "POST"],
+    path: "/logout",
+    config: controllers.account.logout
+  },
+  {
+    method: ["GET", "POST"],
     path: "/signup",
     config: controllers.account.signup
   }

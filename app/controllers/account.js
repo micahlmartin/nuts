@@ -11,17 +11,8 @@ module.exports = {
       var title = "Login";
 
       if (request.method === 'post') {
-        request.auth.session.set({email: "micahlmartin@gmail.com"});
-        inspect(request.auth);
-        // request.auth.session.set(new Nuts.models.user({email: "micahlmartin@gmail.com"}));
+        request.auth.user.set({email: "micahlmartin@gmail.com"});
         reply("done");
-      //   Authenticate(request.payload.email, request.payload.password).then(function(user) {
-      //
-      //   }).fail(function(err) {
-      //     reply.view("account/login.jsx", {path: request.path, error: "Username or password is incorrect.", title: title});
-      //   }).done();
-      // } else { // GET
-      //   return reply.view("account/login.jsx", {path: request.path, title: title});
       } else {
         return reply.view("account/login.jsx", {path: request.path, title: title});
       }
@@ -30,7 +21,7 @@ module.exports = {
 
   logout: {
     handler: function(request, reply) {
-      request.auth.session.clear();
+      request.auth.user.clear();
       return reply.redirect('/');
     }
   },

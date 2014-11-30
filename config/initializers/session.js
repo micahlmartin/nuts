@@ -18,9 +18,6 @@ server.pack.register(require('../../lib/auth-cookie'), function(err) {
   if(err) throw err;
 })
 
-var cache = server.cache('sessions', {expiresIn: Nuts.settings.session.ttl_milliseconds });
-server.app.cache = cache;
-
 server.auth.strategy('session', 'cookie', {
   clearInvalid: true,
   redirectTo: Nuts.settings.session.redirect_to,
