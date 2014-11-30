@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 
 window.React      = require('react');
+window.jQuery = window.$ = require('jquery');
+
 var Main          = require('../../views/layouts/main.jsx');
 var ga            = require('react-google-analytics');
 var GAInitializer = ga.Initializer;

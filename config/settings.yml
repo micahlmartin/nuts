@@ -5,9 +5,10 @@ default: &default
   company_name: "Company Name"
   port: <%= parseInt(process.env.PORT, 10) || 3000 %>
   google_analytics: <%= process.env.GOOGLE_ANALYTICS %>
-  session:
+  session: &session
     redirect_to: /login
     cookie_name: sid
+    ttl_milliseconds: <%= 7 * 24 * 60 * 60 * 1000 %> # 7 days
 
 development:
   <<: *default
@@ -17,14 +18,17 @@ development:
     port: 27017
     database: "development"
   session:
+    <<: *session
     secret: f1dc4f56f0e306876a17778e863b6c20f7d1d8d95ac480dca33ffb206888768474e6a44b4b4803a71322e67c599098c936243e8649d2934c2dec79b00aa281b6
 
 staging:
   <<: *default
   session:
+    <<: *session
     secret: 5fb82db1fcf7a02b13892221f094f195775ebcac9af5f8a25d53f86f269314f784121e6be9f9b2e83fe86dfdcaea6e5e395e6b9f45724b649a82fa1b1893fbe4
 
 production:
   <<: *default
   session:
+    <<: *session
     secret: b09f11c12e1939a4302556f26d32842e71dd07705da650948771db502c956dd1e3c9848a8122496f9d12e48c1eb6a9851c8f7780a1321b29ca962a9e01eec07a

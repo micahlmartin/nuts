@@ -63,15 +63,20 @@ var initializeServer = function() {
 
 var commonConfiguration = function() {
   var deferred = Q.defer();
-  initializeSettings();
-  initializeServer();
-  setupDatabase()
-  loadModels();
-  loadEnvironment();
-  loadInitializers();
-  loadActions();
-  deferred.resolve();
 
+  try {
+    initializeSettings();
+    initializeServer();
+    setupDatabase()
+    loadModels();
+    loadEnvironment();
+    loadInitializers();
+    loadActions();
+    deferred.resolve();
+  } catch(e) {
+    console.log(e);
+    deferred.reject(e);
+  }
   return deferred.promise;
 }
 
@@ -123,13 +128,19 @@ module.exports = {
 
       replServer.context.moment = moment;
     }).fail(function(err) {
+      console.log(err);
       process.exit(1);
-    });
+    }).done();
   },
   deez: function() {
     commonConfiguration().then(function(){
-      loadRoutes();
-      startServer();
+      try {
+        loadRoutes();
+        startServer();
+      } catch(e) {
+        console.log(e);
+        throw e;
+      }
     }).fail(function(err) {
       process.exit(1);
     });

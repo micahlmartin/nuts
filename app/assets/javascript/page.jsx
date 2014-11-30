@@ -3,6 +3,8 @@ var styleCollector = require("../../../lib/webpack/style-collector");
 var utilities = require('../../../lib/utilities');
 var Main = require('../../views/layouts/main.jsx');
 var defer = require('q').defer;
+var util = require('util');
+
 
 module.exports = function(assetFilename, context) {
   deferred = defer();
@@ -18,7 +20,7 @@ module.exports = function(assetFilename, context) {
         <head>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-          <title></title>
+          <title dangerouslySetInnerHTML={{__html: context.title}} />
           <meta name="description" content="" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <style id="server-side-style" dangerouslySetInnerHTML={{__html: css}} />
