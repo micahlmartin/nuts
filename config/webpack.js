@@ -20,7 +20,7 @@ var commonLoaders = [
 
 clientConfig = {
   name: "client",
-  entry: ['./app/assets/javascript/entry.jsx'],
+  entry: ['./app/assets/javascript/client.jsx'],
   output: {
     path: assetsPath,
     publicPath: publicPath,
@@ -47,12 +47,12 @@ clientConfig = {
 
 serverConfig = {
   name: "server",
-  entry: ["./app/assets/javascript/page.jsx"],
+  entry: ["./app/assets/javascript/server.jsx"],
   target: "node",
   output: {
     path: assetsPath,
-    filename: "../../server/page.js",
     publicPath: publicPath,
+    filename: 'server.js',
     libraryTarget: "commonjs2"
   },
   externals: /^[a-z\-0-9]+$/,

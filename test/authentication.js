@@ -5,9 +5,8 @@ var test = require('unit.js');
 var Q = require('q');
 
 describe('Authentication', function() {
-  var authentication = require('../lib/authentication');
-  var authenticate = authentication.authenticate;
-  var messages = authentication.messages;
+  var authenticate = Nuts.actions.authenticateUser;
+  var messages = authenticate.messages;
   var email = "test@email.com";
   var password = "password";
 

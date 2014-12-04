@@ -14,7 +14,7 @@ module.exports = function(assetFilename, context) {
     var css = styleCollector.collect(function() {
       html = React.renderToString(<Handler {...context} />);
     });
-
+    
     deferred.resolve(React.renderToString(
       <html>
         <head>
@@ -23,6 +23,7 @@ module.exports = function(assetFilename, context) {
           <title dangerouslySetInnerHTML={{__html: context.title}} />
           <meta name="description" content="" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="csrf" content={context.csrf} />
           <style id="server-side-style" dangerouslySetInnerHTML={{__html: css}} />
         </head>
         <body>

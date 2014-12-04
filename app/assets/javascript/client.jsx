@@ -9,24 +9,8 @@ var GAInitializer = ga.Initializer;
 
 Main.renderClient(function(Handler) {
 
-  var Wrapper = React.createClass({
-    componentDidMount: function() {
-      ga('create', this.props.google_analytics, 'auto');
-      ga('send', 'pageview');
-    },
-
-    render: function() {
-      return (
-        <div>
-          <Handler />
-          <GAInitializer />
-        </div>
-      );
-    }
-  });
-
   React.render(
-    <Wrapper {...window.bootstrapData} />,
+    <Handler {...window.bootstrapData} />,
     document.getElementById("content")
   );
 
@@ -36,3 +20,5 @@ Main.renderClient(function(Handler) {
   }
 
 });
+
+window.session = require('./stores/session');

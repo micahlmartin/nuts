@@ -33,16 +33,21 @@ module.exports = [
   {
     method: ["GET", "POST"],
     path: "/login",
-    config: controllers.account.login
+    config: controllers.session.login
   },
   {
     method: ["GET", "POST"],
     path: "/logout",
-    config: controllers.account.logout
+    config: controllers.session.logout
   },
   {
     method: ["GET", "POST"],
     path: "/signup",
-    config: controllers.account.signup
+    config: controllers.session.signup
+  },
+  {
+    method: ["GET", "POST"],
+    path: "/session",
+    config: controllers.session.index
   }
 ]
