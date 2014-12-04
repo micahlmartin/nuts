@@ -20,7 +20,7 @@ var defer         = require('q').defer;
 var App = React.createClass({
 
   render: function() {
-    require("../../assets/stylesheets/application.scss");
+    require("../../../stylesheets/application.scss");
     return (
       <div>
         <Navbar />

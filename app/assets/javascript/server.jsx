@@ -1,7 +1,7 @@
 var React = require('react');
 var styleCollector = require("../../../lib/webpack/style-collector");
 var utilities = require('../../../lib/utilities');
-var Main = require('../../views/layouts/main.jsx');
+var Main = require('./views/layouts/main.jsx');
 var defer = require('q').defer;
 var util = require('util');
 
@@ -14,7 +14,7 @@ module.exports = function(assetFilename, context) {
     var css = styleCollector.collect(function() {
       html = React.renderToString(<Handler {...context} />);
     });
-    
+
     deferred.resolve(React.renderToString(
       <html>
         <head>

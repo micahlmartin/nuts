@@ -43,7 +43,7 @@ var initializeServer = function() {
     isCached: !Nuts.isDevelopment,
     engines: {
       jsx: {
-        path: "app/views",
+        path: "app/assets/javascript/views",
         compileMode: "async",
         module: {
           compile: function(template, options, next) {

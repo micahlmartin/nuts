@@ -9,7 +9,7 @@ var Input = require('react-bootstrap/Input');
 var Login = React.createClass({
 
   _onChange: function() {
-    this.setState(require('../../assets/javascript/stores/session').attributes);
+    this.setState(require('../../stores/session').attributes);
   },
 
   getInitialState: function() {
@@ -21,11 +21,11 @@ var Login = React.createClass({
   },
 
   componentDidMount: function() {
-    require('../../assets/javascript/stores/session').on('change', this._onChange);
+    require('../../stores/session').on('change', this._onChange);
   },
 
   componentWillUnmount: function() {
-    require('../../assets/javascript/stores/session').off('change', this._onChange);
+    require('../../stores/session').off('change', this._onChange);
   },
 
   validationState: function() {
@@ -40,7 +40,7 @@ var Login = React.createClass({
     e.preventDefault();
     var email = this.refs.email.refs.input.getDOMNode().value.trim();
     var password = this.refs.password.refs.input.getDOMNode().value.trim();
-    require('../../assets/javascript/actions/session').login(email, password);
+    require('../../actions/session').login(email, password);
   },
 
   render: function() {
