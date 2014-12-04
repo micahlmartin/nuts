@@ -4,27 +4,17 @@ This is an opinionated template for nodejs apps.
 
 # Running
 
-To spin up the server just run `./nuts server`. It will default to port `3000`. You can change this by either setting an environment variable `PORT=3000` or by changing the default settings in `config/settings.js`.
+To spin up the server just run `npm start`. This will compile all of the assets and start the server on port `3000`. You can change this by either setting an environment variable `PORT=3000` or by changing the default settings in `config/settings.js`.
 
-#### Nodemon
-If you have `nodemon` installed you can open up the `nuts` file in the root of the project and change the first line to `#!/usr/bin/env nodemon` to automatically have the server restart when changes are made. 
+[Foreman](https://github.com/strongloop/node-foreman) is used for managing the processes so if you want to change what gets run during development you can update the `Procfile.dev` file.
 
-Alternatively you can create your own script file and bootstrap the Nuts environment.
+### REPL
 
-```javascript
-// server.js
-require('config/nuts').deez();
-```
-
-Then you can run it with `nodemon server.js`.
-
-#### REPL
-
-To open up a REPL with a fully loaded environment you can run `./nuts console`. This makes it easy to execute commands in your environment and should be very familiar to those coming from Rails.
+To open up a REPL with a fully loaded environment you can run `npm run console`. This makes it easy to execute commands in your environment and should be very familiar to those coming from Rails.
 
 # Settings
 
-You can configure your environment settings in `settings.yml`. The file is precompiled using the [Lodash template](https://lodash.com/docs#template) syntax similar to ERB. 
+You can configure your environment settings in `settings.yml`. The file is precompiled using the [Lodash template](https://lodash.com/docs#template) syntax similar to ERB.
 
 # Conventions
 
@@ -34,26 +24,16 @@ You can configure your environment settings in `settings.yml`. The file is preco
 
 ## Models
 
-## Migrations
-
-To manage migrations you will need to install the sequelize command line tool.
-
-```
-npm install -g sequelize-cli
-```
-
-Refer to the [documentation](http://sequelizejs.com/docs/latest/migrations) for more details.
-
 ## Actions
 
-Actions are simple single purpose functions that act in some way on one or more models. They are used to encapsulate business logic. The convention is to keep the file names camelcased. This makes it easy to access them in a consistent way like `Nuts.actions.MyAction`;
+Actions are simple single purpose functions that act in some way on one or more models. They are used to encapsulate business logic. They can either be `require`d directly or accessed via `Nuts.actions.myAction`;
 
 They take the following format:
 
 ```javascript
 // app/actions/MyAction.js
 
-module.exports = function(params /* option */) {
+module.exports = function(/* optional params */) {
     var deferred = Nuts.defer();
 
     process.nextTick(function() {
@@ -68,61 +48,77 @@ module.exports = function(params /* option */) {
 }
 ```
 
-The can then be invoked like this:
+They can then be invoked like this:
 
 ```javascript
 Nuts.actions.MyAction().then(function() {
   // Completed successfully
 }).fail(function(err) {
   // Action failed
-});
+}).done();
 ```
+
+The `Nuts.defer()` is just a wrapper for the `Q` promise library. You can find out more about it [here](https://github.com/kriskowal/q);
 
 ## Environment
 
-The default environment is `development`. It can be overriden with an environment variable `NODE_ENV=production`. There should be a corresponding file in `app/config/environments` for each environment.
+The default environment is `development`. It can be overriden with an environment variable `NODE_ENV=production`. There should be a corresponding file in `app/config/environments` for each environment. These can be used if you need to load specific settings or configurations for each environment.
 
 ## Initializers
 
-These are configurations that are loaded in every environment. They are not loaded in a specific order. They're useful for configuring various libraries.
+These are configurations that are loaded in every environment. They are not loaded in a specific order. They're useful for configuring various libraries and plugins
 
-## Plugins
-
-Hapi plugins are configured from the `config/plugins` directory. They should export an object in the following format:
+## Hapi Plugins
+Hapi plugins are configured just like other initializers.
 
 ```javascript
-// config/plugins/good.js
-module.exports = {
+// config/initializers/good.js
+Nuts.server.pack.register({
   plugin: require('good'),
   options: {
     subscribers: {
-        console: ['request', 'log', 'error']
+      console: ['request', 'log', 'error']
     }
   }
-}
+}, function(err) {
+  if(err) throw err;
+});
+
 ```
 
 You can read more about Hapi plugins [here](http://hapijs.com/tutorials/plugins).
 
 # Assets
 
+Assets are built using [webpack](http://webpack.github.io/). If you want to build and watch the assets for changes you can run `npm run assets`. This process will happen automtically for you in development when you run `npm start`.
+
+
 # Deployment
 
-This is designed to make it easy to deploy to heroku. Rather than storing the compiled assets in the repo Heroku will build them when you deploy. Heroku will run `npm postinstall` which is setup to run `gulp build`. For this reason most of what would be listed as `devDependencies` are listed as regular dependencies in the `package.json`. You can read more about it [here](https://devcenter.heroku.com/articles/nodejs-support#customizing-the-build-process).
+This kit is designed to make it easy to deploy to heroku. Here is what you need to setup a new app on Heroku:
+
+```
+heroku apps:create <app_name>
+heroku addons:add mongohq:sandbox
+heroku config:set NODE_ENV=production
+
+git push heroku master
+```
+
+During deployment, Heroku uses the `npm postinstall` hook to automatically compile and minfy all of the assets. You can read more about it [here](https://devcenter.heroku.com/articles/nodejs-support#customizing-the-build-process).
+
 
 # Stack
 
 - [Hapi](http://hapijs.com/) - Web Server
-- [Q](https://github.com/kriskowal/q) - Promise library
-- [Http Signature](https://github.com/joyent/node-http-signature) - Server to Server authentication
-- [Sequelize](http://sequelizejs.com/)
+- [Webpack](http://webpack.github.io/) - Asset management
+- [React](http://facebook.github.io/react/)
+- [Mongoose](http://mongoosejs.com/)
 
 
 # Thanks
 
 - [hapi-ninja](https://github.com/poeticninja/hapi-ninja)
-- [generator-react-gulp-browserify](https://github.com/randylien/generator-react-gulp-browserify)
 - [hackathon-starter](https://github.com/sahat/hackathon-starter)
 
-
-
+...and the maintainers of all the other libraries.
