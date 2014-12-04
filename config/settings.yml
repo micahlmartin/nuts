@@ -5,6 +5,7 @@ default: &default
   company_name: "Company Name"
   port: <%= parseInt(process.env.PORT, 10) || 3000 %>
   google_analytics: <%= process.env.GOOGLE_ANALYTICS %>
+  nodetime_key: <%= process.env.NODETIME_ACCOUNT_KEY %>
   session: &session
     redirect_to: /login
     cookie_name: sid

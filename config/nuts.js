@@ -30,6 +30,12 @@ var initializeSettings = function() {
   settings = settingsYml[Nuts.environment];
 
   Nuts.settings = settings;
+
+  if(settings.nodetime_key) {
+    require('nodetime').profile({
+      accountKey: settings.nodetime_key
+    });
+  }
 }
 
 var setupDatabase = function() {
