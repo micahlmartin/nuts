@@ -30,6 +30,7 @@
     "file-loader": "^0.8.1",
     "flux": "^2.0.1",
     "foreman": "^1.0.0",
+    "good": "^4.0.2",
     "hapi": "^7.1.1",
     "hapi-auth-cookie": "git://github.com/hapijs/hapi-auth-cookie#v1.4.1",
     "hapi-negotiator": "^1.0.1",
