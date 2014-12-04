@@ -2002,6 +2002,25 @@
         }
       }
     },
+    "nodetime": {
+      "version": "0.8.15",
+      "from": "nodetime@*",
+      "resolved": "https://registry.npmjs.org/nodetime/-/nodetime-0.8.15.tgz",
+      "dependencies": {
+        "nodetime-native": {
+          "version": "0.1.0",
+          "from": "nodetime-native@0.1.0",
+          "resolved": "https://registry.npmjs.org/nodetime-native/-/nodetime-native-0.1.0.tgz",
+          "dependencies": {
+            "bindings": {
+              "version": "1.2.1",
+              "from": "bindings@*",
+              "resolved": "https://registry.npmjs.org/bindings/-/bindings-1.2.1.tgz"
+            }
+          }
+        }
+      }
+    },
     "optimist": {
       "version": "0.6.1",
       "from": "optimist@*",
