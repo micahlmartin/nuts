@@ -10,7 +10,7 @@
     "start": "./node_modules/foreman/nf.js start -j Procfile.dev",
     "test": "./node_modules/mocha/bin/mocha test/",
     "assets": "rm -rf public/ && webpack --config config/webpack.js --colors --watch",
-    "postInstall": "rm -rf public && webpack --config config/webpack.js --colors --progress"
+    "postinstall": "rm -rf public && webpack --config config/webpack.js --colors --progress"
   },
   "author": "",
   "license": "ISC",
