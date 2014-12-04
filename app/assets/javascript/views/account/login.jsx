@@ -28,10 +28,6 @@ var Login = React.createClass({
     require('../../stores/session').off('change', this._onChange);
   },
 
-  validationState: function() {
-    return '';
-  },
-
   emailChanged: function(e) {
     this.setState({email: e.target.value});
   },
@@ -51,8 +47,8 @@ var Login = React.createClass({
         </div>
         <form className="form-horizontal" onSubmit={this.handleSubmit}>
            <CSRF value={this.props.csrf} />
-           <Input type="email" ref="email" onChange={this.emailChanged} labelClassName="col-xs-2" wrapperClassName="col-xs-5" value={this.state.email} label="Email" bsStyle={this.validationState()} hasFeedback  />
-           <Input type="password" ref="password" labelClassName="col-xs-2" wrapperClassName="col-xs-5" label="Password" bsStyle={this.validationState()} hasFeedback  />
+           <Input type="email" ref="email" onChange={this.emailChanged} labelClassName="col-xs-2" wrapperClassName="col-xs-5" value={this.state.email} label="Email" hasFeedback  />
+           <Input type="password" ref="password" labelClassName="col-xs-2" wrapperClassName="col-xs-5" label="Password" hasFeedback  />
            <div className="form-group">
               <div className="col-sm-offset-3 col-sm-7">
                 <button type="submit" className="btn btn-success">

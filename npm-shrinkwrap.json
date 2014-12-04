@@ -1209,7 +1209,7 @@
     },
     "good": {
       "version": "4.0.2",
-      "from": "good@*",
+      "from": "https://registry.npmjs.org/good/-/good-4.0.2.tgz",
       "resolved": "https://registry.npmjs.org/good/-/good-4.0.2.tgz",
       "dependencies": {
         "async": {
@@ -1238,6 +1238,23 @@
               "resolved": "https://registry.npmjs.org/isemail/-/isemail-1.1.1.tgz"
             }
           }
+        },
+        "json-stringify-safe": {
+          "version": "5.0.0",
+          "from": "json-stringify-safe@>=5.0.0 <5.1.0",
+          "resolved": "https://registry.npmjs.org/json-stringify-safe/-/json-stringify-safe-5.0.0.tgz"
+        }
+      }
+    },
+    "good-console": {
+      "version": "2.1.0",
+      "from": "good-console@*",
+      "resolved": "https://registry.npmjs.org/good-console/-/good-console-2.1.0.tgz",
+      "dependencies": {
+        "good-reporter": {
+          "version": "3.0.1",
+          "from": "good-reporter@>=3.0.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/good-reporter/-/good-reporter-3.0.1.tgz"
         },
         "json-stringify-safe": {
           "version": "5.0.0",
