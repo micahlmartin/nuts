@@ -2,26 +2,40 @@
  * @jsx React.DOM
  */
 
-var React = require('react');
-var CSRF = require('../shared/csrf.jsx');
-var Input = require('react-bootstrap/Input');
+var React   = require('react');
+var CSRF    = require('../shared/csrf.jsx');
+var Input   = require('react-bootstrap/Input');
+var Row     = require('react-bootstrap/Row');
+var Col     = require('react-bootstrap/Col');
+var Button  = require('react-bootstrap/Button');
+var Alert   = require('react-bootstrap/Alert');
+var Link    = require('react-router').Link;
+
 
 var Login = React.createClass({
 
   _onChange: function() {
-    this.setState(require('../../stores/session').attributes);
+    var newState = require('../../stores/session').attributes;
+    newState.email = '';
+    newState.password = '';
+
+    this.refs.email.refs.input.getDOMNode().focus();
+
+    this.setState(newState);
   },
 
   getInitialState: function() {
     return {
-      email: this.props.email || '',
-      password: this.props.password || '',
-      passwordConfirmation: this.props.passwordConfirmation || '',
+      isAuthenticated: false,
+      email: '',
+      password: '',
+      error: null
     };
   },
 
   componentDidMount: function() {
     require('../../stores/session').on('change', this._onChange);
+    this.refs.email.refs.input.getDOMNode().focus();
   },
 
   componentWillUnmount: function() {
@@ -30,6 +44,10 @@ var Login = React.createClass({
 
   emailChanged: function(e) {
     this.setState({email: e.target.value});
+  },
+
+  passwordChanged: function(e) {
+    this.setState({password: e.target.value});
   },
 
   handleSubmit: function(e) {
@@ -43,20 +61,20 @@ var Login = React.createClass({
     return (
       <div>
         <div className="page-header">
-           <h3>Login</h3>
+          <h3>Login</h3>
         </div>
-        <form className="form-horizontal" onSubmit={this.handleSubmit}>
-           <CSRF value={this.props.csrf} />
-           <Input type="email" ref="email" onChange={this.emailChanged} labelClassName="col-xs-2" wrapperClassName="col-xs-5" value={this.state.email} label="Email" hasFeedback  />
-           <Input type="password" ref="password" labelClassName="col-xs-2" wrapperClassName="col-xs-5" label="Password" hasFeedback  />
-           <div className="form-group">
-              <div className="col-sm-offset-3 col-sm-7">
-                <button type="submit" className="btn btn-success">
-                  <span className="ion-person-add"></span>Login
-                </button>
-              </div>
-           </div>
-        </form>
+        <Col xsOffset={2} xs={8}>
+          <Alert className={this.state.error ? '' : 'hidden'} bsStyle="danger">{this.state.error}</Alert>
+          <form className="form-horizontal" onSubmit={this.handleSubmit}>
+            <CSRF value={this.props.csrf} />
+            <Input type="email" ref="email" onChange={this.emailChanged} value={this.state.email} label="Email" hasFeedback  />
+            <Input type="password" ref="password" label="Password" onChange={this.passwordChanged} value={this.state.password} hasFeedback  />
+            <div className="form-group">
+              <Button type="submit" bsStyle="success">Login</Button>
+              <Link className="btn btn-link" to="password-reset">Forgot your password?</Link>
+            </div>
+          </form>
+        </Col>
       </div>
     );
   }

@@ -43,7 +43,9 @@ var _session = Backbone.Model.extend({
     this.postAuth('/login', {username: username, password: password}).then(function(session) {
       self.set(session);
     }).fail(function(xhr, message, err) {
-      self.set('error', message);
+      // We want to forec the change event to always fire
+      self.set({'error': 'Email address and password combination are incorrect'}, {silent: true});
+      self.trigger('change');
     });
   }
 

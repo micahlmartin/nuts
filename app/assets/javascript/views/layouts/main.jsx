@@ -12,8 +12,9 @@ var RouteHandler  = Router.RouteHandler;
 // Compo
 var Home          = require('../home/index.jsx');
 var Login         = require('../account/login.jsx');
-var Navbar        = require('../shared/navbar.jsx')
-var Footer        = require('../shared/footer.jsx')
+var Reset         = require('../account/reset.jsx');
+var Navbar        = require('../shared/navbar.jsx');
+var Footer        = require('../shared/footer.jsx');
 var defer         = require('q').defer;
 
 // This is the main layout for the app
@@ -24,7 +25,9 @@ var App = React.createClass({
     return (
       <div>
         <Navbar />
-        <RouteHandler />
+        <div className="container">
+          <RouteHandler />
+        </div>
         <Footer />
       </div>
     );
@@ -36,6 +39,7 @@ var routes = (
   <Route name="app" path="/" handler={App}>
     <DefaultRoute name="home" handler={Home} />
     <Route name="login" handler={Login} />
+    <Route name="password-reset" handler={Reset} />
   </Route>
 );
 
