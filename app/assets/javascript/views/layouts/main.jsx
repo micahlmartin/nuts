@@ -13,6 +13,7 @@ var RouteHandler  = Router.RouteHandler;
 var Home          = require('../home/index.jsx');
 var Login         = require('../account/login.jsx');
 var Reset         = require('../account/reset.jsx');
+var Signup        = require('../account/signup.jsx');
 var Navbar        = require('../shared/navbar.jsx');
 var Footer        = require('../shared/footer.jsx');
 var defer         = require('q').defer;
@@ -39,6 +40,7 @@ var routes = (
   <Route name="app" path="/" handler={App}>
     <DefaultRoute name="home" handler={Home} />
     <Route name="login" handler={Login} />
+    <Route name="signup" handler={Signup} />
     <Route name="password-reset" handler={Reset} />
   </Route>
 );

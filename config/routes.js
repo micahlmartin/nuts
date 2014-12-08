@@ -2,6 +2,8 @@ var requireDirectory  = require('require-directory');
 var controllers       = requireDirectory(module, '../app/controllers');
 
 module.exports = [
+
+  // Assets
   {
     method: "GET",
     path: "/assets/{path*}",
@@ -15,6 +17,8 @@ module.exports = [
       directory: { path: './public/assets'}
     }
   },
+
+  // Home
   {
     method: "GET",
     path: "/",
@@ -25,11 +29,15 @@ module.exports = [
     path: "/secure",
     config: controllers.home.secure
   },
+
+  // Users
   {
     method: "GET",
     path: "/users",
     config: controllers.users.index
   },
+
+  // Session
   {
     method: ["GET", "POST"],
     path: "/login",

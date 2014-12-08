@@ -16,7 +16,7 @@ module.exports = {
           reply(Boom.unauthorized());
         }).done()
       } else {
-        return reply.view("account/login.jsx", {path: request.path, title: title});
+        return reply.view("account/login.jsx", {title: title});
       }
     }
   },
@@ -30,7 +30,11 @@ module.exports = {
 
   signup: {
     handler: function(request, reply) {
-      return reply.view('account/signup.hbs');
+      if(request.method == 'post') {
+
+      } else {
+        return reply.view('account/signup.jsx');
+      }
     }
   },
 

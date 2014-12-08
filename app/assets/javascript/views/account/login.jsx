@@ -68,7 +68,7 @@ var Login = React.createClass({
           <form className="form-horizontal" onSubmit={this.handleSubmit}>
             <CSRF value={this.props.csrf} />
             <Input type="email" ref="email" onChange={this.emailChanged} value={this.state.email} label="Email" hasFeedback  />
-            <Input type="password" ref="password" label="Password" onChange={this.passwordChanged} value={this.state.password} hasFeedback  />
+            <Input type="password" ref="password" label="Password" hasFeedback  />
             <div className="form-group">
               <Button type="submit" bsStyle="success">Login</Button>
               <Link className="btn btn-link" to="password-reset">Forgot your password?</Link>

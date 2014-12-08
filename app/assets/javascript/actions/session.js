@@ -7,6 +7,15 @@ var SessionActions = {
 
     lgout: function() {
       AppDispatcher.trigger('logout');
+    },
+
+    signup: function(username, password, passwordConfirmation, terms) {
+      AppDispatcher.trigger('signup', {
+        username: username,
+        password: password,
+        passwordConfirmation: passwordConfirmation,
+        terms: terms
+      });
     }
 };
 
