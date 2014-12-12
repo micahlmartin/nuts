@@ -29,6 +29,13 @@ var userSchema = new mongoose.Schema({
 
 userSchema.plugin(timestamps);
 
+userSchema.methods.comparePassword = function(candidatePassword, cb) {
+  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    if (err) return cb(err);
+    cb(null, isMatch);
+  });
+};
+
 // Hash the password
 userSchema.pre('save', function(next) {
   var user = this;
@@ -44,6 +51,18 @@ userSchema.pre('save', function(next) {
       next();
     });
   });
+});
+
+userSchema.set('toJSON', {
+  transform: function(doc, ret, options) {
+
+    var retJson = {
+      email: ret.email,
+      profile: ret.profile
+    };
+
+    return retJson;
+  }
 });
 
 module.exports = mongoose.model('User', userSchema);

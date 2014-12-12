@@ -1,17 +1,17 @@
 var AppDispatcher = require('../dispatcher/app-dispatcher');
 
 var SessionActions = {
-    login: function(username, password) {
-      AppDispatcher.trigger('login', {username: username, password: password});
+    login: function(email, password) {
+      AppDispatcher.trigger('login', {email: email, password: password});
     },
 
     lgout: function() {
       AppDispatcher.trigger('logout');
     },
 
-    signup: function(username, password, passwordConfirmation, terms) {
+    signup: function(email, password, passwordConfirmation, terms) {
       AppDispatcher.trigger('signup', {
-        username: username,
+        email: email,
         password: password,
         passwordConfirmation: passwordConfirmation,
         terms: terms

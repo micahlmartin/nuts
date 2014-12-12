@@ -1456,7 +1456,7 @@
     },
     "hapi-auth-cookie": {
       "version": "1.4.1",
-      "from": "git://github.com/hapijs/hapi-auth-cookie#v1.4.1",
+      "from": "hapi-auth-cookie@git://github.com/hapijs/hapi-auth-cookie#v1.4.1",
       "resolved": "git://github.com/hapijs/hapi-auth-cookie#58e7a808485e016914d50e3d3f8d1427e808719b"
     },
     "hapi-negotiator": {

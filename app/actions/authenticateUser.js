@@ -5,7 +5,7 @@ var messages = {
 module.exports = function(username, password) {
   var deferred = Nuts.defer();
 
-  Nuts.actions.findUserById(username).then(function(user) {
+  Nuts.actions.findUserByEmail(username).then(function(user) {
     if(!user) {
       deferred.reject(messages.INVALID_EMAIL_OR_PASSWORD);
     } else {
@@ -17,6 +17,8 @@ module.exports = function(username, password) {
         }
       });
     }
+  }).fail(function(err) {
+    throw err;
   });
 
   return deferred.promise;

@@ -3,6 +3,13 @@
 window.React      = require('react');
 window.jQuery = window.$ = require('jquery');
 
+// Global Backbone Config
+var Backbone      = require('backbone');
+var validation    = require('backbone.validation');
+var _             = require('lodash');
+_.extend(Backbone.Model.prototype, validation.mixin);
+
+
 var Main          = require('./views/layouts/main.jsx');
 var ga            = require('react-google-analytics');
 var GAInitializer = ga.Initializer;

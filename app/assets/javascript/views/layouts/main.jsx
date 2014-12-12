@@ -2,21 +2,22 @@
  * @jsx React.DOM
  */
 
+// Other libraries
 var React         = require('react');
 var Router        = require('react-router');
 var Route         = Router.Route;
 var DefaultRoute  = Router.DefaultRoute;
 var RouteHandler  = Router.RouteHandler;
-// var Link          = Router.Link;
+var defer         = require('q').defer;
 
-// Compo
+// Page Components
 var Home          = require('../home/index.jsx');
 var Login         = require('../account/login.jsx');
 var Reset         = require('../account/reset.jsx');
 var Signup        = require('../account/signup.jsx');
 var Navbar        = require('../shared/navbar.jsx');
 var Footer        = require('../shared/footer.jsx');
-var defer         = require('q').defer;
+
 
 // This is the main layout for the app
 var App = React.createClass({

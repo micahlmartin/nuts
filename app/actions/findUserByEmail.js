@@ -1,4 +1,4 @@
-var User = Nuts.models.user;
+var User = Nuts.models.User;
 
 module.exports = function(email) {
   var deferred = Nuts.defer();

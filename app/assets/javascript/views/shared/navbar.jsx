@@ -7,6 +7,14 @@ var Link  = require('react-router').Link;
 
 var Navbar = React.createClass({
 
+  _onChange: function() {
+    
+  },
+
+  componentDidMount: function() {
+    require('../../stores/session').on('change', this._onChange);
+  },
+
   render: function() {
 
     return (

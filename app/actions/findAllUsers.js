@@ -1,3 +1,5 @@
+"use strict";
+
 var User = Nuts.models.user;
 
 module.exports = function() {
@@ -7,7 +9,7 @@ module.exports = function() {
     deferred.resolve(userList);
   }, function(err) {
     deferred.reject(err);
-  })
+  });
 
   return deferred.promise;
-}
+};

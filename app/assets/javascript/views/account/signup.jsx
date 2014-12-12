@@ -9,15 +9,20 @@ var Button  = require('react-bootstrap/Button');
 var Col     = require('react-bootstrap/Col');
 var Alert   = require('react-bootstrap/Alert');
 var Link    = require('react-router').Link;
+var _       = require('lodash');
 
 var Login = React.createClass({
 
+  _onChange: function() {
+    //Make sure we override an existing errors
+    var newState = _.assign(this.getInitialState(), require('../../stores/session').attributes);
+    this.setState(newState);
+  },
+
   getInitialState: function() {
     return {
-      email: this.props.email || '',
-      password: '',
-      passwordConfirmation: '',
-      error: null
+      error: null,
+      validationErrors: {}
     };
   },
 
@@ -51,6 +56,22 @@ var Login = React.createClass({
     require('../../actions/session').signup(email, password, passwordConfirmation, terms);
   },
 
+  getInputStyle: function(field) {
+    if(this.state.validationErrors[field]) {
+      return "error";
+    }
+
+    return null;
+  },
+
+  getValidationMessage: function(field) {
+    if(this.state.validationErrors[field]) {
+      return this.state.validationErrors[field];
+    }
+
+    return null;
+  },
+
   render: function() {
     return (
       <div>
@@ -61,10 +82,10 @@ var Login = React.createClass({
           <Alert className={this.state.error ? '' : 'hidden'} bsStyle="danger">{this.state.error}</Alert>
           <form className="form-horizontal" onSubmit={this.handleSubmit}>
              <CSRF value={this.props.csrf} />
-             <Input type="email" ref="email" onChange={this.emailChanged} value={this.state.email} label="Email" hasFeedback  />
-             <Input type="password" ref="password" label="Password" onChange={this.passwordChanged} value={this.state.password} hasFeedback  />
-             <Input type="password" ref="passwordConfirmation" label="Confirm Password" onChange={this.passwordConfirmationChanged} value={this.state.passwordConfirmation} hasFeedback  />
-             <Input type="checkbox" ref="terms" label="I have read and accept the terms of service" onChange={this.acceptTermsChanged} value={this.state.acceptedTerms} hasFeedback />
+             <Input type="email" ref="email" bsStyle={this.getInputStyle("email")} title={this.getValidationMessage('email')} onChange={this.emailChanged} value={this.state.email} label="Email" />
+             <Input type="password" ref="password" bsStyle={this.getInputStyle("password")} title={this.getValidationMessage('password')} label="Password" onChange={this.passwordChanged} value={this.state.password}  />
+             <Input type="password" ref="passwordConfirmation" bsStyle={this.getInputStyle("passwordConfirmation")} title={this.getValidationMessage('passwordConfirmation')} label="Confirm Password" onChange={this.passwordConfirmationChanged} value={this.state.passwordConfirmation} />
+             <Input type="checkbox" ref="terms" bsStyle={this.getInputStyle("terms")} title={this.getValidationMessage('terms')} label="I have read and accept the terms of service" onChange={this.acceptTermsChanged} value={this.state.acceptedTerms} />
              <div className="form-group">
               <Button type="submit" bsStyle="success">Signup</Button>
              </div>

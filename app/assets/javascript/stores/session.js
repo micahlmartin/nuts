@@ -5,6 +5,7 @@ var Backbone      = require('backbone');
 var AppDispatcher = require('../dispatcher/app-dispatcher');
 var $             = require('jquery');
 var global        = require('../global.js');
+var SignupVM   = require('../view_models/signup.js');
 
 var _session = Backbone.Model.extend({
 
@@ -38,29 +39,44 @@ var _session = Backbone.Model.extend({
     });
   },
 
-  login: function(username, password) {
+  login: function(email, password) {
     var self = this;
-    this.postAuth('/login', {username: username, password: password}).then(function(session) {
-      self.set(session);
+    this.postAuth('/login', {email: email, password: password}).then(function(session) {
+      self.clear().set(session);
     }).fail(function(xhr, message, err) {
       // We want to forec the change event to always fire
-      self.set({'error': 'Email address and password combination are incorrect'}, {silent: true});
-      self.trigger('change');
+      self.clear().set({'error': 'Email address and password combination are incorrect'});
     });
   },
 
-  signup: function(username, password, passwordConfirmation, terms) {
+  signup: function(email, password, passwordConfirmation, terms) {
+
     var self = this;
-    this.postAuth('/signup', {
-      username: username,
+
+    var signupModel = new SignupVM({
+      email: email,
       password: password,
       passwordConfirmation: passwordConfirmation,
       terms: terms
-    }).then(function(session) {
-      self.set(session);
-    }).fail(function(xhr, message, err) {
-      self.set('error', message);
     });
+
+    signupModel.bind('validated', function(isValid, model, errors) {
+      if(!isValid) {
+        self.clear().set('validationErrors', errors);
+      } else {
+        self.postAuth('/signup', {
+          email: email,
+          password: password,
+          passwordConfirmation: passwordConfirmation,
+          terms: terms
+        }).then(function(session) {
+          self.clear().set(session);
+        }).fail(function(xhr, message, err) {
+          self.clear().set('error', message);
+        });
+      }
+    });
+    signupModel.validate();
   }
 
 });
@@ -70,12 +86,12 @@ var SessionStore = new _session();
 AppDispatcher.on('all', function(eventName, payload) {
   switch (eventName) {
   case 'login':
-    return SessionStore.login(payload.username, payload.password);
+    return SessionStore.login(payload.email, payload.password);
   case 'logout':
 
   case 'signup':
     return SessionStore.signup(
-      payload.username,
+      payload.email,
       payload.password,
       payload.passwordConfirmation,
       payload.terms

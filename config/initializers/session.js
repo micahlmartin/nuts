@@ -14,12 +14,16 @@ server.pack.register({ plugin: require('yar'), options: yarOptions}, function(er
   if(err) throw err;
 });
 
-server.pack.register(require('../../lib/auth-cookie'), function(err) {
+server.pack.register(require('hapi-auth-cookie'), function(err) {
   if(err) throw err;
-})
+});
 
-server.auth.strategy('session', 'cookie', {
+server.auth.strategy('session', 'cookie', 'try', {
+  password: Nuts.settings.session.secret,
+  isSecure: !Nuts.isDevelopment,
   clearInvalid: true,
+  ttl: Nuts.settings.session.ttl_milliseconds,
   redirectTo: Nuts.settings.session.redirect_to,
+  redirectOnTry: false,
   appendNext: true
-})
+});
