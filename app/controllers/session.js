@@ -6,20 +6,16 @@ var SignupVM          = require('../assets/javascript/view_models/signup');
 var AuthenticateUser  = Nuts.actions.authenticateUser;
 var RegisterUser      = Nuts.actions.registerUser;
 
-var uuid = 1;
 
 module.exports = {
   login: {
-    // auth: "session",
     handler: function(request, reply) {
-      inspect(request.auth);
       if(request.method == 'get') {
         return reply.view("account/login.jsx", {title: "Login"});
       }
 
       AuthenticateUser(request.payload.email, request.payload.password).then(function(user) {
-        request.auth.user.set(user);
-        console.log(request.auth.isAuthenticated);
+        request.auth.session.set(user);
         return reply(request.auth);
       }).fail(function(err) {
         reply(Boom.unauthorized());
@@ -36,7 +32,6 @@ module.exports = {
 
   signup: {
     handler: function(request, reply) {
-      inspect(request.auth)
       if(request.method == 'get') {
         return reply.view('account/signup.jsx');
       }
@@ -47,7 +42,7 @@ module.exports = {
           return reply({errors: errors});
         } else {
           RegisterUser(model.attributes).then(function(user) {
-            request.auth.user.set(user);
+            request.auth.session.set(user);
             reply(request.auth);
           }).fail(function(err) {
             var errorMessage = "Something went wrong.";
