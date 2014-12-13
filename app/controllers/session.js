@@ -9,6 +9,7 @@ var RegisterUser      = Nuts.actions.registerUser;
 
 
 module.exports = {
+
   login: {
     handler: function(request, reply) {
 

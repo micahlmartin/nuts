@@ -45,11 +45,9 @@ var Header = React.createClass({
     } else {
       userMenu = (
         <Nav right>
-          <li>
-            <DropdownButton navItem title="test">
-              <MenuItem eventKey={1} href="/logout">Logout</MenuItem>
-            </DropdownButton>
-          </li>
+          <DropdownButton navItem title="test">
+            <MenuItem eventKey={1} href="/logout">Logout</MenuItem>
+          </DropdownButton>
         </Nav>
       )
     }

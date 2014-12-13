@@ -2,16 +2,19 @@
  * @jsx React.DOM
  */
 
-var React   = require('react');
-var CSRF    = require('../shared/csrf.jsx');
-var Input   = require('react-bootstrap/Input');
-var Button  = require('react-bootstrap/Button');
-var Col     = require('react-bootstrap/Col');
-var Alert   = require('react-bootstrap/Alert');
-var Link    = require('react-router').Link;
-var _       = require('lodash');
+var React       = require('react');
+var CSRF        = require('../shared/csrf.jsx');
+var Input       = require('react-bootstrap/Input');
+var Button      = require('react-bootstrap/Button');
+var Col         = require('react-bootstrap/Col');
+var Alert       = require('react-bootstrap/Alert');
+var Link        = require('react-router').Link;
+var Navigation  = require('react-router').Navigation;
+var _           = require('lodash');
 
 var Login = React.createClass({
+
+  mixins: [Navigation],
 
   _onChange: function() {
     //Make sure we override an existing errors
@@ -33,6 +36,12 @@ var Login = React.createClass({
 
   componentWillUnmount: function() {
     require('../../stores/session').off('change', this._onChange);
+  },
+
+  componentWillUpdate: function(nextProps, nextState) {
+    if(nextState.isAuthenticated) {
+      this.transitionTo('home');
+    }
   },
 
   emailChanged: function(e) {
