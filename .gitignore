@@ -33,3 +33,4 @@ server/
 .stats.generated.json
 .sass-cache
 stats.generated.json
+config/settings.yml
