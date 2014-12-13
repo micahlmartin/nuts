@@ -68,13 +68,21 @@ var Login = React.createClass({
   },
 
   render: function() {
+
+    var alert;
+    if(this.state.error) {
+      alert = (
+        <Alert bsStyle="danger">{this.state.error}</Alert>
+      )
+    }
+
     return (
       <div>
         <div className="page-header">
           <h3>Login</h3>
         </div>
         <Col xsOffset={2} xs={8}>
-          <Alert className={this.state.error ? '' : 'hidden'} bsStyle="danger">{this.state.error}</Alert>
+          {alert}
           <form className="form-horizontal" onSubmit={this.handleSubmit}>
             <CSRF value={this.props.csrf} />
             <Input type="email" ref="email" onChange={this.emailChanged} value={this.state.email} label="Email" hasFeedback  />

@@ -88,7 +88,7 @@ AppDispatcher.on('all', function(eventName, payload) {
   case 'login':
     return SessionStore.login(payload.email, payload.password);
   case 'logout':
-
+    return SessionStore.logout();
   case 'signup':
     return SessionStore.signup(
       payload.email,

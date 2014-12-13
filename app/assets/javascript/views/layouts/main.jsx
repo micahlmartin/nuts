@@ -15,7 +15,7 @@ var Home          = require('../home/index.jsx');
 var Login         = require('../account/login.jsx');
 var Reset         = require('../account/reset.jsx');
 var Signup        = require('../account/signup.jsx');
-var Navbar        = require('../shared/navbar.jsx');
+var Header        = require('../shared/header.jsx');
 var Footer        = require('../shared/footer.jsx');
 
 
@@ -26,7 +26,7 @@ var App = React.createClass({
     require("../../../stylesheets/application.scss");
     return (
       <div>
-        <Navbar {...this.props} />
+        <Header {...this.props} />
         <div className="container">
           <RouteHandler {...this.props} />
         </div>

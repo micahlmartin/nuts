@@ -32,7 +32,7 @@ module.exports = {
 
   logout: {
     handler: function(request, reply) {
-      request.auth.user.clear();
+      request.auth.session.clear();
       return reply.redirect('/');
     }
   },
