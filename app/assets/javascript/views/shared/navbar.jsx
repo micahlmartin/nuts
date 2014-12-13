@@ -8,7 +8,14 @@ var Link  = require('react-router').Link;
 var Navbar = React.createClass({
 
   _onChange: function() {
-    
+    var newState = require('../../stores/session').attributes;
+    this.setState(newState);
+  },
+
+  getInitialState: function() {
+    return {
+      isAuthenticated: this.props.session.isAuthenticated || false
+    };
   },
 
   componentDidMount: function() {
@@ -16,6 +23,20 @@ var Navbar = React.createClass({
   },
 
   render: function() {
+    var loggedOutNav = <div />;
+    if(!this.state.isAuthenticated) {
+      loggedOutNav = (
+        <ul className="nav navbar-nav navbar-right">
+          <li>
+            <Link to="login">Login</Link>
+          </li>
+          <li>
+            <Link to="/signup">Create Account</Link>
+          </li>
+        </ul>
+      );
+    }
+
 
     return (
       <div className="navbar navbar-default navbar-fixed-top">
@@ -31,24 +52,7 @@ var Navbar = React.createClass({
               <span className="ion-cube"></span> App Name
             </Link>
           </div>
-          <div className="collapse navbar-collapse">
-             <ul className="nav navbar-nav">
-                <li className="active">
-                  <Link to="home">Home</Link>
-                </li>
-                <li>
-                  <Link to="/contact">Contact</Link>
-                </li>
-             </ul>
-             <ul className="nav navbar-nav navbar-right">
-                <li>
-                  <Link to="login">Login</Link>
-                </li>
-                <li>
-                  <Link to="/signup">Create Account</Link>
-                </li>
-             </ul>
-          </div>
+          {loggedOutNav}
         </div>
       </div>
     );

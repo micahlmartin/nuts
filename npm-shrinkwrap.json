@@ -1455,9 +1455,9 @@
       }
     },
     "hapi-auth-cookie": {
-      "version": "1.4.1",
-      "from": "hapi-auth-cookie@git://github.com/hapijs/hapi-auth-cookie#v1.4.1",
-      "resolved": "git://github.com/hapijs/hapi-auth-cookie#58e7a808485e016914d50e3d3f8d1427e808719b"
+      "version": "1.4.2",
+      "from": "git://github.com/hapijs/hapi-auth-cookie#v1.4.2",
+      "resolved": "git://github.com/hapijs/hapi-auth-cookie#beb8a9672759cd6f057800978b44e919d1e01214"
     },
     "hapi-negotiator": {
       "version": "1.0.1",
@@ -3699,6 +3699,11 @@
           "resolved": "https://registry.npmjs.org/package/-/package-1.0.1.tgz"
         }
       }
+    },
+    "underscore": {
+      "version": "1.7.0",
+      "from": "underscore@*",
+      "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.7.0.tgz"
     },
     "url-loader": {
       "version": "0.5.5",

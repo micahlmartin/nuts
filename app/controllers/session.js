@@ -3,6 +3,7 @@
 var Boom              = require('boom');
 var Rack              = require('hat').rack();
 var SignupVM          = require('../assets/javascript/view_models/signup');
+var SessionVM         = require('../assets/javascript/view_models/session');
 var AuthenticateUser  = Nuts.actions.authenticateUser;
 var RegisterUser      = Nuts.actions.registerUser;
 
@@ -10,13 +11,19 @@ var RegisterUser      = Nuts.actions.registerUser;
 module.exports = {
   login: {
     handler: function(request, reply) {
+
       if(request.method == 'get') {
+
+        if(request.auth.isAuthenticated) {
+          return reply.redirect('/');
+        }
+
         return reply.view("account/login.jsx", {title: "Login"});
       }
 
       AuthenticateUser(request.payload.email, request.payload.password).then(function(user) {
         request.auth.session.set(user);
-        return reply(request.auth);
+        return reply({isAuthenticated: true, credentials: user});
       }).fail(function(err) {
         reply(Boom.unauthorized());
       }).done();
@@ -33,6 +40,11 @@ module.exports = {
   signup: {
     handler: function(request, reply) {
       if(request.method == 'get') {
+
+        if(request.auth.isAuthenticated) {
+          return reply.redirect('/');
+        }
+
         return reply.view('account/signup.jsx');
       }
 
@@ -43,7 +55,7 @@ module.exports = {
         } else {
           RegisterUser(model.attributes).then(function(user) {
             request.auth.session.set(user);
-            reply(request.auth);
+            return reply({isAuthenticated: true, credentials: user});
           }).fail(function(err) {
             var errorMessage = "Something went wrong.";
             var validationErrors = {};

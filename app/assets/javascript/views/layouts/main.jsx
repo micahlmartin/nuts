@@ -26,11 +26,11 @@ var App = React.createClass({
     require("../../../stylesheets/application.scss");
     return (
       <div>
-        <Navbar />
+        <Navbar {...this.props} />
         <div className="container">
-          <RouteHandler />
+          <RouteHandler {...this.props} />
         </div>
-        <Footer />
+        <Footer {...this.props} />
       </div>
     );
   }

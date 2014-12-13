@@ -2,25 +2,25 @@
  * @jsx React.DOM
  */
 
-var React   = require('react');
-var CSRF    = require('../shared/csrf.jsx');
-var Input   = require('react-bootstrap/Input');
-var Row     = require('react-bootstrap/Row');
-var Col     = require('react-bootstrap/Col');
-var Button  = require('react-bootstrap/Button');
-var Alert   = require('react-bootstrap/Alert');
-var Link    = require('react-router').Link;
+var React       = require('react');
+var CSRF        = require('../shared/csrf.jsx');
+var Input       = require('react-bootstrap/Input');
+var Row         = require('react-bootstrap/Row');
+var Col         = require('react-bootstrap/Col');
+var Button      = require('react-bootstrap/Button');
+var Alert       = require('react-bootstrap/Alert');
+var Link        = require('react-router').Link;
+var Navigation  = require('react-router').Navigation;
 
 
 var Login = React.createClass({
+
+  mixins: [Navigation],
 
   _onChange: function() {
     var newState = require('../../stores/session').attributes;
     newState.email = '';
     newState.password = '';
-
-    this.refs.email.refs.input.getDOMNode().focus();
-
     this.setState(newState);
   },
 
@@ -38,8 +38,18 @@ var Login = React.createClass({
     this.refs.email.refs.input.getDOMNode().focus();
   },
 
+  componentDidUpdate: function(prevProps, prevState) {
+    this.refs.email.refs.input.getDOMNode().focus();
+  },
+
   componentWillUnmount: function() {
     require('../../stores/session').off('change', this._onChange);
+  },
+
+  componentWillUpdate: function(nextProps, nextState) {
+    if(nextState.isAuthenticated) {
+      this.transitionTo('home');
+    }
   },
 
   emailChanged: function(e) {
