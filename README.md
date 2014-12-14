@@ -101,6 +101,7 @@ This kit is designed to make it easy to deploy to heroku. Here is what you need 
 heroku apps:create <app_name>
 heroku addons:add mongohq:sandbox
 heroku config:set NODE_ENV=production
+heroku config:set DOMAIN=<app_name>.herokuapp.com
 
 git push heroku master
 ```

@@ -20,6 +20,7 @@
     "url": "https://github.com/micahlmartin/nuts"
   },
   "dependencies": {
+    "async": "^0.9.0",
     "bach": "^0.3.0",
     "backbone": "^1.1.2",
     "backbone.validation": "^0.7.1",
@@ -38,7 +39,7 @@
     "hapi-auth-cookie": "git://github.com/hapijs/hapi-auth-cookie#v1.4.2",
     "hapi-negotiator": "^1.0.1",
     "hat": "0.0.3",
-    "hoek": "^2.8.1",
+    "hoek": "https://registry.npmjs.org/hoek/-/hoek-2.8.1.tgz",
     "http-signature": "^0.10.0",
     "jquery": "^2.1.1",
     "js-yaml": "^3.2.2",

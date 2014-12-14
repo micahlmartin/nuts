@@ -1,8 +1,10 @@
 "use strict";
 
-var Hoek = require('hoek');
-var _    = require('lodash');
-var SessionVM = require('../../app/assets/javascript/view_models/session');
+var Hoek              = require('hoek');
+var _                 = require('lodash');
+var SessionVM         = require('../../app/assets/javascript/view_models/session');
+var requireDirectory  = require('require-directory');
+
 
 var blacklistedConfigs = [
   'database',
@@ -18,7 +20,8 @@ var getDefaultContext = function(request) {
 
   return {
     settings: settings,
-    session: new SessionVM(request.auth).toJSON()
+    session: new SessionVM(request.auth).toJSON(),
+    helpers: requireDirectory(module, '../../app/helpers')
   };
 };
 

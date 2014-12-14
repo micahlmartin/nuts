@@ -1,6 +1,6 @@
 "use strict";
 
-require('./test-helper');
+require('../test-helper');
 var test = require('unit.js');
 var Q = require('q');
 
@@ -11,10 +11,10 @@ describe('Authentication', function() {
   var password = "password";
 
   it("should fail when user is not found", function(done) {
-    var findUserByIdStub = test.stub();
-    findUserByIdStub.withArgs(email).returns(Q.resolve(null));
+    var findUserByEmailStub = test.stub();
+    findUserByEmailStub.withArgs(email).returns(Q.resolve(null));
 
-    Nuts.actions.findUserById = findUserByIdStub;
+    Nuts.actions.findUserByEmail = findUserByEmailStub;
 
     authenticate(email, password).fail(function(err) {
       test.assert.equal(err, messages.INVALID_EMAIL_OR_PASSWORD);
@@ -27,10 +27,10 @@ describe('Authentication', function() {
     var user = new Nuts.models.User();
     user.comparePassword = function(password, cb) { cb(null, false); };
 
-    var findUserByIdStub = test.stub();
-    findUserByIdStub.withArgs(email).returns(Q.resolve(user));
+    var findUserByEmailStub = test.stub();
+    findUserByEmailStub.withArgs(email).returns(Q.resolve(user));
 
-    Nuts.actions.findUserById = findUserByIdStub;
+    Nuts.actions.findUserByEmail = findUserByEmailStub;
 
     authenticate(email, password).fail(function(err) {
       test.assert.equal(err, messages.INVALID_EMAIL_OR_PASSWORD);
@@ -42,10 +42,10 @@ describe('Authentication', function() {
     var user = new Nuts.models.User();
     user.comparePassword = function(password, cb) { cb(null, true); };
 
-    var findUserByIdStub = test.stub();
-    findUserByIdStub.withArgs(email).returns(Q.resolve(user));
+    var findUserByEmailStub = test.stub();
+    findUserByEmailStub.withArgs(email).returns(Q.resolve(user));
 
-    Nuts.actions.findUserById = findUserByIdStub;
+    Nuts.actions.findUserByEmail = findUserByEmailStub;
 
     authenticate(email, password).then(function(authenticatedUser) {
       test.assert.equal(user, authenticatedUser);

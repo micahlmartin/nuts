@@ -54,7 +54,8 @@ var Header = React.createClass({
 
     var brand = (
       <Link to="/">
-        <span className="ion-cube"></span> App Name
+        <span className="ion-cube"></span>
+        {this.props.settings.app_name}
       </Link>
     );
 

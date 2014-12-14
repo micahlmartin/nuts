@@ -1,0 +1,4 @@
+Welcome to <%= settings.app_name %>.
+
+Please paste this link into your browser to verify your email address.
+<%= validate_email_url %>
