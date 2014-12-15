@@ -61,3 +61,22 @@ footer {
 [class^="ion-"] {
   margin-right: 5px;
 }
+
+// Transitions
+.alert-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+
+.alert-enter.alert-enter-active {
+  opacity: 1;
+}
+
+.alert-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.alert-leave.alert-leave-active {
+  opacity: 0.01;
+}

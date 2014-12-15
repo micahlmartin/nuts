@@ -50,7 +50,7 @@
     "mongoose": "^3.8.18",
     "mongoose-timestamp": "^0.3.0",
     "node-jsx": "^0.12.0",
-    "node-uuid": "^1.4.1",
+    "node-uuid": "https://registry.npmjs.org/node-uuid/-/node-uuid-1.4.1.tgz",
     "nodemon": "^1.2.1",
     "nodetime": "^0.8.15",
     "optimist": "^0.6.1",

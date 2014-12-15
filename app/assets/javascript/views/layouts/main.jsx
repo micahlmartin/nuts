@@ -16,6 +16,7 @@ var Login         = require('../account/login.jsx');
 var Reset         = require('../account/reset.jsx');
 var Signup        = require('../account/signup.jsx');
 var Header        = require('../shared/header.jsx');
+var Flash         = require('../shared/flash.jsx');
 var Footer        = require('../shared/footer.jsx');
 
 
@@ -28,6 +29,7 @@ var App = React.createClass({
       <div>
         <Header {...this.props} />
         <div className="container">
+          <Flash {...this.props} />
           <RouteHandler {...this.props} />
         </div>
         <Footer {...this.props} />

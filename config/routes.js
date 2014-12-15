@@ -57,5 +57,12 @@ module.exports = [
     method: ["GET", "POST"],
     path: "/session",
     config: controllers.session.index
+  },
+
+  //Emails
+  {
+    method: "GET",
+    path: "/email/confirmation",
+    config: controllers.email.confirmation
   }
 ]

@@ -3,6 +3,7 @@
 var Hoek              = require('hoek');
 var _                 = require('lodash');
 var SessionVM         = require('../../app/assets/javascript/view_models/session');
+var FlashVM         = require('../../app/assets/javascript/view_models/flash');
 var requireDirectory  = require('require-directory');
 
 
@@ -21,7 +22,8 @@ var getDefaultContext = function(request) {
   return {
     settings: settings,
     session: new SessionVM(request.auth).toJSON(),
-    helpers: requireDirectory(module, '../../app/helpers')
+    helpers: requireDirectory(module, '../../app/helpers'),
+    flash: new FlashVM(request.session.flash()).toJSON()
   };
 };
 
