@@ -17,20 +17,33 @@ var Login = React.createClass({
   mixins: [Navigation],
 
   _onChange: function() {
-    //Make sure we override an existing errors
     var newState = _.assign(this.getInitialState(), require('../../stores/session').attributes);
     this.setState(newState);
   },
 
   getInitialState: function() {
     return {
+      isAuthenticated: this.props.isAuthenticated || false,
       error: null,
       validationErrors: {}
     };
   },
 
+  componentWillMount: function() {
+    if(this.state.isAuthenticated) {
+      this.transitionTo('home');
+    }
+  },
+
   componentDidMount: function() {
     require('../../stores/session').on('change', this._onChange);
+
+    // Update the current state right after mounting to make sure
+    // that if the user happens to navigate with the back button
+    // we're still fircing the redirect if they're logged in.
+    var newState = _.assign(this.getInitialState(), require('../../stores/session').attributes);
+    this.setState(newState);
+
     this.refs.email.refs.input.getDOMNode().focus();
   },
 

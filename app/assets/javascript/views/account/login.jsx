@@ -35,6 +35,13 @@ var Login = React.createClass({
 
   componentDidMount: function() {
     require('../../stores/session').on('change', this._onChange);
+
+    // Update the current state right after mounting to make sure
+    // that if the user happens to navigate with the back button
+    // we're still fircing the redirect if they're logged in.
+    var newState = require('../../stores/session').attributes;
+    this.setState(newState);
+
     this.refs.email.refs.input.getDOMNode().focus();
   },
 
