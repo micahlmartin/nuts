@@ -34,5 +34,5 @@ Nuts.server.ext('onPreResponse', function (request, reply) {
     request.response.source.context.path = request.path;
   }
 
-  reply();
+  reply.continue();
 });

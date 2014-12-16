@@ -26,7 +26,7 @@ development:
     database: "development"
   domain: "localhost:3000"
   useSSL: false
-  port: 3000
+  port: 3500
   mandrill:
     api_key: wrhAjbFY1O1JkXD2x9TKJg
   session:

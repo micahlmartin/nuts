@@ -43,28 +43,8 @@ var setupDatabase = function() {
 }
 
 var initializeServer = function() {
-  Nuts.server = new Hapi.Server('0.0.0.0', Nuts.settings.port)
-
-  Nuts.server.views({
-    isCached: !Nuts.isDevelopment,
-    engines: {
-      jsx: {
-        path: "app/assets/javascript/views",
-        compileMode: "async",
-        module: {
-          compile: function(template, options, next) {
-            return next(null, function(context, options, callback) {
-              var page = require("../public/assets/server");
-              var stats = require('./stats.generated.json');
-              page(context.entryPoint || stats.assetsByChunkName.main, context).then(function(renderedView) {
-                callback(null, renderedView);
-              });
-            });
-          }
-        }
-      }
-    }
-  });
+  Nuts.server = new Hapi.Server();
+  Nuts.server.connection({port: Nuts.settings.port});
 }
 
 var commonConfiguration = function() {
@@ -88,17 +68,17 @@ var commonConfiguration = function() {
 
 var loadModels = function() {
   Nuts.models = requireDirectory(module, '../app/models');
-  console.log('info', "Models loaded successfully");
+  console.log("Models loaded successfully");
 }
 
 var loadInitializers = function() {
   requireDirectory(module, './initializers');
-  console.log('info', 'Initializers loaded successfully');
+  Nuts.server.log('Initializers loaded successfully');
 }
 
 var loadRoutes = function() {
   Nuts.server.route(require('./routes'));
-  console.log('info', 'Routes loaded successfully');
+  console.log('Routes loaded successfully');
 }
 
 var loadEnvironment = function() {
@@ -108,13 +88,13 @@ var loadEnvironment = function() {
 
 var loadActions = function() {
   Nuts.actions = requireDirectory(module, '../app/actions');
-  console.log('info', "Actions loaded successfully");
+  console.log("Actions loaded successfully");
 }
 
 var startServer = function() {
   console.log("Starting server")
   Nuts.server.start(function () {
-    console.log('info', "Started server on port " + Nuts.settings.port);
+    console.log('Server running at:', Nuts.server.info.uri);
   });
 }
 

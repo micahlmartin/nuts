@@ -1,5 +1,5 @@
-Nuts.server.pack.register({
-  plugin: require('crumb'),
+Nuts.server.register({
+  register: require('crumb'),
   options: {
     key: "csrf",
     cookieOptions: {

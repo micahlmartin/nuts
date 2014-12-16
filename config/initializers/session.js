@@ -10,11 +10,11 @@ var yarOptions = {
   }
 };
 
-server.pack.register({ plugin: require('yar'), options: yarOptions}, function(err) {
+server.register({ register: require('yar'), options: yarOptions}, function(err) {
   if(err) throw err;
 });
 
-server.pack.register(require('hapi-auth-cookie'), function(err) {
+server.register(require('hapi-auth-cookie'), function(err) {
   if(err) throw err;
 });
 
