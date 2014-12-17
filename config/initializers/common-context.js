@@ -27,7 +27,6 @@ var getDefaultContext = function(request) {
   };
 };
 
-
 Nuts.server.ext('onPreResponse', function (request, reply) {
   if (request.response.variety === 'view') {
     request.response.source.context = Hoek.applyToDefaults(getDefaultContext(request), request.response.source.context || {});

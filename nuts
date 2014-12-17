@@ -11,10 +11,10 @@ if(process.argv.length <= 2 ) {
 
 if(process.argv[2].match(/^(c|console)$/)) {
   console.log("Starting the console...");
-  require('./config/nuts').console();
+  require('./lib/nuts').deez().console();
 } else if(process.argv[2].match(/^(s|server)$/)) {
   console.log("Starting the server...");
-  require('./config/nuts').deez();
+  require('./lib/nuts').deez().run();
 } else {
   showHelp();
 }
