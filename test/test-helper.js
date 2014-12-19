@@ -1,1 +1,1 @@
-require('../config/nuts').configure();
+require('../lib/nuts').deez();

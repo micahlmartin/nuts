@@ -1,7 +1,7 @@
 <html>
   <body>
 
-    <p>Welcome to <%= settings.app_name %>.</p>
+    <p>Welcome to <%= Nuts.settings.app_name %>.</p>
 
     <p>
       Please click this link or paste it into your browser to verify your email address.

@@ -8,7 +8,6 @@ module.exports = {
     handler: function(request, reply) {
       ConfirmEmail(request.query.id).then(function(success) {
         request.session.flash('success', 'Your email was successfully validated.');
-        request.session.flash('error', 'That confirmation link has already been used or is expired.');
         reply.redirect('/');
       }).fail(function(err){
         request.session.flash('error', 'That confirmation link has already been used or is expired.');

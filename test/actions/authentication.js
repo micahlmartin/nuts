@@ -4,7 +4,7 @@ require('../test-helper');
 var test = require('unit.js');
 var Q = require('q');
 
-describe('Authentication', function() {
+describe('authenticateUser', function() {
   var authenticate = Nuts.actions.authenticateUser;
   var messages = authenticate.messages;
   var email = "test@email.com";

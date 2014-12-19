@@ -1,8 +1,7 @@
-
-module.exports = function(params) {
+module.exports = function(token) {
   var deferred = Nuts.defer();
 
-  deferred.resolve(true);
+
 
   return deferred.promise;
 };
