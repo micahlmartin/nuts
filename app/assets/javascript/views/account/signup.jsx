@@ -35,12 +35,6 @@ var Login = React.createClass({
     }
   },
 
-  willTransitionTo: function(transition, params, query) {
-    if(this.state.isAuthenticated) {
-      transition.abort();
-    }
-  },
-
   componentDidMount: function() {
     require('../../stores/session').on('change', this._onChange);
 
@@ -55,6 +49,17 @@ var Login = React.createClass({
 
   componentWillUnmount: function() {
     require('../../stores/session').off('change', this._onChange);
+  },
+
+  componentWillUpdate: function(nextProps, nextState) {
+    if(nextState.isAuthenticated) {
+      require('../../actions/notification').clearFlash();
+      this.transitionTo('home');
+    }
+
+    if(nextState.error) {
+      require('../../actions/notification').flash('danger', nextState.error);
+    }
   },
 
   emailChanged: function(e) {
@@ -101,7 +106,6 @@ var Login = React.createClass({
            <h3>Sign up</h3>
         </div>
         <Col xsOffset={2} xs={8}>
-          <Alert className={this.state.error ? '' : 'hidden'} bsStyle="danger">{this.state.error}</Alert>
           <form className="form-horizontal" onSubmit={this.handleSubmit}>
              <CSRF value={this.props.csrf} />
              <Input type="email" ref="email" bsStyle={this.getInputStyle("email")} title={this.getValidationMessage('email')} onChange={this.emailChanged} value={this.state.email} label="Email" />
