@@ -4,6 +4,7 @@ var _             = require('lodash');
 var Backbone      = require('backbone');
 var AppDispatcher = require('../dispatcher/app-dispatcher');
 var global        = require('../global.js');
+var NotificationConstants = require('../constants/notification');
 
 var Notification = Backbone.Model.extend({
 
@@ -13,21 +14,28 @@ var Notification = Backbone.Model.extend({
 
   flash: function(type, message) {
     this.set({flash: {type: type, message: message}}, {silent: true});
-    this.trigger('flash');
+    this.trigger(NotificationConstants.FLASH);
+  },
+
+  clearFlash: function() {
+    this.set({flash: null}, {silent: true});
+    this.trigger(NotificationConstants.CLEAR_FLASH);
   }
 
 });
 
-var SessionStore = new Notification();
+var Notification = new Notification();
 
 AppDispatcher.on('all', function(eventName, payload) {
   switch (eventName) {
-  case 'flash':
-    return SessionStore.flash(type, message);
+  case NotificationConstants.FLASH:
+    return Notification.flash(payload.type, payload.message);
+  case NotificationConstants.CLEAR_FLASH:
+    return Notification.clearFlash();
   default:
 
   }
 
 });
 
-module.exports = SessionStore;
+module.exports = Notification;

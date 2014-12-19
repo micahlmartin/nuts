@@ -35,6 +35,12 @@ var Login = React.createClass({
     }
   },
 
+  willTransitionTo: function(transition, params, query) {
+    if(this.state.isAuthenticated) {
+      transition.abort();
+    }
+  },
+
   componentDidMount: function() {
     require('../../stores/session').on('change', this._onChange);
 
@@ -49,12 +55,6 @@ var Login = React.createClass({
 
   componentWillUnmount: function() {
     require('../../stores/session').off('change', this._onChange);
-  },
-
-  componentWillUpdate: function(nextProps, nextState) {
-    if(nextState.isAuthenticated) {
-      this.transitionTo('home');
-    }
   },
 
   emailChanged: function(e) {

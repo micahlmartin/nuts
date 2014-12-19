@@ -11,17 +11,16 @@ var Button      = require('react-bootstrap/Button');
 var Alert       = require('react-bootstrap/Alert');
 var Link        = require('react-router').Link;
 var Navigation  = require('react-router').Navigation;
-
+var _           = require('lodash');
 
 var Login = React.createClass({
 
   mixins: [Navigation],
 
   _onChange: function() {
-    var newState = require('../../stores/session').attributes;
-    newState.email = '';
-    newState.password = '';
+    var newState = _.assign(this.getInitialState(), require('../../stores/session').attributes);
     this.setState(newState);
+    this.refs.email.refs.input.getDOMNode().focus();
   },
 
   getInitialState: function() {
@@ -45,17 +44,18 @@ var Login = React.createClass({
     this.refs.email.refs.input.getDOMNode().focus();
   },
 
-  componentDidUpdate: function(prevProps, prevState) {
-    this.refs.email.refs.input.getDOMNode().focus();
-  },
-
   componentWillUnmount: function() {
     require('../../stores/session').off('change', this._onChange);
   },
 
   componentWillUpdate: function(nextProps, nextState) {
     if(nextState.isAuthenticated) {
+      require('../../actions/notification').clearFlash();
       this.transitionTo('home');
+    }
+
+    if(nextState.error) {
+      require('../../actions/notification').flash('danger', nextState.error);
     }
   },
 
@@ -76,24 +76,16 @@ var Login = React.createClass({
 
   render: function() {
 
-    var alert;
-    if(this.state.error) {
-      alert = (
-        <Alert bsStyle="danger">{this.state.error}</Alert>
-      )
-    }
-
     return (
       <div>
         <div className="page-header">
           <h3>Login</h3>
         </div>
         <Col xsOffset={2} xs={8}>
-          {alert}
           <form className="form-horizontal" onSubmit={this.handleSubmit}>
             <CSRF value={this.props.csrf} />
             <Input type="email" ref="email" onChange={this.emailChanged} value={this.state.email} label="Email" hasFeedback  />
-            <Input type="password" ref="password" label="Password" hasFeedback  />
+            <Input type="password" ref="password" onChange={this.passwordChanged} value={this.state.password} label="Password" hasFeedback  />
             <div className="form-group">
               <Button type="submit" bsStyle="success">Login</Button>
               <Link className="btn btn-link" to="password-reset">Forgot your password?</Link>

@@ -1,11 +1,13 @@
 "use strict";
 
-var _             = require('lodash');
-var Backbone      = require('backbone');
-var AppDispatcher = require('../dispatcher/app-dispatcher');
-var $             = require('jquery');
-var global        = require('../global.js');
-var SignupVM   = require('../view_models/signup.js');
+var _                     = require('lodash');
+var Backbone              = require('backbone');
+var AppDispatcher         = require('../dispatcher/app-dispatcher');
+var $                     = require('jquery');
+var global                = require('../global.js');
+var SignupVM              = require('../view_models/signup.js');
+var SessionConstants      = require('../constants/session');
+
 
 var _session = Backbone.Model.extend({
 
@@ -85,19 +87,17 @@ var SessionStore = new _session();
 
 AppDispatcher.on('all', function(eventName, payload) {
   switch (eventName) {
-  case 'login':
+  case SessionConstants.LOGIN:
     return SessionStore.login(payload.email, payload.password);
-  case 'logout':
+  case SessionConstants.LOGOUT:
     return SessionStore.logout();
-  case 'signup':
+  case SessionConstants.SIGNUP:
     return SessionStore.signup(
       payload.email,
       payload.password,
       payload.passwordConfirmation,
       payload.terms
     );
-  case 'flash':
-    return SessionStore.flash(type, message);
   default:
 
   }
