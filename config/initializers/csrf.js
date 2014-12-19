@@ -2,6 +2,7 @@ Nuts.server.register({
   register: require('crumb'),
   options: {
     key: "csrf",
+    restful: true,
     cookieOptions: {
       isSecure: !Nuts.isDevelopment
     }

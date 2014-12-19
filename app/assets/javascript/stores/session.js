@@ -96,6 +96,8 @@ AppDispatcher.on('all', function(eventName, payload) {
       payload.passwordConfirmation,
       payload.terms
     );
+  case 'flash':
+    return SessionStore.flash(type, message);
   default:
 
   }

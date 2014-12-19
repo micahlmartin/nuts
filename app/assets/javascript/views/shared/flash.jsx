@@ -14,13 +14,14 @@ var Flash = React.createClass({
   getInitialState: function() {
 
     var flash = this.props.flash || {}
+
     var items = [];
 
     var formatMessages = function(data, style) {
       _.each(data || [], function(item) {
-        items.push({style: style, message: item.message});
+        items.push({style: style, message: item});
       })
-    }
+    };
 
     formatMessages(flash.success, 'success');
     formatMessages(flash.warning, 'warning');
@@ -38,13 +39,27 @@ var Flash = React.createClass({
     this.setState({items: newItems});
   },
 
+  _onFlash: function() {
+    var flashMessage = require('../../stores/notification').get('flash');
+    this.setState({
+      items: [{
+        style: (flashMessage.type == 'error' ? 'danger' : flashMessage.type),
+        message: flashMessage.message
+      }]
+    });
+  },
+
+  componentDidMount: function() {
+    require('../../stores/notification').on('flash', this._onFlash);
+  },
+
   render: function() {
     var self = this;
     var alerts = [];
 
     var items = this.state.items.map(function(item, i) {
       return (
-        <Alert key={item.style + item.message} bsStyle={item.style} onDismiss={self.handleDismiss.bind(self, i)} dismissAfter={3000}>
+        <Alert key={JSON.stringify(item)} bsStyle={item.style} onDismiss={self.handleDismiss.bind(self, i)}>
         {item.message}
         </Alert>
       )

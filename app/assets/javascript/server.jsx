@@ -9,6 +9,7 @@ var util = require('util');
 module.exports = function(assetFilename, context) {
   var deferred = defer();
 
+  // inspect(context.flash);
   Main.renderServer(context.path, function(Handler) {
     var html;
     var css = styleCollector.collect(function() {
