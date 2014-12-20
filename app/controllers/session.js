@@ -80,5 +80,16 @@ module.exports = {
     handler: function(request, reply) {
       reply(request.auth);
     }
+  },
+
+  passwordReset: {
+    handler: function(request, reply) {
+
+      if(request.auth.isAuthenticated) {
+        return reply.redirect('/');
+      }
+
+      reply.view('account/reset.jsx');
+    }
   }
 };

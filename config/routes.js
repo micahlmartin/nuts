@@ -58,6 +58,11 @@ module.exports = [
     path: "/session",
     config: controllers.session.index
   },
+  {
+    method: ["GET", "POST"],
+    path: "/password-reset",
+    config: controllers.session.passwordReset
+  },
 
   //Emails
   {

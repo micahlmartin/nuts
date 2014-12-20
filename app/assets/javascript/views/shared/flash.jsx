@@ -42,11 +42,6 @@ var Flash = React.createClass({
     this.setState({items: newItems});
   },
 
-  componentWillUpdate: function(nextProps, nextState) {
-    console.log("UPDATING");
-    console.log(nextState.items);
-  },
-
   _onFlash: function() {
     var flashMessage = require('../../stores/notification').get('flash');
     this.setState({
