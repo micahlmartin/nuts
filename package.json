@@ -9,7 +9,7 @@
   "scripts": {
     "start": "./node_modules/foreman/nf.js start -j Procfile.dev",
     "console": "./nuts c",
-    "test": "./node_modules/mocha/bin/mocha test/",
+    "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test/",
     "assets": "rm -rf public/ && webpack --config config/webpack.js --colors --watch",
     "postinstall": "rm -rf public && webpack --config config/webpack.js --colors --progress"
   },

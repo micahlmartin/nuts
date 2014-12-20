@@ -35,6 +35,18 @@ development:
     <<: *session
     secret: f1dc4f56f0e306876a17778e863b6c20f7d1d8d95ac480dca33ffb206888768474e6a44b4b4803a71322e67c599098c936243e8649d2934c2dec79b00aa281b6
 
+test:
+  <<: *default
+  database:
+    host: localhost
+    port: 27017
+    database: "test"
+  mandrill:
+    api_key: wrhAjbFY1O1JkXD2x9TKJg
+  session:
+    <<: *session
+    secret: f1dc4f56f0e306876a17778e863b6c20f7d1d8d95ac480dca33ffb206888768474e6a44b4b4803a71322e67c599098c936243e8649d2934c2dec79b00aa281b6
+
 staging:
   <<: *default
 
