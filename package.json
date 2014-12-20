@@ -26,6 +26,7 @@
     "backbone.validation": "^0.7.1",
     "bcrypt-nodejs": "https://registry.npmjs.org/bcrypt-nodejs/-/bcrypt-nodejs-0.0.3.tgz",
     "boom": "^2.6.1",
+    "bugsnag": "^1.5.1",
     "crumb": "^4.0.0",
     "css-loader": "^0.9.0",
     "del": "^0.1.3",

@@ -6,6 +6,8 @@ module.exports = function(params) {
   new User(params).save(function(err, savedUser) {
     if(err) return deferred.reject(err);
 
+
+
     return deferred.resolve(savedUser);
   });
 
