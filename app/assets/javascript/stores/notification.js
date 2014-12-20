@@ -13,11 +13,13 @@ var Notification = Backbone.Model.extend({
   },
 
   flash: function(type, message) {
+    console.log("SETTING FLASH");
     this.set({flash: {type: type, message: message}}, {silent: true});
     this.trigger(NotificationConstants.FLASH);
   },
 
   clearFlash: function() {
+    console.log("CLEARING FLASH");
     this.set({flash: null}, {silent: true});
     this.trigger(NotificationConstants.CLEAR_FLASH);
   }

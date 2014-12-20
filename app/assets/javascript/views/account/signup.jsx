@@ -54,6 +54,7 @@ var Login = React.createClass({
   componentWillUpdate: function(nextProps, nextState) {
     if(nextState.isAuthenticated) {
       require('../../actions/notification').clearFlash();
+      require('../../actions/notification').flash('info', 'An email has been sent with an activation link.')
       this.transitionTo('home');
     }
 
