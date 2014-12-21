@@ -9,11 +9,17 @@ default: &default
     from_name: Nuts App
     from_email: micahlmartin@gmail.com
   google_analytics: <%= process.env.GOOGLE_ANALYTICS %>
+  kue:
+    port: <%= parseInt(process.env.PORT, 10) %>
+    name: <%= process.env.KUE_NAME %>
+    concurrency: <%= process.env.KUE_CONCURRENCY %>
   layout: <%= process.env.LAYOUT || 'default' %>
   mandrill:
     api_key: <%= process.env.MANDRILL_API_KEY %>
   nodetime_key: <%= process.env.NODETIME_ACCOUNT_KEY %>
-  port: <%= parseInt(process.env.PORT, 10) || 3000 %>
+  port: <%= parseInt(process.env.PORT, 10) %>
+  redis:
+    env_key: <%= process.env.REDIS_ENV_KEY %>
   session: &session
     redirect_to: /login
     cookie_name: sid
@@ -28,10 +34,12 @@ development:
     port: 27017
     database: "development"
   domain: "localhost:3500"
-  useSSL: false
-  port: 3500
+  kue:
+    port: 3800
   mandrill:
     api_key: A7LrF4jQhIzbMBiH8bU96Q
+  port: 3500
+  useSSL: false
   session:
     <<: *session
     secret: f1dc4f56f0e306876a17778e863b6c20f7d1d8d95ac480dca33ffb206888768474e6a44b4b4803a71322e67c599098c936243e8649d2934c2dec79b00aa281b6

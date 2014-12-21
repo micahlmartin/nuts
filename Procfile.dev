@@ -1,2 +1,3 @@
-web: nodemon nuts s --ignore node_modules/ -e js,jsx,yml,template
+web: nodemon ./bin/nuts s --ignore node_modules/ -e js,jsx,yml,template
 webpack: rm -rf public/ && webpack --config config/webpack.js --colors --watch
+kue: ./bin/kue-web

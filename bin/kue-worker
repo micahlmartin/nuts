@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+require('../lib/nuts').deez();
+
+require('../lib/jobs/' + Nuts.settings.kue.name)
+  .process(Nuts.settings.kue.concurrency);

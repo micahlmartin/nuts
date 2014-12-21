@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+require('../lib/nuts').deez();
+require('../lib/jobs/queue').connect();
+
+var port = Nuts.settings.kue.port;
+require('kue').app.listen(port, function(){
+  Nuts.log("info", "Started kue on port " + port);
+});
