@@ -18,9 +18,11 @@ var getDefaultContext = function(request) {
   });
 
   return {
+    title: '',
     settings: settings,
     session: new SessionVM(request.auth).toJSON(),
-    flash: request.session.flash()
+    flash: request.session.flash(),
+    // utilities: Nuts.require('lib/utilities')
   };
 };
 

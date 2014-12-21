@@ -1,39 +1,49 @@
-var React = require('react');
-var styleCollector = require("../../../lib/webpack/style-collector");
-var utilities = require('../../../lib/utilities');
-var Main = require('./views/layouts/main.jsx');
-var defer = require('q').defer;
-var util = require('util');
+var React           = require('react');
+var styleCollector  = require("../../../lib/webpack/style-collector");
+var utilities       = Nuts.require('lib/utilities');
+var Main            = require('./views/shared/main.jsx');
+var defer           = require('q').defer;
+var util            = require('util');
+var _               = require('lodash');
+var fs              = require('fs');
+var path            = require('path');
 
+var template = null;
+var templateFilePath = path.join(Nuts.root, 'app', 'assets', 'javascript', 'views', 'layouts', Nuts.settings.layout + '.template');
+
+var renderTemplate = function(template, context) {
+  return _.template(template, context)
+}
 
 module.exports = function(assetFilename, context) {
   var deferred = defer();
 
-  // inspect(context.flash);
   Main.renderServer(context.path, function(Handler) {
     var html;
     var css = styleCollector.collect(function() {
       html = React.renderToString(<Handler {...context} />);
     });
 
-    deferred.resolve(React.renderToString(
-      <html>
-        <head>
-          <meta charSet="utf-8" />
-          <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-          <title dangerouslySetInnerHTML={{__html: context.title}} />
-          <meta name="description" content="" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <meta name="csrf" content={context.csrf} />
-          <style id="server-side-style" dangerouslySetInnerHTML={{__html: css}} />
-        </head>
-        <body>
-          <script id="bootstrap-data" dangerouslySetInnerHTML={{__html: "window.bootstrapData = " + utilities.safeStringify(context) + ";"}} />
-          <div id="content" dangerouslySetInnerHTML={{__html: html}} />
-          <script src={"assets/" + assetFilename} />
-        </body>
-      </html>
-    ));
+    context = _.assign(context, {
+      css: css,
+      html: html,
+      assetFilename: assetFilename,
+      data: utilities.safeStringify(context)
+    });
+
+    if(!template) {
+      fs.readFile(templateFilePath, function(err, data) {
+        if(err) {
+          Nuts.reportError(err, true);
+        }
+
+        template = data.toString();
+
+        deferred.resolve(_.template(template, context));
+      });
+    } else {
+      deferred.resolve(_.template(template, context));
+    }
 
   });
 

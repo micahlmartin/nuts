@@ -15,9 +15,9 @@ var Home          = require('../home/index.jsx');
 var Login         = require('../account/login.jsx');
 var Reset         = require('../account/reset.jsx');
 var Signup        = require('../account/signup.jsx');
-var Header        = require('../shared/header.jsx');
-var Flash         = require('../shared/flash.jsx');
-var Footer        = require('../shared/footer.jsx');
+var Header        = require('./header.jsx');
+var Flash         = require('./flash.jsx');
+var Footer        = require('./footer.jsx');
 
 
 // This is the main layout for the app

@@ -10,7 +10,7 @@ var _             = require('lodash');
 _.extend(Backbone.Model.prototype, validation.mixin);
 
 
-var Main          = require('./views/layouts/main.jsx');
+var Main          = require('./views/shared/main.jsx');
 var ga            = require('react-google-analytics');
 var GAInitializer = ga.Initializer;
 

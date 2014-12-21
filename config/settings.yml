@@ -8,8 +8,8 @@ default: &default
   email:
     from_name: Nuts App
     from_email: micahlmartin@gmail.com
-  useSSL: true
   google_analytics: <%= process.env.GOOGLE_ANALYTICS %>
+  layout: <%= process.env.LAYOUT || 'default' %>
   mandrill:
     api_key: <%= process.env.MANDRILL_API_KEY %>
   nodetime_key: <%= process.env.NODETIME_ACCOUNT_KEY %>
@@ -19,6 +19,7 @@ default: &default
     cookie_name: sid
     ttl_milliseconds: <%= 7 * 24 * 60 * 60 * 1000 %> # 7 days
     secret: <%= process.env.secret %>
+  useSSL: true
 
 development:
   <<: *default
