@@ -17,7 +17,8 @@
     "modernizer": "~2.8.2",
     "bootstrap-social": "~4.8.0",
     "font-awesome": "~4.2.0",
-    "bootswatch-scss": "log0ymxm/bootswatch-scss#master"
+    "bootswatch-scss": "log0ymxm/bootswatch-scss#master",
+    "ionicons": "~2.0.0"
   },
   "resolutions": {
     "bootstrap-sass-official": "~3.2.0"

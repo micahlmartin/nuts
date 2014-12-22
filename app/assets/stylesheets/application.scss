@@ -1,5 +1,6 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 $fa-font-path: '../bower_components/font-awesome/fonts';
+$ionicons-font-path: "../bower_components/ionicons/fonts";
 
 @import 'bootswatch-scss/flatly/variables';
 @import 'themes/modern';
@@ -8,6 +9,7 @@ $fa-font-path: '../bower_components/font-awesome/fonts';
 @import 'bootswatch-scss/flatly/bootswatch';
 @import 'bootstrap-social/bootstrap-social';
 @import 'font-awesome/scss/font-awesome';
+@import 'ionicons/scss/ionicons';
 
 // Scaffolding
 // -------------------------
