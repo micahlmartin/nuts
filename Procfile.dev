@@ -1,3 +1,4 @@
 web: nodemon ./bin/nuts s --ignore node_modules/ -e js,jsx,yml,template
 webpack: rm -rf public/ && webpack --config config/webpack.js --colors --watch
 kue: ./bin/kue-web
+email_worker: KUE_NAME=email KUE_CONCURRENCY=10 ./bin/kue-worker

@@ -6,7 +6,7 @@
     <title><%= title %></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="csrf" content={context.csrf} />
+    <meta name="csrf" content=<%= csrf %> />
     <style id="server-side-style">
       <%= css %>
     </style>

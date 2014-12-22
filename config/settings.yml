@@ -9,7 +9,7 @@ default: &default
     from_name: Nuts App
     from_email: micahlmartin@gmail.com
   google_analytics: <%= process.env.GOOGLE_ANALYTICS %>
-  kue:
+  kue: &kue
     port: <%= parseInt(process.env.PORT, 10) %>
     name: <%= process.env.KUE_NAME %>
     concurrency: <%= process.env.KUE_CONCURRENCY %>
@@ -35,6 +35,7 @@ development:
     database: "development"
   domain: "localhost:3500"
   kue:
+    <<: *kue
     port: 3800
   mandrill:
     api_key: A7LrF4jQhIzbMBiH8bU96Q

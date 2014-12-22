@@ -1,17 +1,22 @@
-var User = Nuts.models.User;
-
 module.exports = function(params) {
   var deferred = Nuts.defer();
 
-  new User(params).save(function(err, savedUser) {
+  new Nuts.models.User(params).save(function(err, savedUser) {
     if(err) return deferred.reject(err);
 
-    Nuts.actions.sendEmailConfirmation(savedUser.email).then(function(result) {
-      deferred.resolve(savedUser);
-    }).fail(function(err) {
-      Nuts.reportError(err);
-      deferred.resolve(savedUser);
-    });
+    var jobs = Nuts.require('lib/jobs/queue').connect();
+    jobs
+      .create('send_email_confirmation', {
+        email: savedUser.email,
+        title: savedUser.email
+      })
+      .priority('high')
+      .attempts(5)
+      .save(function(err) {
+        if(err) Nuts.reportError(err);
+
+        deferred.resolve(savedUser);
+      });
   });
 
   return deferred.promise;
