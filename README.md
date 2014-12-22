@@ -1,6 +1,10 @@
 # Nuts
 
-This is an opinionated template for nodejs apps.
+This is an opinionated template for nodejs apps. The primary means of configuration is:
+
+```javascript
+require('lib/nuts').deez()
+```
 
 # Running
 
@@ -14,9 +18,11 @@ To open up a REPL with a fully loaded environment you can run `npm run console`.
 
 # Settings
 
-You can configure your environment settings in `settings.yml`. The file is precompiled using the [Lodash template](https://lodash.com/docs#template) syntax similar to ERB.
+You can configure your environment settings in `settings.yml`. The file is precompiled using the [Lodash template](https://lodash.com/docs#template) syntax similar to ERB. All settings are available through `Nuts.settings`.
 
 # Conventions
+
+Most things can be accessed via the global `Nuts` object. This is not necessary, but it's done for convenience. 
 
 ## Routes
 
@@ -227,6 +233,9 @@ During deployment, Heroku uses the `npm postinstall` hook to automatically compi
 - [Mongoose](http://mongoosejs.com/) - Mongo ORM
 - [Kue](https://github.com/learnboost/kue) - Job queue
 
+# Contributing
+
+Contributions are welcomed and encouraged. Just fork it and open a PR from your feature branch. I built this template specifically for me to use in side-projects and hackathons but if you find it useful I'd like to [hear about it](mailto:micahlmartin@gmail.com).
 
 # Thanks
 
@@ -234,3 +243,7 @@ During deployment, Heroku uses the `npm postinstall` hook to automatically compi
 - [hackathon-starter](https://github.com/sahat/hackathon-starter)
 
 ...and the maintainers of all the other libraries.
+
+#License
+
+This project is released under the [MIT License](http://www.opensource.org/licenses/MIT).
