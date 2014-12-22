@@ -4,8 +4,15 @@
 
 var React = require('react');
 var Link  = require('react-router').Link;
+var GA    = require('../../mixins/ga.jsx');
 
 var PasswordReset = React.createClass({
+
+  mixins: [GA],
+
+  componentDidMount: function() {
+    this.pageView();
+  },
 
   render: function() {
 

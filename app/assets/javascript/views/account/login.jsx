@@ -4,6 +4,7 @@
 
 var React       = require('react');
 var CSRF        = require('../shared/csrf.jsx');
+var GA          = require('../../mixins/ga.jsx');
 var Input       = require('react-bootstrap/Input');
 var Row         = require('react-bootstrap/Row');
 var Col         = require('react-bootstrap/Col');
@@ -15,7 +16,7 @@ var _           = require('lodash');
 
 var Login = React.createClass({
 
-  mixins: [Navigation],
+  mixins: [Navigation, GA],
 
   _onChange: function() {
     var newState = _.assign(this.getInitialState(), require('../../stores/session').attributes);
@@ -42,6 +43,7 @@ var Login = React.createClass({
     this.setState(newState);
 
     this.refs.email.refs.input.getDOMNode().focus();
+    this.pageView();
   },
 
   componentWillUnmount: function() {

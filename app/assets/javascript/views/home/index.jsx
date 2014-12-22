@@ -3,8 +3,13 @@
  */
 
 var React = require('react');
+var GA    = require('../../mixins/ga.jsx');
 
 var Index = React.createClass({
+
+  componentDidMount: function() {
+    GA.pageView();
+  },
 
   render: function() {
     return (

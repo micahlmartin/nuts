@@ -34,6 +34,7 @@ development:
     port: 27017
     database: "development"
   domain: "localhost:3500"
+  google_analytics: UA-56988800-1
   kue:
     <<: *kue
     port: 3800
