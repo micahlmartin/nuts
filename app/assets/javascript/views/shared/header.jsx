@@ -21,7 +21,7 @@ var Header = React.createClass({
   getInitialState: function() {
     return {
       isAuthenticated: this.props.session.isAuthenticated || false,
-      email: this.props.session.credentials ? this.props.session.credentials.email : ''
+      credentials: this.props.session.credentials
     };
   },
 
@@ -46,7 +46,7 @@ var Header = React.createClass({
     } else {
       userMenu = (
         <Nav right>
-          <DropdownButton navItem title={this.state.email}>
+          <DropdownButton navItem title={this.state.credentials.email}>
             <MenuItem eventKey={1} href="/logout">Logout</MenuItem>
           </DropdownButton>
         </Nav>
