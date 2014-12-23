@@ -29,6 +29,7 @@ node_modules
 
 tmp
 public/
+bower_components/
 server/
 .stats.generated.json
 .sass-cache
