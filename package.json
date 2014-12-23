@@ -10,8 +10,8 @@
     "start": "./node_modules/foreman/nf.js start -j Procfile.dev",
     "console": "./bin/nuts c",
     "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test/",
-    "assets": "rm -rf public/ && webpack --config config/webpack.js --colors --watch",
-    "postinstall": "rm -rf public && webpack --config config/webpack.js --colors --progress"
+    "assets": "rm -rf public/; rm -rf app/assets/bower_components; bower install && webpack --config config/webpack.js --colors --watch",
+    "postinstall": "bower install && webpack --config config/webpack.js --colors --progress"
   },
   "author": "",
   "license": "ISC",
