@@ -13,8 +13,9 @@ var defer         = require('q').defer;
 // Page Components
 var Home          = require('../home/index.jsx');
 var Login         = require('../account/login.jsx');
-var Reset         = require('../account/reset.jsx');
+var Forgot         = require('../account/forgot.jsx');
 var Signup        = require('../account/signup.jsx');
+var Reset        = require('../account/reset.jsx');
 var Header        = require('./header.jsx');
 var Flash         = require('./flash.jsx');
 var Footer        = require('./footer.jsx');
@@ -44,7 +45,8 @@ var routes = (
     <DefaultRoute name="home" handler={Home} />
     <Route name="login" handler={Login} />
     <Route name="signup" handler={Signup} />
-    <Route name="password-reset" handler={Reset} />
+    <Route name="forgot" handler={Forgot} />
+    <Route name="reset" handler={Reset} />
   </Route>
 );
 

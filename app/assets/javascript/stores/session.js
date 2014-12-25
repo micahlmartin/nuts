@@ -5,7 +5,9 @@ var Backbone              = require('backbone');
 var AppDispatcher         = require('../dispatcher/app-dispatcher');
 var $                     = require('jquery');
 var global                = require('../global.js');
-var SignupVM              = require('../view_models/signup.js');
+var SignupVM              = require('../view_models/signup');
+var PasswordResetVM       = require('../view_models/password-reset');
+var ForgotPasswordVM      = require('../view_models/forgot-password');
 var SessionConstants      = require('../constants/session');
 
 
@@ -79,7 +81,65 @@ var _session = Backbone.Model.extend({
       }
     });
     signupModel.validate();
+  },
+
+  forgotPassword: function(email) {
+    var self = this;
+
+    var forgotPasswordModel = new ForgotPasswordVM({
+      email: email
+    });
+
+    forgotPasswordModel.once('validated', function(isValid, model, errors) {
+      if(!isValid) {
+        self.set('validationErrors', errors);
+      } else {
+        self.postAuth('/forgot', {email: email}).then(function(result) {
+          if(result.error) {
+            self.trigger('forgot:fail');
+          } else {
+            self.trigger('forgot:success');
+          }
+        }).fail(function(xhr, message, err) {
+          self.trigger('forgot:fail');
+        });
+      }
+    });
+    forgotPasswordModel.validate();
+
+  },
+
+  resetPassword: function(password, passwordConfirmation, id) {
+    var self = this;
+
+    var passwordResetModel = new PasswordResetVM({
+      password: password,
+      passwordConfirmation: passwordConfirmation,
+      id: id
+    });
+
+    passwordResetModel.bind('validated', function(isValid, model, errors) {
+      if(!isValid) {
+        self.set('validationErrors', errors);
+      } else {
+        self.postAuth('/reset', {
+          password: password,
+          passwordConfirmation: passwordConfirmation,
+          id: id
+        }).then(function(result) {
+          if(result.error) {
+            self.trigger('reset:fail');
+          } else {
+            self.trigger('reset:success');
+          }
+        }).fail(function(xhr, message, err) {
+          self.trigger('reset:fail');
+        });
+      }
+    });
+    passwordResetModel.validate();
   }
+
 
 });
 
@@ -98,8 +158,10 @@ AppDispatcher.on('all', function(eventName, payload) {
       payload.passwordConfirmation,
       payload.terms
     );
-  default:
-
+  case SessionConstants.FORGOT_PASSWORD:
+    return SessionStore.forgotPassword(payload.email);
+  case SessionConstants.RESET_PASSWORD:
+    return SessionStore.resetPassword(payload.password, payload.passwordConfirmation, payload.id);
   }
 
 });

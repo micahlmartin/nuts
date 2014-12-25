@@ -60,8 +60,13 @@ module.exports = [
   },
   {
     method: ["GET", "POST"],
-    path: "/password-reset",
-    config: controllers.session.passwordReset
+    path: "/forgot",
+    config: controllers.session.forgot
+  },
+  {
+    method: ["GET", "POST"],
+    path: "/reset",
+    config: controllers.session.reset
   },
 
   //Emails

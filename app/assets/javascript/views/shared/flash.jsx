@@ -39,12 +39,12 @@ var Flash = React.createClass({
   handleDismiss: function(i) {
     var newItems = this.state.items;
     newItems.splice(i, 1);
-    this.setState({items: newItems});
+    this.replaceState({items: newItems});
   },
 
   _onFlash: function() {
     var flashMessage = require('../../stores/notification').get('flash');
-    this.setState({
+    this.replaceState({
       items: [{
         style: (flashMessage.type == 'error' ? 'danger' : flashMessage.type),
         message: flashMessage.message
@@ -54,7 +54,7 @@ var Flash = React.createClass({
   },
 
   _onClearFlash: function() {
-    this.setState({items: [], transitionLeave: false});
+    this.replaceState({items: [], transitionLeave: false});
   },
 
   componentDidMount: function() {
@@ -73,7 +73,7 @@ var Flash = React.createClass({
 
     var items = this.state.items.map(function(item, i) {
       return (
-        <Alert key={JSON.stringify(item)} bsStyle={item.style} onDismiss={self.handleDismiss.bind(self, i)}>
+        <Alert key={JSON.stringify(item)} bsStyle={item.style} onDismiss={self.handleDismiss.bind(self, i)} dismissAfter={5000}>
         {item.message}
         </Alert>
       )

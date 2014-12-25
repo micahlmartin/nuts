@@ -5,6 +5,7 @@
 var React       = require('react');
 var CSRF        = require('../shared/csrf.jsx');
 var GA          = require('../../mixins/ga.jsx');
+var GA          = require('../../mixins/validation-message.jsx');
 var Input       = require('react-bootstrap/Input');
 var Button      = require('react-bootstrap/Button');
 var Col         = require('react-bootstrap/Col');
@@ -55,7 +56,6 @@ var Login = React.createClass({
 
   componentWillUpdate: function(nextProps, nextState) {
     if(nextState.isAuthenticated) {
-      require('../../actions/notification').clearFlash();
       require('../../actions/notification').flash('info', 'An email has been sent with an activation link.')
       this.transitionTo('home');
     }
@@ -86,22 +86,6 @@ var Login = React.createClass({
     require('../../actions/session').signup(email, password, passwordConfirmation, terms);
   },
 
-  getInputStyle: function(field) {
-    if(this.state.validationErrors[field]) {
-      return "error";
-    }
-
-    return null;
-  },
-
-  getValidationMessage: function(field) {
-    if(this.state.validationErrors[field]) {
-      return this.state.validationErrors[field];
-    }
-
-    return null;
-  },
-
   render: function() {
     return (
       <div>
@@ -110,14 +94,42 @@ var Login = React.createClass({
         </div>
         <Col xsOffset={2} xs={8}>
           <form className="form-horizontal" onSubmit={this.handleSubmit}>
-             <CSRF value={this.props.csrf} />
-             <Input type="email" ref="email" bsStyle={this.getInputStyle("email")} title={this.getValidationMessage('email')} onChange={this.emailChanged} value={this.state.email} label="Email" />
-             <Input type="password" ref="password" bsStyle={this.getInputStyle("password")} title={this.getValidationMessage('password')} label="Password" onChange={this.passwordChanged} value={this.state.password}  />
-             <Input type="password" ref="passwordConfirmation" bsStyle={this.getInputStyle("passwordConfirmation")} title={this.getValidationMessage('passwordConfirmation')} label="Confirm Password" onChange={this.passwordConfirmationChanged} value={this.state.passwordConfirmation} />
-             <Input type="checkbox" ref="terms" bsStyle={this.getInputStyle("terms")} title={this.getValidationMessage('terms')} label="I have read and accept the terms of service" onChange={this.acceptTermsChanged} value={this.state.acceptedTerms} />
-             <div className="form-group">
+            <CSRF value={this.props.csrf} />
+            <Input
+              type="email"
+              ref="email"
+              bsStyle={this.getInputStyle("email")}
+              title={this.getValidationMessage('email')}
+              onChange={this.emailChanged}
+              value={this.state.email}
+              label="Email" />
+            <Input
+              type="password"
+              ref="password"
+              bsStyle={this.getInputStyle("password")}
+              title={this.getValidationMessage('password')}
+              label="Password"
+              onChange={this.passwordChanged}
+              value={this.state.password}  />
+            <Input
+              type="password"
+              ref="passwordConfirmation"
+              bsStyle={this.getInputStyle("passwordConfirmation")}
+              title={this.getValidationMessage('passwordConfirmation')}
+              label="Confirm Password"
+              onChange={this.passwordConfirmationChanged}
+              value={this.state.passwordConfirmation} />
+            <Input
+              type="checkbox"
+              ref="terms"
+              bsStyle={this.getInputStyle("terms")}
+              title={this.getValidationMessage('terms')}
+              label="I have read and accept the terms of service"
+              onChange={this.acceptTermsChanged}
+              value={this.state.acceptedTerms} />
+            <div className="form-group">
               <Button type="submit" bsStyle="success">Signup</Button>
-             </div>
+            </div>
           </form>
         </Col>
       </div>

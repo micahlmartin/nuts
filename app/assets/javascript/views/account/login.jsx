@@ -90,7 +90,7 @@ var Login = React.createClass({
             <Input type="password" ref="password" onChange={this.passwordChanged} value={this.state.password} label="Password" hasFeedback  />
             <div className="form-group">
               <Button type="submit" bsStyle="success">Login</Button>
-              <Link className="btn btn-link" to="password-reset">Forgot your password?</Link>
+              <Link className="btn btn-link" to="forgot">Forgot your password?</Link>
             </div>
           </form>
         </Col>

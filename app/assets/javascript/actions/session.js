@@ -18,6 +18,20 @@ var SessionActions = {
         passwordConfirmation: passwordConfirmation,
         terms: terms
       });
+    },
+
+    forgotPassword: function(email) {
+      AppDispatcher.trigger(SessionConstants.FORGOT_PASSWORD, {
+        email: email
+      });
+    },
+
+    resetPassword: function(password, passwordConfirmation, id) {
+      AppDispatcher.trigger(SessionConstants.RESET_PASSWORD, {
+        password: password,
+        passwordConfirmation: passwordConfirmation,
+        id: id
+      })
     }
 };
 
