@@ -4,7 +4,7 @@ var moment    = require('moment');
 var util      = require('util')
 
 var INVALID_TOKEN       = {isValid: false};
-var EXPIRATION_SECONDS  = 3600; // 5 minutes
+var EXPIRATION_SECONDS  = 500; // 5 minutes
 var DELIMITER           = "#"
 
 module.exports = {
@@ -30,7 +30,6 @@ module.exports = {
     }
 
     var now = moment.utc();
-
     if(((now - originalDate) / 1000) >= EXPIRATION_SECONDS) {
       return INVALID_TOKEN;
     }
