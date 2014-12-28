@@ -53,7 +53,7 @@ test:
     port: 27017
     database: "test"
   mandrill:
-    api_key: WbE5uq93hO9b0dHxvYUmMA
+    api_key: TYaZiJFchC8oCmF5sLwCAg
   session:
     <<: *session
     secret: f1dc4f56f0e

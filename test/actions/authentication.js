@@ -6,7 +6,7 @@ var Q = require('q');
 
 describe('authenticateUser', function() {
   var authenticate = Nuts.actions.authenticateUser;
-  var messages = authenticate.messages;
+  var messages = Nuts.models.ErrorMessages;
   var email = "test@email.com";
   var password = "password";
 

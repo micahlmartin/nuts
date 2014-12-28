@@ -9,7 +9,7 @@ var User                    = Nuts.models.User;
 
 describe('SendEmailConfirmaton', function() {
 
-  it("should succeed", function() {
+  it("should succeed", function(done) {
     var email = "micahlmartin@gmail.com";
     Nuts.actions.sendEmailConfirmation(email).then(function(result) {
       test.assert(result[0].email == email);
