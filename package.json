@@ -38,6 +38,7 @@
     "good-console": "^3.0.1",
     "hapi": "^8.0.0",
     "hapi-auth-cookie": "^2.0.0",
+    "hapi-authorization": "^2.1.2",
     "hat": "0.0.3",
     "hoek": "^2.10.0",
     "http-signature": "^0.10.0",
