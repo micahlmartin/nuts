@@ -9,6 +9,14 @@ var User                    = Nuts.models.User;
 
 describe('confirmEmail', function() {
 
+  beforeEach(function() {
+    this.originalFindUserByEmail = Nuts.actions.findUserByEmail;
+  });
+
+  afterEach(function() {
+    Nuts.actions.findUserByEmail = this.originalFindUserByEmail;
+  })
+
   it("should fail when token cannot be parsed", function(done) {
     ConfirmEmail("bad token").then(function() {
       test.fail();

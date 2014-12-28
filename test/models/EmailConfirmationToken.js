@@ -16,15 +16,20 @@ describe('EmailConfirmationToken', function() {
   });
 
   describe('parse', function() {
-    it('should succeed when date is valid', function(done) {
+
+    it("should fail when token is invalid", function() {
+      var result = EmailConfirmationToken.parse("bad token");
+      test.assert(!result.isValid);
+    })
+
+    it('should succeed when date is valid', function() {
       var tokenString = EmailConfirmationToken.generate("test@email.com", moment.utc());
       var token = EmailConfirmationToken.parse(tokenString);
       test.assert(token.isValid);
       test.assert(token.email == 'test@email.com');
-      done();
     });
 
-    if("should fail when date is invalid", function(done) {
+    if("should fail when date is invalid", function() {
       var tokenString = EmailConfirmationToken.generate("test@email.com", moment.utc().subtract(0, 'days'));
       var token = EmailConfirmationToken.parse(tokenString);
       test.assert(!token.isValid);

@@ -19,13 +19,13 @@ module.exports = function(token) {
     user.save(function(err, savedUser) {
       if(err) {
         Nuts.reportError(err);
-        deferred.reject()
+        deferred.reject(err)
       }
       deferred.resolve();
     })
   }).fail(function(err) {
     Nuts.reportError(err);
-    deferred.reject();
+    deferred.reject(err);
   })
 
   return deferred.promise;

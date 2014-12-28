@@ -10,16 +10,22 @@ describe('authenticateUser', function() {
   var email = "test@email.com";
   var password = "password";
 
+  beforeEach(function() {
+    this.originalFindUserByEmail = Nuts.actions.findUserByEmail;
+  });
+
+  afterEach(function() {
+    Nuts.actions.findUserByEmail = this.originalFindUserByEmail;
+  });
+
   it("should fail when user is not found", function(done) {
     var findUserByEmailStub = test.stub();
     findUserByEmailStub.withArgs(email).returns(Q.resolve(null));
 
-    var originalFindUserByEmail = Nuts.actions.findUserByEmail;
     Nuts.actions.findUserByEmail = findUserByEmailStub;
 
     authenticate(email, password).fail(function(err) {
       test.assert.equal(err, messages.INVALID_EMAIL_OR_PASSWORD);
-      Nuts.actions.findUserByEmail = originalFindUserByEmail;
       done();
     }).done();
 
@@ -32,12 +38,10 @@ describe('authenticateUser', function() {
     var findUserByEmailStub = test.stub();
     findUserByEmailStub.withArgs(email).returns(Q.resolve(user));
 
-    var originalFindUserByEmail = Nuts.actions.findUserByEmail;
     Nuts.actions.findUserByEmail = findUserByEmailStub;
 
     authenticate(email, password).fail(function(err) {
       test.assert.equal(err, messages.INVALID_EMAIL_OR_PASSWORD);
-      Nuts.actions.findUserByEmail = originalFindUserByEmail;
       done()
     }).done();
   });
@@ -49,12 +53,10 @@ describe('authenticateUser', function() {
     var findUserByEmailStub = test.stub();
     findUserByEmailStub.withArgs(email).returns(Q.resolve(user));
 
-    var originalFindUserByEmail = Nuts.actions.findUserByEmail;
     Nuts.actions.findUserByEmail = findUserByEmailStub;
 
     authenticate(email, password).then(function(authenticatedUser) {
       test.assert.equal(user, authenticatedUser);
-      Nuts.actions.findUserByEmail = originalFindUserByEmail;
       done()
     }).done();
   });

@@ -6,6 +6,6 @@ var roles = utilities.keyMirror({
   ADMIN: null
 });
 
-module.exports.obj  = roles;
-module.exports.keys = _.keys(roles);
+module.exports  = roles;
+module.exports._keys = _.keys(roles);
 

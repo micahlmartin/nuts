@@ -26,7 +26,7 @@ var userSchema = new mongoose.Schema({
 
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  role: {type: String, enum: require('./Roles').keys}
+  role: {type: String, enum: require('./Roles')._keys}
 });
 
 userSchema.plugin(timestamps);
