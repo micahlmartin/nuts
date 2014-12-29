@@ -2,21 +2,21 @@
  * @jsx React.DOM
  */
 
-var React       = require('react');
-var CSRF        = require('../shared/csrf.jsx');
-var GA          = require('../../mixins/ga.jsx');
-var GA          = require('../../mixins/validation-message.jsx');
-var Input       = require('react-bootstrap/Input');
-var Button      = require('react-bootstrap/Button');
-var Col         = require('react-bootstrap/Col');
-var Alert       = require('react-bootstrap/Alert');
-var Link        = require('react-router').Link;
-var Navigation  = require('react-router').Navigation;
-var _           = require('lodash');
+var React             = require('react');
+var CSRF              = require('../shared/csrf.jsx');
+var GA                = require('../../mixins/ga.jsx');
+var ValidationMessage = require('../../mixins/validation-message.jsx');
+var Input             = require('react-bootstrap/Input');
+var Button            = require('react-bootstrap/Button');
+var Col               = require('react-bootstrap/Col');
+var Alert             = require('react-bootstrap/Alert');
+var Link              = require('react-router').Link;
+var Navigation        = require('react-router').Navigation;
+var _                 = require('lodash');
 
 var Login = React.createClass({
 
-  mixins: [Navigation, GA],
+  mixins: [Navigation, GA, ValidationMessage],
 
   _onChange: function() {
     var newState = _.assign(this.getInitialState(), require('../../stores/session').attributes);

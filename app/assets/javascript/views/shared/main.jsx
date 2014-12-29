@@ -3,35 +3,39 @@
  */
 
 // Other libraries
-var React         = require('react');
-var Router        = require('react-router');
-var Route         = Router.Route;
-var DefaultRoute  = Router.DefaultRoute;
-var RouteHandler  = Router.RouteHandler;
-var defer         = require('q').defer;
+var React               = require('react/addons');
+var Router              = require('react-router');
+var Route               = Router.Route;
+var DefaultRoute        = Router.DefaultRoute;
+var RouteHandler        = Router.RouteHandler;
+var defer               = require('q').defer;
 
 // Page Components
-var Home          = require('../home/index.jsx');
-var Login         = require('../account/login.jsx');
-var Forgot         = require('../account/forgot.jsx');
-var Signup        = require('../account/signup.jsx');
-var Reset        = require('../account/reset.jsx');
-var Header        = require('./header.jsx');
-var Flash         = require('./flash.jsx');
-var Footer        = require('./footer.jsx');
-
+var Home                = require('../home/index.jsx');
+var Login               = require('../account/login.jsx');
+var Forgot              = require('../account/forgot.jsx');
+var Signup              = require('../account/signup.jsx');
+var Reset               = require('../account/reset.jsx');
+var Header              = require('./header.jsx');
+var Flash               = require('./flash.jsx');
+var Footer              = require('./footer.jsx');
 
 // This is the main layout for the app
 var App = React.createClass({
 
+  mixins: [Router.State],
+
   render: function() {
     require("../../../stylesheets/application.scss");
+
+    var name = this.getRoutes().reverse()[0].name;
+    console.log(name);
     return (
       <div>
         <Header {...this.props} />
         <div className="container">
           <Flash {...this.props} />
-          <RouteHandler {...this.props} />
+          <RouteHandler {...this.props} key={name} />
         </div>
         <Footer {...this.props} />
       </div>
