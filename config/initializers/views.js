@@ -1,6 +1,16 @@
 Nuts.server.views({
   isCached: !Nuts.isDevelopment,
   engines: {
+    html: {
+      path: "app/assets/javascript/views",
+      module: {
+        compile: function(template, options) {
+          return function(context, options) {
+            return template;
+          }
+        }
+      }
+    },
     jsx: {
       path: "app/assets/javascript/views",
       compileMode: "async",

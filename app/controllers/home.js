@@ -6,11 +6,11 @@ module.exports = {
   },
   secure: {
     auth: 'session',
-    plugins: {
-      hapiAuthorization: {
-        role: Nuts.models.Roles.ADMIN
-      }
-    },
+    // plugins: {
+    //   hapiAuthorization: {
+    //     role: Nuts.models.Roles.ADMIN
+    //   }
+    // },
     handler: function(request, reply) {
       reply("This is secure!");
     }
