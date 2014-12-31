@@ -8,8 +8,8 @@ var _               = require('lodash');
 var fs              = require('fs');
 var path            = require('path');
 
-var template = null;
-var templateFilePath = path.join(Nuts.root, 'app', 'assets', 'javascript', 'views', 'layouts', Nuts.settings.layout + '.template');
+var layoutCache = [];
+var layoutsDir = path.join(Nuts.root, 'app', 'assets', 'javascript', 'views', 'layouts');
 
 var renderTemplate = function(template, context) {
   return _.template(template, context)
@@ -18,31 +18,36 @@ var renderTemplate = function(template, context) {
 module.exports = function(assetFilename, context) {
   var deferred = defer();
 
+  // Use the layout passed into the view context if it exists or the default one
+  var layoutName = context.layout || Nuts.settings.layout;
+
   Main.renderServer(context.path, function(Handler) {
     var html;
     var css = styleCollector.collect(function() {
       html = React.renderToString(<Handler {...context} />);
     });
 
-    context = _.assign(context, {
+    viewContext = _.assign(context, {
       css: css,
       html: html,
       assetFilename: assetFilename,
       data: utilities.safeStringify(context)
     });
 
-    if(!template) {
-      fs.readFile(templateFilePath, function(err, data) {
+    var layout = layoutCache[layoutName];
+    if(!layout) {
+      fs.readFile(path.join(layoutsDir, layoutName + '.template'), function(err, data) {
         if(err) {
           Nuts.reportError(err, true);
         }
 
-        template = data.toString();
+        layout = data.toString();
+        layoutCache[layoutName] = layout;
 
-        deferred.resolve(_.template(template, context));
+        deferred.resolve(_.template(layout, viewContext));
       });
     } else {
-      deferred.resolve(_.template(template, context));
+      deferred.resolve(_.template(layout, viewContext));
     }
 
   });
