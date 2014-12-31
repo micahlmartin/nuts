@@ -42,7 +42,7 @@ Layouts are located in the `app/assets/javascript/views/layouts/page` folder. Th
 
 ### Content layouts
 
-Content layouts are located in the `app/assets/javascript/views/layouts/page` folder. They are useful for providing the meat-and-potatoes structure of the page. This is where headers, footers, and menus would likely be rendered using React. If you have a splash landing page that doesn't have the same structure then this would be a case to create a new content layout.
+Content layouts are located in the `app/assets/javascript/views/layouts/page` folder. They are useful for providing the meat-and-potatoes structure of the page. This is where headers, footers, and menus would likely be rendered using React. If you have a splash landing page that doesn't have the same structure as the rest of the app then this would be a case to create a new content layout.
 
 ## Actions
 

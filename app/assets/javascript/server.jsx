@@ -14,7 +14,7 @@ var _               = require('lodash');
 var fs              = require('fs');
 var path            = require('path');
 
-var pageLayoutsDir = path.join(Nuts.root, 'app', 'assets', 'javascript', 'views', 'layouts', 'pages');
+var pageLayoutsDir = path.join(Nuts.root, 'app', 'assets', 'javascript', 'views', 'layouts', 'page');
 
 // Used to cache page layouts
 var pageLayouts = {};
