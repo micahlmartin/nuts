@@ -9,12 +9,13 @@ var validation    = require('backbone.validation');
 var _             = require('lodash');
 _.extend(Backbone.Model.prototype, validation.mixin);
 
-
-var Main          = require('./views/shared/main.jsx');
 var ga            = require('react-google-analytics');
 var GAInitializer = ga.Initializer;
 
-Main.renderClient(function(Handler) {
+var contentLayoutName = window.bootstrapData.page || "main.jsx";
+var Content = require('./views/layouts/content/' + contentLayoutName);
+
+Content.renderClient(function(Handler) {
 
   React.render(
     <Handler {...window.bootstrapData} />,

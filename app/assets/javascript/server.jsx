@@ -8,7 +8,6 @@ The Hapi view configuration for jsx files are run through this.
 var React           = require('react');
 var styleCollector  = require("../../../lib/webpack/style-collector");
 var utilities       = Nuts.require('lib/utilities');
-var Main            = require('./views/shared/main.jsx');
 var defer           = require('q').defer;
 var util            = require('util');
 var _               = require('lodash');
@@ -26,7 +25,11 @@ var pageLayouts = {};
 module.exports = function(assetFilename, viewContext) {
   var deferred = defer();
 
-  Main.renderServer(viewContext.path, function(Handler) {
+  // Get the content layout to render
+  var contentLayoutName = viewContext.page || "main.jsx";
+  var Content = require('./views/layouts/content/' + contentLayoutName);
+
+  Content.renderServer(viewContext.path, function(Handler) {
 
     // Render the react view and get the css and html to embed directly in the layout
     var html;

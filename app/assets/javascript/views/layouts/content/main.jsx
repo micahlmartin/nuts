@@ -11,14 +11,14 @@ var RouteHandler        = Router.RouteHandler;
 var defer               = require('q').defer;
 
 // Page Components
-var Home                = require('../home/index.jsx');
-var Login               = require('../account/login.jsx');
-var Forgot              = require('../account/forgot.jsx');
-var Signup              = require('../account/signup.jsx');
-var Reset               = require('../account/reset.jsx');
-var Header              = require('./header.jsx');
-var Flash               = require('./flash.jsx');
-var Footer              = require('./footer.jsx');
+var Home                = require('../../home/index.jsx');
+var Login               = require('../../account/login.jsx');
+var Forgot              = require('../../account/forgot.jsx');
+var Signup              = require('../../account/signup.jsx');
+var Reset               = require('../../account/reset.jsx');
+var Header              = require('../../shared/header.jsx');
+var Flash               = require('../../shared/flash.jsx');
+var Footer              = require('../../shared/footer.jsx');
 
 // This is the main layout for the app
 var App = React.createClass({
@@ -26,7 +26,7 @@ var App = React.createClass({
   mixins: [Router.State],
 
   render: function() {
-    require("../../../stylesheets/application.scss");
+    require("../../../../stylesheets/application.scss");
 
     var name = this.getRoutes().reverse()[0].name;
 
