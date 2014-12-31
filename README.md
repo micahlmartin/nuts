@@ -30,6 +30,20 @@ Most things can be accessed via the global `Nuts` object. This is not necessary,
 
 ## Models
 
+## Views
+
+Views are located in the `app/assets/javascript/views` folder. This path is already setup so you can easily return the view from your controller by calling `reply.view('myview.jsx')`.
+
+### Page layouts
+
+Page layouts are used to render a full page on the server. Constructing things like raw javascript tags for 3rd party libraries or html doctypes is tricky to do with React so it's handy to use a different mechanism.
+
+Layouts are located in the `app/assets/javascript/views/layouts/page` folder. They are rendered as a [lodash template](https://lodash.com/docs#template) and should have a `.template` extension. Page layouts should be very generic and provide as little templating as possible. For the most part the default template can just be modified to fit your needs. It's likely rare that you would need to have more than one.
+
+### Content layouts
+
+Content layouts are located in the `app/assets/javascript/views/layouts/page` folder. They are useful for providing the meat-and-potatoes structure of the page. This is where headers, footers, and menus would likely be rendered using React. If you have a splash landing page that doesn't have the same structure then this would be a case to create a new content layout.
+
 ## Actions
 
 Actions are simple single purpose functions that act in some way on one or more models. They are used to encapsulate business logic. They can either be `require`d directly or accessed via `Nuts.actions.myAction`;

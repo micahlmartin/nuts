@@ -29,9 +29,9 @@ var App = React.createClass({
     require("../../../stylesheets/application.scss");
 
     var name = this.getRoutes().reverse()[0].name;
-    console.log(name);
+
     return (
-      <div>
+      <div id="content">
         <Header {...this.props} />
         <div className="container">
           <Flash {...this.props} />

@@ -1,3 +1,10 @@
+/*
+
+This file is used for server-side rendering.
+The Hapi view configuration for jsx files are run through this.
+
+*/
+
 var React           = require('react');
 var styleCollector  = require("../../../lib/webpack/style-collector");
 var utilities       = Nuts.require('lib/utilities');
@@ -8,41 +15,62 @@ var _               = require('lodash');
 var fs              = require('fs');
 var path            = require('path');
 
-var template = null;
-var templateFilePath = path.join(Nuts.root, 'app', 'assets', 'javascript', 'views', 'layouts', Nuts.settings.layout + '.template');
+var pageLayoutsDir = path.join(Nuts.root, 'app', 'assets', 'javascript', 'views', 'layouts', 'pages');
 
-var renderTemplate = function(template, context) {
-  return _.template(template, context)
-}
+// Used to cache page layouts
+var pageLayouts = {};
 
-module.exports = function(assetFilename, context) {
+
+// param: assetFilename - This is the name of the webpack file that should be loaded
+// param: viewContext - The data to render to the view
+module.exports = function(assetFilename, viewContext) {
   var deferred = defer();
 
-  Main.renderServer(context.path, function(Handler) {
+  Main.renderServer(viewContext.path, function(Handler) {
+
+    // Render the react view and get the css and html to embed directly in the layout
     var html;
     var css = styleCollector.collect(function() {
-      html = React.renderToString(<Handler {...context} />);
+      html = React.renderToString(<Handler {...viewContext} />);
     });
 
-    context = _.assign(context, {
+    // Data to bind to the layout template
+    layoutContext = _.assign(viewContext, {
       css: css,
       html: html,
       assetFilename: assetFilename,
-      data: utilities.safeStringify(context)
+      data: utilities.safeStringify(viewContext)
     });
 
-    if(!template) {
-      fs.readFile(templateFilePath, function(err, data) {
+    // Get the layout to use
+    var layoutName = layoutContext.layout || "default.template";
+
+    // See if the layout has already been loaded and cached
+    var layout = pageLayouts[layoutName];
+
+    if(!layout) {
+
+      Nuts.log('debug', 'Reading page layout - ' + layoutName);
+
+      fs.readFile(path.join(pageLayoutsDir, layoutName), function(err, data) {
         if(err) {
           Nuts.reportError(err, true);
         }
 
-        template = data.toString();
+        layout = data.toString();
 
-        deferred.resolve(_.template(template, context));
+        // Cache the layout for faster page loads later
+        pageLayouts[layoutName] = data.toString();
+
+        // Render the layout
+        deferred.resolve(_.template(layout, layoutContext));
       });
     } else {
-      deferred.resolve(_.template(template, context));
+
+      Nuts.log('debug', 'Loaded page layout from the cache - ' + layoutName);
+
+      // The layout is cached already so just render it
+      deferred.resolve(_.template(layout, layoutContext));
     }
 
   });

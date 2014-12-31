@@ -18,7 +18,7 @@ Main.renderClient(function(Handler) {
 
   React.render(
     <Handler {...window.bootstrapData} />,
-    document.getElementById("content")
+    document.getElementById("react-target")
   );
 
   var serverSideStyle = document.getElementById("server-side-style");
