@@ -6,6 +6,31 @@ This is an opinionated template for nodejs apps. The primary means of configurat
 require('lib/nuts').deez()
 ```
 
+# Stack
+
+- [Hapi](http://hapijs.com/) - Web Server
+- [Webpack](http://webpack.github.io/) - Asset management
+- [React](http://facebook.github.io/react/) - Javscript UI framework
+- [Flux](https://facebook.github.io/flux/) - Frontend application architecture
+- [Backbone](http://backbonejs.org/) - Used for the `M` in `MVC`
+- [Bootstrap](http://getbootstrap.com/) - CSS/HTML framework
+- [Mongoose](http://mongoosejs.com/) - Mongo ORM
+- [Kue](https://github.com/learnboost/kue) - Job queue
+
+# Goals
+
+The main goal of this project is to provide as much out-of-the-box functionality as possible to get a project off the ground. A lot of heavy lifting and boilerplate code is already done so you can focus on what makes your app unique.
+
+Some of the primary features are:
+
+- Shared templates for server-side and client-side rendering
+- Basic transactional emails and templates
+- Login, forgot password, registration flows
+- Delayed processing of jobs
+- Good architectural patterns and practices
+
+There are lots more things that to be added so suggestions and PR's are welcome.
+
 # Running
 
 To spin up the server just run `npm start`. This will compile all of the assets and start the server on port `3000`. You can change this by either setting an environment variable `PORT=3000` or by changing the default settings in `config/settings.js`.
@@ -238,14 +263,6 @@ git push heroku master
 
 During deployment, Heroku uses the `npm postinstall` hook to automatically compile and minfy all of the assets. You can read more about it [here](https://devcenter.heroku.com/articles/nodejs-support#customizing-the-build-process).
 
-
-# Stack
-
-- [Hapi](http://hapijs.com/) - Web Server
-- [Webpack](http://webpack.github.io/) - Asset management
-- [React](http://facebook.github.io/react/) - Javscript UI framework
-- [Mongoose](http://mongoosejs.com/) - Mongo ORM
-- [Kue](https://github.com/learnboost/kue) - Job queue
 
 # Contributing
 
