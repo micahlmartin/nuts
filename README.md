@@ -31,6 +31,12 @@ Some of the primary features are:
 
 There are lots more things that to be added so suggestions and PR's are welcome.
 
+# External Dependencies
+
+- Redis
+- MongoDB
+
+
 # Running
 
 To spin up the server just run `npm start`. This will compile all of the assets and start the server on port `3000`. You can change this by either setting an environment variable `PORT=3000` or by changing the default settings in `config/settings.js`.
